@@ -12,6 +12,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AppNavigation from "./src/Navigation/AppNavigation";
+import TabNavigation from "./src/Navigation/TabNavigation";
+
 import { useEffect, useState } from "react";
 import { getToken } from "./src/apis/auth/storage";
 import AuthNavigation from "./src/Navigation/AuthNavigator";
@@ -61,7 +63,8 @@ export default function App() {
     <QueryClientProvider client={new QueryClient()}>
       <UserContext.Provider value={{ user, setUser }}>
         <NavigationContainer>
-          {user ? <AppNavigation /> : <AuthNavigation />}
+          {/* {!user ? <AppNavigation /> : <AuthNavigation />} */}
+          {!user ? <TabNavigation /> : <AuthNavigation />}
         </NavigationContainer>
       </UserContext.Provider>
     </QueryClientProvider>
