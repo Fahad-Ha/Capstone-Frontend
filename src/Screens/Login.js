@@ -26,8 +26,8 @@ const Login = () => {
   return (
     <View>
       <TextInput
-        placeholder="Username"
-        onChangeText={(v) => setUserInfo({ ...userInfo, username: v })}
+        placeholder="Email"
+        onChangeText={(v) => setUserInfo({ ...userInfo, email: v })}
       />
       <TextInput
         placeholder="password"

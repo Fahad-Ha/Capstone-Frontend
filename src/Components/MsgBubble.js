@@ -8,7 +8,7 @@ const MsgBubble = ({ msg, me }) => {
         styles.bubble,
         {
           alignSelf: me ? "flex-end" : "flex-start",
-          backgroundColor: me ? "#FF2500" : "#FF2500",
+          backgroundColor: me ? "#FF2500" : "#303030",
         },
       ]}
     >
