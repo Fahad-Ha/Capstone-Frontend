@@ -12,7 +12,7 @@ import ImagePickerC from "../Components/Shared/ImagePickerC";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createEvent } from "../apis/event/index";
 import Create from "../Components/Events/Create";
-import ROUTES from "../navigation";
+import ROUTES from "../Navigation/index";
 import { getLocationAddress } from "../apis/location";
 
 const CreateEvent = ({ navigation, route }) => {
@@ -51,6 +51,18 @@ const CreateEvent = ({ navigation, route }) => {
       queryClient.invalidateQueries(["events"]);
     },
   });
+  useEffect(() => {
+    if (route.params?.location) {
+      setLocation(route.params.location);
+    }
+  }, [route.params?.location]);
+
+  const handleSelectLocation = () => {
+    navigation.navigate("SelectLocationMap"); // Navigate to Map screen
+  };
+  const handleSubmit = () => {
+    createEventFun();
+  };
   return (
     <>
       <SafeAreaView>

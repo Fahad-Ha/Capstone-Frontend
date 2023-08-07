@@ -13,6 +13,7 @@ import { Feather } from "@expo/vector-icons";
 import { View, StyleSheet, Pressable } from "react-native";
 import Users from "../Screens/Users";
 import Chat1 from "../Screens/Chat1";
+import CreateEvent from "../Screens/CreateEvent";
 
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
 // import ExploreStack from "./ExploreStack";
@@ -59,9 +60,9 @@ export default function AppNavigation() {
           ),
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name={ROUTES.APPROUTES.ADD_EVENT}
-        component={AddEvent}
+        component={CreateEvent}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather
@@ -72,20 +73,20 @@ export default function AppNavigation() {
             />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name={ROUTES.APPROUTES.PROFILE}
         component={Users}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome
-              name="user-circle-o"
-              size={40}
-              color={color}
-              style={{ height: 40 }}
-            />
-          ),
+          // tabBarIcon: ({ color, size }) => (
+          //   <FontAwesome
+          //     name="user-circle-o"
+          //     size={40}
+          //     color={color}
+          //     style={{ height: 40 }}
+          //   />
+          // ),
         }}
       />
     </Tab.Navigator>

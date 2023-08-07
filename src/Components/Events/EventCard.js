@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { BASE_URL } from "../../apis/index";
 import { useNavigation } from "@react-navigation/native";
-import ROUTES from "../../navigation";
+import ROUTES from "../../Navigation/index";
 
 const EventCard = ({ event = {} }) => {
   const navigation = useNavigation();
