@@ -6,6 +6,7 @@ const ROUTES = {
     OTHERPROFILE: "user-profile",
 
     EVENT_DETAILS: "EventDetails",
+    MAP: "MAP",
   },
   AUTHROUTES: {
     LOGIN: "Login",
