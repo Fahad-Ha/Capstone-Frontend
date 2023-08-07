@@ -10,7 +10,13 @@ const AppNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen component={Users} name="Users" />
-      <Stack.Screen component={Chat1} name="Chat" />
+      <Stack.Screen
+        component={Chat1}
+        name="Chat"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
