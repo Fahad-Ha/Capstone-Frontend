@@ -9,6 +9,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { useContext, useEffect, useState } from "react";
 import { getChat, sendChat } from "../apis/chat";
 import { Socket } from "socket.io-client";
+import { BASE_URL } from "../apis";
 import {
   Button,
   Platform,
@@ -21,13 +22,17 @@ import {
   Text,
   TextInput,
   View,
+  Image,
 } from "react-native";
 import MsgBubble from "../Components/MsgBubble";
 import UserContext from "../context/UserContext";
 import { socket } from "../../socket";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
 
-const Chat1 = ({ route }) => {
+const Chat1 = ({ route, profileData, navigation }) => {
   const { user } = route.params;
   const { user: me } = useContext(UserContext);
   const QueryClient = useQueryClient();
@@ -81,6 +86,39 @@ const Chat1 = ({ route }) => {
     }
   };
 
+  const navigate = useNavigation();
+
+  const uniqueDays = {};
+  const dayElements = [];
+
+  data2?.msgs.forEach((msg) => {
+    const day = moment(msg.createdAt).format("MMM Do YY");
+
+    if (!uniqueDays[day]) {
+      uniqueDays[day] = true;
+      dayElements.push(
+        <Text
+          key={`day-${day}`}
+          style={{
+            color: "grey",
+            textAlign: "center",
+          }}
+        >
+          {day}
+        </Text>
+      );
+    }
+
+    dayElements.push(
+      <MsgBubble
+        me={msg.from === me._id}
+        msg={msg.msg}
+        key={msg._id}
+        time={msg.createdAt}
+      />
+    );
+  });
+
   return (
     <View style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
       <ImageBackground source={Home3Image} style={{ flex: 1 }}>
@@ -99,6 +137,12 @@ const Chat1 = ({ route }) => {
                 padding: 10,
               }}
             >
+              <AntDesign
+                name="left"
+                size={24}
+                color="white"
+                onPress={() => navigation.navigate("Users")}
+              />
               <View
                 style={{
                   width: 40,
@@ -107,7 +151,14 @@ const Chat1 = ({ route }) => {
                   backgroundColor: "black",
                   marginRight: 10,
                 }}
-              />
+              >
+                <Image
+                  className="w-full h-full"
+                  source={{
+                    uri: `${BASE_URL}/${profileData?.image}`,
+                  }}
+                />
+              </View>
               <Text
                 style={{ fontSize: 16, fontWeight: "bold", color: "white" }}
               >
@@ -123,13 +174,7 @@ const Chat1 = ({ route }) => {
               }}
             ></View>
             <ScrollView style={{ flex: 1, padding: 10, color: "white" }}>
-              {data2?.msgs.map((msg) => (
-                <MsgBubble
-                  me={msg.from === me._id}
-                  msg={msg.msg}
-                  key={msg._id}
-                />
-              ))}
+              {dayElements}
             </ScrollView>
             <View
               style={{
@@ -139,34 +184,34 @@ const Chat1 = ({ route }) => {
               }}
             ></View>
             {/* Footer with background color */}
-            <View
-              style={{
-                backgroundColor: "#1E1E1E",
-                padding: 15,
-                flexDirection: "row",
-              }}
-            >
-              <TextInput
-                value={msg}
-                onChangeText={(v) => setMsg(v)}
-                placeholder="Type a message..."
-                style={{
-                  flex: 1,
-                  backgroundColor: "#F5F5F5",
-                  borderRadius: 20,
-                  paddingHorizontal: 10,
-                  paddingVertical: 8,
-                }}
-              />
-              <MaterialCommunityIcons
-                name="send-circle"
-                size={50}
-                color="#FF2500"
-                onPress={handleSend}
-              />
-            </View>
           </View>
         </SafeAreaView>
+        <View
+          style={{
+            backgroundColor: "#1E1E1E",
+            padding: 15,
+            flexDirection: "row",
+          }}
+        >
+          <TextInput
+            value={msg}
+            onChangeText={(v) => setMsg(v)}
+            placeholder="Type a message..."
+            style={{
+              flex: 1,
+              backgroundColor: "#F5F5F5",
+              borderRadius: 20,
+              paddingHorizontal: 10,
+              paddingVertical: 8,
+            }}
+          />
+          <MaterialCommunityIcons
+            name="send-circle"
+            size={50}
+            color="#FF2500"
+            onPress={handleSend}
+          />
+        </View>
       </ImageBackground>
     </View>
     // </LinearGradient>

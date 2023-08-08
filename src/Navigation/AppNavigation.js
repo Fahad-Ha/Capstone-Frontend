@@ -9,7 +9,13 @@ const Stack = createStackNavigator();
 const AppNavigation = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen component={Users} name="Users" />
+      <Stack.Screen
+        component={Users}
+        name="Users"
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         component={Chat1}
         name="Chat"

@@ -47,7 +47,7 @@ export default function AppNavigation() {
     >
       <Tab.Screen
         name={ROUTES.APPROUTES.EXPLORE}
-        component={Users}
+        component={AppNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
