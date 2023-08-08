@@ -5,11 +5,26 @@ import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 
 import Rectangle from "../../assets/Rectangle.png";
+
+const formatDate = (date) => {
+  const options = {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+  return new Intl.DateTimeFormat("en-US", options).format(date);
+};
+
 const EventDetails = () => {
   const navigation = useNavigation();
 
   const route = useRoute();
   const { event } = route.params;
+
+  const formattedDate = formatDate(new Date(event.date));
+
   return (
     <View
       style={{
@@ -33,17 +48,20 @@ const EventDetails = () => {
         style={{ borderTopLeftRadius: 40, borderTopRightRadius: 40 }}
         className="bg-gray-300 -mt-12 pt-6 "
       >
-        <View className="pb-36 items-center ">
+        <View className="pb-36 items-center">
           <Text className="pb-2 text-lg font-bold bg-slate-100 p-2 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
             {event.name}
           </Text>
           <Text className="pb-2 text-lg text-center mx-2 justify-center">
             {event.description}
           </Text>
-          <Text className="pb-2  text-lg  bg-slate-100 p-2 rounded-lg  shadow-2xl shadow-gray-600 mb-3 ">
-            Date {event.date}
-          </Text>
-          <Text className="pb-2 text-lg">Duration {event.duration}</Text>
+          <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
+            <Text className="pb-2  text-lg font-bold p-2 ">
+              {formattedDate}
+            </Text>
+          </View>
+
+          <Text className="pb-2 text-lg">Duration {event.duration} hours</Text>
           <Text className="pb-2 text-lg">{event.tags}</Text>
           <Text className="pb-2 text-lg">{event.attendees}</Text>
 
@@ -51,11 +69,13 @@ const EventDetails = () => {
             source={{ uri: event.image }}
             style={{ height: 100, width: 100 }}
           />
-          <TouchableOpacity>
-            <Text className="bg-red-500 rounded-full w-72 text-center p-5 text-lg text-white font-semibold shadow-lg shadow-gray-900 z-50">
-              I'm Intersetd!
-            </Text>
-          </TouchableOpacity>
+          <View className="bg-red-500 rounded-full w-72 shadow-lg shadow-gray-900 z-50">
+            <TouchableOpacity>
+              <Text className=" text-center p-5 text-lg text-white font-semibold ">
+                I'm Intersetd!
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>

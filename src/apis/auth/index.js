@@ -34,4 +34,9 @@ const getAllUsers = async () => {
   const res = await instance.get("/auth/users");
   return res.data;
 };
-export { register, login, getAllUsers };
+
+const getProfileData = async () => {
+  const res = await instance.get("/auth/my-profile");
+  return res.data;
+};
+export { register, login, getAllUsers, getProfileData };

@@ -7,6 +7,7 @@ import Users from "../Screens/Users";
 import Chat1 from "../Screens/Chat1";
 import EventDetails from "../Screens/EventDetails";
 import TabNavigation from "./TabNavigation";
+import { Feather } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {

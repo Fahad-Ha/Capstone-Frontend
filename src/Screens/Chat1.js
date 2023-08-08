@@ -141,7 +141,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
                 name="left"
                 size={24}
                 color="white"
-                onPress={() => navigation.navigate("Users")}
+                onPress={() => navigation.goBack()}
               />
               <View
                 style={{
