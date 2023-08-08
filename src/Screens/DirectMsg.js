@@ -32,7 +32,7 @@ const DM = ({ navigation }) => {
           <Pressable
             key={chat._id}
             onPress={() => {
-              navigation.navigate({
+              navigation.navigate(ROUTES.HEDERROUTES.PROFILE_STACK.DM_CHAT, {
                 chatId: chat._id,
               });
             }}

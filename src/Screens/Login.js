@@ -17,7 +17,7 @@ const Login = () => {
       const user = jwt_decode(data.token);
       saveToken(data.token);
       setUser(user);
-      navigation.navigate("Users");
+      //   navigation.navigate("Users");
     },
   });
   const handleSubmit = () => {

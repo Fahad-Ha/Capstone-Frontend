@@ -1,5 +1,13 @@
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useContext } from "react";
+import {
+  Button,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getAllUsers } from "../apis/auth";
 import { removeToken } from "../apis/auth/storage";
@@ -12,15 +20,16 @@ const Users = () => {
   const { setUser, user: me } = useContext(UserContext);
 
   return (
-    <View style={{ flex: 1, justifyContent: "space-between" }}>
-      <View>
+    <ScrollView style={styles.container}>
+      <Text style={styles.header}>Direct Messages</Text>
+      <View style={styles.usersContainer}>
         {data?.map((user) => {
-          console.log(user.username, me.username);
-          if (user.username == me.username) {
+          if (user.username === me.username) {
             return null;
           }
           return (
             <Pressable
+              style={styles.userCard}
               key={user._id}
               onPress={() => {
                 navigation.navigate("Chat", {
@@ -28,7 +37,8 @@ const Users = () => {
                 });
               }}
             >
-              <Text>{user.username}</Text>
+              <Image source={user.image} style={styles.profilePicture} />
+              <Text style={styles.username}>{user.username}</Text>
             </Pressable>
           );
         })}
@@ -41,10 +51,55 @@ const Users = () => {
           setUser(false);
         }}
       />
-    </View>
+    </ScrollView>
   );
 };
 
-export default Users;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#1E1E1E",
+    paddingHorizontal: 15,
+    paddingTop: 20,
+  },
+  header: {
+    marginTop: 60,
+    flexDirection: "column",
+    justifyContent: "center",
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 30,
+  },
+  usersContainer: {
+    marginBottom: 20,
+  },
+  userCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 15,
+    backgroundColor: "#222",
+    borderRadius: 10,
+    marginBottom: 4,
+    elevation: 3,
+  },
+  profilePicture: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  username: {
+    marginLeft: 10,
+    fontSize: 18,
 
-const styles = StyleSheet.create({});
+    color: "#fff",
+    fontFamily: "System", // Replace with the actual custom font
+  },
+  noiseEffect: {
+    backgroundColor: "yellow", // Change color for noise effect
+    opacity: 40,
+  },
+});
+
+export default Users;

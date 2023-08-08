@@ -10,9 +10,9 @@ const sendChat = async (chatId, msg) => {
   return res.data;
 };
 
-exports.getMyChats = async () => {
+const getMyChats = async () => {
   const res = await instance.get("/chat");
   return res.data;
 };
 
-export { getChat, sendChat };
+export { getChat, sendChat, getMyChats };
