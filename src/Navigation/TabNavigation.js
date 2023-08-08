@@ -17,6 +17,7 @@ import Chat1 from "../Screens/Chat1";
 import Explore from "../Screens/Events";
 import CreateEvent from "../Screens/CreateEvent";
 import MyEvents from "../Screens/MyEvents";
+import Profile from "../Screens/Profile";
 
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
 // import ExploreStack from "./ExploreStack";
@@ -93,7 +94,7 @@ export default function TabNavigation() {
       />
       <Tab.Screen
         name={ROUTES.APPROUTES.PROFILE}
-        component={Users}
+        component={Profile}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (

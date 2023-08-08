@@ -14,6 +14,7 @@ import { createEvent } from "../apis/event/index";
 import Create from "../Components/Events/Create";
 import ROUTES from "../Navigation/index";
 import { getLocationAddress } from "../apis/location";
+import { getProfileData } from "../apis/auth";
 
 const CreateEvent = ({ navigation, route }) => {
   const queryClient = useQueryClient();
@@ -63,6 +64,7 @@ const CreateEvent = ({ navigation, route }) => {
   const handleSubmit = () => {
     createEventFun();
   };
+
   return (
     <SafeAreaView className="flex-1 bg-red-200 justify-center items-center">
       <View>
