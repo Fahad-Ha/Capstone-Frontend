@@ -19,6 +19,7 @@ import { getToken } from "./src/apis/auth/storage";
 import AuthNavigation from "./src/Navigation/AuthNavigator";
 import UserContext from "./src/context/UserContext";
 import jwt_decode from "jwt-decode";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   // const [isConnected, setIsConnected] = useState(socket.connected);
@@ -63,6 +64,7 @@ export default function App() {
     <QueryClientProvider client={new QueryClient()}>
       <UserContext.Provider value={{ user, setUser }}>
         <NavigationContainer>
+          <StatusBar style="auto" />
           {user ? <AppNavigation /> : <AuthNavigation />}
         </NavigationContainer>
       </UserContext.Provider>

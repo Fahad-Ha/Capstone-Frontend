@@ -1,4 +1,6 @@
+import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const Create = ({ data, setData, setErrorText }) => {
   const handleTitleFocus = () => {
@@ -9,12 +11,19 @@ const Create = ({ data, setData, setErrorText }) => {
     setErrorText("");
   };
 
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const handleDateChange = (event, selected) => {
+    const currentDate = selected || selectedDate;
+    setShowDatePicker(false);
+    setSelectedDate(currentDate);
+    setData({ ...data, date: currentDate });
+  };
+
   return (
-    <View
-      style={styles.container}
-      className="flex-1 justify-center items-center"
-    >
-      <Text style={styles.label}>What's the Title of Your Trip?</Text>
+    <View style={styles.container}>
+      <Text style={styles.label}>Event name</Text>
       <TextInput
         style={styles.input}
         placeholder="Title"
@@ -23,7 +32,33 @@ const Create = ({ data, setData, setErrorText }) => {
         onChangeText={(value) => setData({ ...data, name: value })}
         onFocus={handleTitleFocus}
       />
-      <Text style={styles.label}>Tell Us More About Your Trip</Text>
+      <Text style={styles.label}>Price</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Price"
+        placeholderTextColor="#A9A9A9"
+        value={data.price}
+        onChangeText={(value) => setData({ ...data, price: value })}
+        onFocus={handleTitleFocus}
+      />
+      <Text style={styles.label}>Date</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Date"
+        placeholderTextColor="#A9A9A9"
+        value={selectedDate.toLocaleString()}
+        onFocus={() => setShowDatePicker(true)}
+      />
+      {showDatePicker && (
+        <DateTimePicker
+          value={selectedDate}
+          mode="datetime"
+          is24Hour={true}
+          display="default"
+          onChange={handleDateChange}
+        />
+      )}
+      <Text style={styles.label}>Description</Text>
       <TextInput
         style={[styles.input, styles.textArea]}
         placeholder="Description"
@@ -36,8 +71,6 @@ const Create = ({ data, setData, setErrorText }) => {
     </View>
   );
 };
-
-export default Create;
 
 const styles = StyleSheet.create({
   container: {
@@ -65,3 +98,5 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
   },
 });
+
+export default Create;

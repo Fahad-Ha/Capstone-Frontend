@@ -1,5 +1,4 @@
 import {
-  Button,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -26,14 +25,15 @@ const CreateEvent = ({ navigation, route }) => {
   const { data: locationDetails } = useQuery({
     queryKey: [
       "location",
-      location?.location.latitude,
-      location?.location.longitude,
+      location?.location?.latitude,
+      location?.location?.longitude,
     ],
     queryFn: () =>
       getLocationAddress(
-        location?.location.longitude,
-        location?.location.latitude
+        location?.location?.longitude,
+        location?.location?.latitude
       ),
+
     enabled: !!location,
   });
   const { mutate: createEventFun } = useMutation({
@@ -41,8 +41,8 @@ const CreateEvent = ({ navigation, route }) => {
       createEvent({
         ...data,
         location: {
-          latitude: location?.latitude,
-          longitude: location?.longitude,
+          latitude: location?.location?.latitude,
+          longitude: location?.location?.longitude,
         },
       }),
     onSuccess: () => {
@@ -50,10 +50,11 @@ const CreateEvent = ({ navigation, route }) => {
       setImage(null);
       setLocation(null);
       queryClient.invalidateQueries(["events"]);
+      navigation.navigate(ROUTES.APPROUTES.EXPLORE);
     },
   });
   useEffect(() => {
-    if (route.params?.location) {
+    if (route.params?.location?.location) {
       setLocation(route.params.location);
     }
   }, [route.params?.location]);
@@ -139,4 +140,9 @@ const CreateEvent = ({ navigation, route }) => {
 
 export default CreateEvent;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  locationText: {
+    fontSize: 16,
+    color: "black",
+  },
+});

@@ -5,13 +5,11 @@ import ROUTES from "../../Navigation/index";
 
 const EventCard = ({ event = {} }) => {
   const navigation = useNavigation();
-  console.log(event?.organizer);
-  console.log(event);
   return (
     <View style={styles.cardContainer}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate(ROUTES.HEDERROUTES.OHERPROFILES, {
+          navigation.navigate(ROUTES.APPROUTES.EVENT_DETAILS, {
             _id: event.organizer,
           });
         }}
