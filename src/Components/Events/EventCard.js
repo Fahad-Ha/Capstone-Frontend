@@ -6,6 +6,7 @@ import ROUTES from "../../Navigation/index";
 const EventCard = ({ event = {} }) => {
   const navigation = useNavigation();
   console.log(event?.organizer);
+  console.log(event);
   return (
     <View style={styles.cardContainer}>
       <TouchableOpacity
@@ -21,8 +22,9 @@ const EventCard = ({ event = {} }) => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate(ROUTES.HEDERROUTES.TRIPDETAILS, {
+          navigation.navigate(ROUTES.APPROUTES.EVENT_DETAILS, {
             _id: event._id,
+            event: event,
           });
         }}
       >
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 26,
+    marginTop: 40,
     height: 400,
     margin: 20,
   },

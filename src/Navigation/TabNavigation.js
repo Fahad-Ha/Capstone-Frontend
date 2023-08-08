@@ -4,8 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import ROUTES from ".";
 
-// import AddEvent from "../Screens/add-event";
-
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -13,6 +11,7 @@ import { Feather } from "@expo/vector-icons";
 import { View, StyleSheet, Pressable } from "react-native";
 import Users from "../Screens/Users";
 import Chat1 from "../Screens/Chat1";
+import Explore from "../Screens/Events";
 import CreateEvent from "../Screens/CreateEvent";
 
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
@@ -23,7 +22,7 @@ import CreateEvent from "../Screens/CreateEvent";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-export default function AppNavigation() {
+export default function TabNavigation() {
   //   const theme = useTheme(); // Get the currently active theme
   return (
     <Tab.Navigator
@@ -47,7 +46,7 @@ export default function AppNavigation() {
     >
       <Tab.Screen
         name={ROUTES.APPROUTES.EXPLORE}
-        component={AppNavigation}
+        component={Explore}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -60,6 +59,7 @@ export default function AppNavigation() {
           ),
         }}
       />
+
       <Tab.Screen
         name={ROUTES.APPROUTES.ADD_EVENT}
         component={CreateEvent}
@@ -79,14 +79,14 @@ export default function AppNavigation() {
         component={Users}
         options={{
           headerShown: false,
-          // tabBarIcon: ({ color, size }) => (
-          //   <FontAwesome
-          //     name="user-circle-o"
-          //     size={40}
-          //     color={color}
-          //     style={{ height: 40 }}
-          //   />
-          // ),
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome
+              name="user-circle-o"
+              size={40}
+              color={color}
+              style={{ height: 40 }}
+            />
+          ),
         }}
       />
     </Tab.Navigator>

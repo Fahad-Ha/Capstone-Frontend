@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import EventCard from "./EventCard";
-import { getEvents } from "../../apis/events/index";
+import { getEvents } from "../../apis/event/index";
 
 const EventList = () => {
   const clientQuery = useQueryClient();

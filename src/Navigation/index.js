@@ -5,7 +5,7 @@ const ROUTES = {
     PROFILE: "Profile",
     OTHERPROFILE: "user-profile",
 
-    EVENT_DETAILS: "EventDetails",
+    EVENT_DETAILS: "Event-Details",
     MAP: "MAP",
   },
   AUTHROUTES: {

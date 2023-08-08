@@ -64,7 +64,6 @@ export default function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <NavigationContainer>
           {user ? <AppNavigation /> : <AuthNavigation />}
-          {/* {user ? <TabNavigation /> : <AuthNavigation />} */}
         </NavigationContainer>
       </UserContext.Provider>
     </QueryClientProvider>
