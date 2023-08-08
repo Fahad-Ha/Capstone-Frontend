@@ -2,7 +2,7 @@ import { Image, StyleSheet, View } from "react-native";
 import React, { useEffect } from "react";
 import { Pressable } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { BASE_URL } from "../../apis";
+import { BASE_URL } from "../../apis/index";
 
 const ImagePickerC = ({
   onImagePicked,

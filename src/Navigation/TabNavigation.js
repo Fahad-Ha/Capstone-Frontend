@@ -6,13 +6,17 @@ import ROUTES from ".";
 
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 import { View, StyleSheet, Pressable } from "react-native";
 import Users from "../Screens/Users";
 import Chat1 from "../Screens/Chat1";
 import Explore from "../Screens/Events";
 import CreateEvent from "../Screens/CreateEvent";
+import MyEvents from "../Screens/MyEvents";
 
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
 // import ExploreStack from "./ExploreStack";
@@ -50,8 +54,8 @@ export default function TabNavigation() {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons
-              name="search"
+            <AntDesign
+              name="find"
               color={color}
               size={40}
               style={{ height: 40 }}
@@ -59,7 +63,20 @@ export default function TabNavigation() {
           ),
         }}
       />
-
+      <Tab.Screen
+        name={ROUTES.APPROUTES.MY_EVENTS}
+        component={MyEvents}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="ticket-confirmation-outline"
+              size={55}
+              color={color}
+              style={{ height: 54 }}
+            />
+          ),
+        }}
+      />
       <Tab.Screen
         name={ROUTES.APPROUTES.ADD_EVENT}
         component={CreateEvent}
@@ -67,9 +84,9 @@ export default function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <Feather
               name="plus-square"
-              size={50}
+              size={45}
               color={color}
-              style={{ height: 50 }}
+              style={{ height: 44 }}
             />
           ),
         }}

@@ -64,10 +64,10 @@ const CreateEvent = ({ navigation, route }) => {
     createEventFun();
   };
   return (
-    <>
-      <SafeAreaView>
-        <ScrollView>
-          <View style={styles.container}>
+    <SafeAreaView className="flex-1 bg-red-200 justify-center items-center">
+      <View>
+        <ScrollView className="bg-red-500 ">
+          <View style={styles.container} className="flex-1 p-2 bg-green-300">
             <Text style={styles.label}>Set Your Event Location</Text>
             <View style={styles.locationContainer}>
               <TouchableOpacity onPress={handleSelectLocation}>
@@ -85,20 +85,23 @@ const CreateEvent = ({ navigation, route }) => {
                 )}
               </TouchableOpacity>
             </View>
-            <Text style={styles.label}>
+            <Text style={styles.label} className="bg-red-200">
               Choose an Image to Represent Your Event
             </Text>
             <ImagePickerC
               image={image}
               setImage={setImage}
+              height={100}
+              width={100}
+              className="max-h-52 rounded-xl overflow-hidden"
               style={styles.image}
               onImagePicked={(imageUri) =>
                 setData({ ...data, image: imageUri })
               }
             >
               <View
+                className="my-2 bg-gray-300 h-full"
                 style={{
-                  flex: 1,
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -113,16 +116,22 @@ const CreateEvent = ({ navigation, route }) => {
             {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
             <View>
               <TouchableOpacity
+                className="bg-red-500 rounded"
                 style={styles.buttonContainer}
                 onPress={handleSubmit}
               >
-                <Text style={styles.buttonText}>Create event</Text>
+                <Text
+                  className="text-white text-lg text-center py-4"
+                  style={styles.buttonText}
+                >
+                  Create event
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
-      </SafeAreaView>
-    </>
+      </View>
+    </SafeAreaView>
   );
 };
 

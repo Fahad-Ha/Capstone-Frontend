@@ -10,7 +10,10 @@ const Create = ({ data, setData, setErrorText }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      className="flex-1 justify-center items-center"
+    >
       <Text style={styles.label}>What's the Title of Your Trip?</Text>
       <TextInput
         style={styles.input}
