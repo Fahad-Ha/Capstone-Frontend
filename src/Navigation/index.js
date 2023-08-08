@@ -1,5 +1,6 @@
 const ROUTES = {
   APPROUTES: {
+    LOCATION_NAVIGATION: "Location-N",
     EXPLORE: "Explore",
     ADD_EVENT: "Add-Event",
     PROFILE: "Profile",

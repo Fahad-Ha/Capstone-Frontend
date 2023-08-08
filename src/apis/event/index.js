@@ -1,6 +1,7 @@
 import instance from "..";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
+import { BASE_URL } from "..";
 
 const getEvents = async () => {
   const res = await instance.get("/events/");

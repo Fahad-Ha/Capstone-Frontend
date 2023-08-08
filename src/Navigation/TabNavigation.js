@@ -10,6 +10,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import LocationNavigation from "./LocationNavigator";
 
 import { View, StyleSheet, Pressable } from "react-native";
 import Users from "../Screens/Users";
@@ -49,8 +50,8 @@ export default function TabNavigation() {
       }}
     >
       <Tab.Screen
-        name={ROUTES.APPROUTES.EXPLORE}
-        component={Explore}
+        name={ROUTES.APPROUTES.LOCATION_NAVIGATION}
+        component={LocationNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (

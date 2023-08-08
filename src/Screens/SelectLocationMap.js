@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MapView, { Marker } from "react-native-maps";
-import { Button, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ROUTES from "../Navigation/index";
 
 const SelectLocationMap = ({ navigation }) => {
@@ -16,9 +16,12 @@ const SelectLocationMap = ({ navigation }) => {
 
   const handleConfirmLocation = () => {
     if (selectedLocation) {
-      navigation.navigate(ROUTES.HEDERROUTES.CREATE, {
-        location: selectedLocation,
-      }); // Return location to CreateTrip
+      navigation.navigate(ROUTES.APPROUTES.ADD_EVENT, {
+        location: {
+          location: selectedLocation,
+        },
+      });
+      console.log(selectedLocation);
     }
   };
 
@@ -36,9 +39,13 @@ const SelectLocationMap = ({ navigation }) => {
       >
         {selectedLocation && <Marker coordinate={selectedLocation} />}
       </MapView>
-      <TouchableOpacity style={styles.button} onPress={handleConfirmLocation}>
-        <Text style={styles.buttonText}>Confirm Location</Text>
-      </TouchableOpacity>
+      {selectedLocation && (
+        <TouchableOpacity onPress={() => handleConfirmLocation()}>
+          <View className="z-10 bottom-20 mb-5 p-5 rounded-2xl self-center bg-blue-900">
+            <Text style={styles.buttonText}>Confirm Location</Text>
+          </View>
+        </TouchableOpacity>
+      )}
     </>
   );
 };
@@ -66,6 +73,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 15,
   },
 });
