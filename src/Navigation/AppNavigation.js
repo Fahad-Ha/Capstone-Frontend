@@ -36,11 +36,9 @@ const AppNavigation = () => {
       <Stack.Screen
         component={EventDetails}
         name={ROUTES.APPROUTES.EVENT_DETAILS}
-        options={
-          {
-            // headerShown: false,
-          }
-        }
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );
