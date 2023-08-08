@@ -13,28 +13,20 @@ const EventDetails = () => {
         alignItems: "center",
       }}
     >
-      <Text>EventDetails</Text>
-      <Text>{event.name}</Text>
-      <Text>{event.description}</Text>
-      <Text>{event.date}</Text>
-      <Text>Duration {event.duration}</Text>
-      <Text>{event.tags}</Text>
-      <Text>{event.attendees}</Text>
+      <Text className="pb-2 text-lg">EventDetails</Text>
+      <Text className="pb-2 text-lg font-bold">{event.name}</Text>
+      <Text className="pb-2 text-lg text-center">{event.description}</Text>
+      <Text className="pb-2 text-lg">Date {event.date}</Text>
+      <Text className="pb-2 text-lg">Duration {event.duration}</Text>
+      <Text className="pb-2 text-lg">{event.tags}</Text>
+      <Text className="pb-2 text-lg">{event.attendees}</Text>
 
       <Image
         source={{ uri: event.image }}
         style={{ height: 100, width: 100 }}
       />
       <TouchableOpacity>
-        <Text
-          style={{
-            backgroundColor: "orange",
-            height: 50,
-            textAlign: "center",
-            width: 100,
-            lineHeight: 50, // Vertically align the text within the container
-          }}
-        >
+        <Text className="bg-red-500 rounded-md p-5 text-lg text-white font-semibold">
           I'm Intersetd!
         </Text>
       </TouchableOpacity>
