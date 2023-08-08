@@ -54,7 +54,7 @@ const DM = ({ navigation }) => {
                 width: "85%",
               }}
             >
-              {/* <Image
+              <Image
                 style={{ width: 60, height: 60, borderRadius: 50 }}
                 source={{
                   uri: `${BASE_URL}/${
@@ -63,7 +63,7 @@ const DM = ({ navigation }) => {
                       .image
                   }`,
                 }}
-              /> */}
+              />
 
               <Text style={{ color: theme.colors.text, fontSize: 20 }}>
                 {chat?.members?.find((member) => member._id !== user._id) &&

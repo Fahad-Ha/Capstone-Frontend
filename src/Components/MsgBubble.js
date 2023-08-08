@@ -10,7 +10,7 @@ const MsgBubble = ({ msg, me, time }) => {
           styles.bubble,
           {
             alignSelf: me ? "flex-end" : "flex-start",
-            backgroundColor: me ? "#848484" : "#323435",
+            backgroundColor: me ? "#CC1233" : "#323435",
           },
         ]}
       >
@@ -19,7 +19,9 @@ const MsgBubble = ({ msg, me, time }) => {
       <Text
         style={{
           alignSelf: me ? "flex-end" : "flex-start",
-          color: me ? "#FF2500" : "#303030",
+          color: me
+            ? "#rgba(255, 255, 255, 0.5);"
+            : "#rgba(255, 255, 255, 0.5);",
         }}
       >
         {moment(time).format("LT")}
