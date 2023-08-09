@@ -1,7 +1,6 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, StatusBar } from "react-native";
 import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 
 import Rectangle from "../../assets/Rectangle.png";
@@ -36,7 +35,7 @@ const EventDetails = () => {
         <Image className="h-72 w-full" source={Rectangle} />
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          className="absolute  top-9 left-1 rounded-full shadow p-2"
+          className="absolute  top-10 left-2 rounded-full shadow p-2"
         >
           <View className="flex-row items-center">
             <Feather name="arrow-left" size={32} color={"white"} />

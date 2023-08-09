@@ -24,13 +24,15 @@ const Login = () => {
     loginFunc();
   };
   return (
-    <View>
+    <View className="flex-1 justify-center item-center mx-6">
       <TextInput
+        className="bg-gray-200 rounded-lg p-2 mb-2"
         placeholder="Email"
         onChangeText={(v) => setUserInfo({ ...userInfo, email: v })}
       />
       <TextInput
-        placeholder="password"
+        className="bg-gray-200 rounded-lg p-2 mb-2"
+        placeholder="Password"
         onChangeText={(v) => setUserInfo({ ...userInfo, password: v })}
       />
       <Button title="Login" onPress={handleSubmit} />
