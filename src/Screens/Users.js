@@ -19,10 +19,9 @@ const Users = () => {
   const { data } = useQuery(["users"], getAllUsers);
   const navigation = useNavigation();
   const { setUser, user: me } = useContext(UserContext);
-
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.header}>Direct Messages</Text>
+      <Text style={styles.header}>Direct Messages2</Text>
       <View style={styles.usersContainer}>
         {data?.map((user) => {
           if (user.username === me.username) {
@@ -33,7 +32,7 @@ const Users = () => {
               style={styles.userCard}
               key={user._id}
               onPress={() => {
-                navigation.navigate(ROUTES.APPROUTES.DIRECT_MSGLIST, {
+                navigation.navigate("ROUTES.APPROUTES.DIRECT_MSG", {
                   user: user,
                 });
               }}

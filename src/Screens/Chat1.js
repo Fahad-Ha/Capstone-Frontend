@@ -40,7 +40,6 @@ const Chat1 = ({ route, profileData, navigation }) => {
   const { user: me } = useContext(UserContext);
   const QueryClient = useQueryClient();
   const [msg, setMsg] = useState("");
-
   //get and refetch chat
   const {
     data: data2,

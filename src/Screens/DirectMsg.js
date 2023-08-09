@@ -40,6 +40,7 @@ const DM = ({ navigation }) => {
               onPress={() => {
                 navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
                   chatId: chat._id,
+                  user: user,
                 });
               }}
               style={styles.userCard}
