@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -12,24 +12,26 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import LocationNavigation from "./LocationNavigator";
 
-import { View, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, Pressable, TouchableOpacity } from "react-native";
 import Users from "../Screens/Users";
 import Chat1 from "../Screens/Chat1";
 import Explore from "../Screens/Events";
 import CreateEvent from "../Screens/CreateEvent";
 import MyEvents from "../Screens/MyEvents";
 import Profile from "../Screens/Profile";
-
+import { removeToken } from "../apis/auth/storage";
+import UserContext from "../context/UserContext";
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
 // import ExploreStack from "./ExploreStack";
 // import ProfileStack from "./ProfileStack";
 // import { useTheme } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
 export default function TabNavigation() {
   //   const theme = useTheme(); // Get the currently active theme
+  const { user, setUser } = useContext(UserContext);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -97,7 +99,7 @@ export default function TabNavigation() {
         name={ROUTES.APPROUTES.PROFILE}
         component={Profile}
         options={{
-          headerShown: false,
+          headerShown: true,
           tabBarIcon: ({ color, size }) => (
             <FontAwesome
               name="user-circle-o"
@@ -106,6 +108,19 @@ export default function TabNavigation() {
               style={{ height: 40 }}
             />
           ),
+          headerRight: () => {
+            return (
+              <TouchableOpacity
+                style={{ marginLeft: 15 }}
+                onPress={() => {
+                  setUser(false);
+                  removeToken();
+                }}
+              >
+                <MaterialCommunityIcons name="logout" size={24} color="black" />
+              </TouchableOpacity>
+            );
+          },
         }}
       />
     </Tab.Navigator>
