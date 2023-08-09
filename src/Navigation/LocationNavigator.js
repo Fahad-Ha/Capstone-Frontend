@@ -21,6 +21,13 @@ export default function LocationNavigation() {
         component={Map}
         options={{ tabBarVisible: false }}
       />
+      <Stack.Screen
+        component={DirectMsg}
+        name={ROUTES.APPROUTES.DIRECT_MSGLIST}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen name="SelectLocationMap" component={SelectLocationMap} />
       {/* <Stack.Screen
         name={ROUTES.APPROUTES.OTHERPROFILE}

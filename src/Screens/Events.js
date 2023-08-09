@@ -18,7 +18,7 @@ const Explore = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Explore The Beauty Of The World With Us!</Text>
-      <View className="flex right-0 items-end py-2 px-4 absolute">
+      <View className="flex right-0 top-10 items-end py-2 px-4 absolute ">
         <DMButton />
       </View>
       <EventList />

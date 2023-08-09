@@ -11,6 +11,8 @@ const MsgBubble = ({ msg, me, time }) => {
           {
             alignSelf: me ? "flex-end" : "flex-start",
             backgroundColor: me ? "#758DE2" : "#323435",
+            borderBottomLeftRadius: me ? 20 : 0,
+            borderBottomRightRadius: me ? 0 : 20,
             elevation: Platform.OS === "android" ? 4 : 0,
             shadowColor: "#758DE2",
 
