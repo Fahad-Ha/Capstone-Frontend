@@ -147,7 +147,7 @@ const EventDetails = ({ navigation, route }) => {
           <View className="flex-row justify-end mt-10">
             {event?.organizer._id === user?._id && (
               <TouchableOpacity className="mx-4" onPress={handleDelete}>
-                <View className="flex-row items-center">
+                <View className="flex-row items-center mb-10">
                   {showBox}
 
                   <MaterialCommunityIcons
@@ -162,10 +162,6 @@ const EventDetails = ({ navigation, route }) => {
               </TouchableOpacity>
             )}
           </View>
-          <Image
-            source={{ uri: event.image }}
-            style={{ height: 100, width: 100 }}
-          />
           <View className="bg-red-500 rounded-full w-72 shadow-lg shadow-gray-900 z-50">
             <TouchableOpacity>
               <Text className=" text-center p-5 text-lg text-white font-semibold ">

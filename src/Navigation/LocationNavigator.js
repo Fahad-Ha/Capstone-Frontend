@@ -5,6 +5,7 @@ import Events from "../Screens/Events";
 import EventDetails from "../Screens/EventDetails";
 import Map from "../Screens/Map";
 import SelectLocationMap from "../Screens/SelectLocationMap";
+import DirectMsg from "../Screens/DirectMsg";
 
 const Stack = createStackNavigator();
 export default function LocationNavigation() {
@@ -25,6 +26,13 @@ export default function LocationNavigation() {
         name={ROUTES.APPROUTES.OTHERPROFILE}
         component={OtherProfiles}
       /> */}
+      <Stack.Screen
+        component={DirectMsg}
+        name={ROUTES.APPROUTES.DIRECT_MSGLIST}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
