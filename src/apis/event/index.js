@@ -5,7 +5,7 @@ import { BASE_URL } from "..";
 
 const getEvents = async () => {
   const res = await instance.get("/events/");
-  return res.data;
+  return res.data.reverse();
 };
 const getEventById = async (id) => {
   const res = await instance.get(`/events/${id}`);

@@ -33,6 +33,13 @@ export default function LocationNavigation() {
         name={ROUTES.APPROUTES.OTHERPROFILE}
         component={OtherProfiles}
       /> */}
+      <Stack.Screen
+        component={DirectMsg}
+        name={ROUTES.APPROUTES.DIRECT_MSGLIST}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }

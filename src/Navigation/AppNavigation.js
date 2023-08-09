@@ -21,7 +21,6 @@ const AppNavigation = () => {
           headerShown: false,
         }}
       />
-
       <Stack.Screen
         component={Chat1}
         name={ROUTES.APPROUTES.DIRECT_MSG}
