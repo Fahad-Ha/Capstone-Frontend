@@ -37,7 +37,11 @@ const DM = ({ navigation, time }) => {
       <Text style={styles.header}>Direct Messages</Text>
       <View style={styles.usersContainer}>
         {data?.map((chat) => {
-          console.log();
+          console.log(
+            `${BASE_URL}/${
+              chat?.members?.find((member) => member._id !== user._id).image
+            }`
+          );
           return (
             <Pressable
               key={chat._id}
@@ -64,9 +68,6 @@ const DM = ({ navigation, time }) => {
                   style={styles.profilePicture}
                   source={{
                     uri: `${BASE_URL}/${
-                      chat?.members?.find(
-                        (member) => member._id !== user._id
-                      ) &&
                       chat?.members?.find((member) => member._id !== user._id)
                         .image
                     }`,
@@ -74,9 +75,10 @@ const DM = ({ navigation, time }) => {
                 />
                 <View style={{ flexDirection: "column", flex: 1 }}>
                   <Text style={styles.username}>
-                    {chat?.members?.find((member) => member._id !== user._id) &&
+                    {
                       chat?.members?.find((member) => member._id !== user._id)
-                        .username}
+                        .username
+                    }
                   </Text>
                   <Text style={{ color: "#797979", marginTop: 10 }}>
                     {chat.msgs[chat.msgs.length - 1]?.msg}
