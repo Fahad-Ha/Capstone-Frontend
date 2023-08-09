@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import Home3Image from "../../assets/Home3.png";
 import LinearGradient from "react-native-linear-gradient";
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { getChat, sendChat } from "../apis/chat";
 import { Socket } from "socket.io-client";
 import { BASE_URL } from "../apis";
@@ -25,12 +25,15 @@ import {
   Image,
 } from "react-native";
 import MsgBubble from "../Components/MsgBubble";
-import UserContext from "../context/UserContext";
+
 import { socket } from "../../socket";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
+import HomeB from "../../assets/HomeBB.png";
+import ROUTES from "../Navigation";
+import UserContext from "../context/UserContext";
 
 const Chat1 = ({ route, profileData, navigation }) => {
   const { user } = route.params;
@@ -47,7 +50,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
     queryFn: () => {
       return getChat(user._id);
     },
-    queryKey: ["getChat", user._id],
+    queryKey: ["getChat", user?._id],
   });
 
   //send chat
@@ -135,7 +138,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
   });
   return (
     <View style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
-      <ImageBackground source={Home3Image} style={{ flex: 1 }}>
+      <ImageBackground source={HomeB} style={{ flex: 1 }}>
         <SafeAreaView
           style={{
             flex: 1,
@@ -155,7 +158,10 @@ const Chat1 = ({ route, profileData, navigation }) => {
                 name="left"
                 size={24}
                 color="white"
-                onPress={() => navigation.navigate("Users")}
+                onPress={() =>
+                  navigation.navigate(ROUTES.APPROUTES.DIRECT_MSGLIST)
+                }
+                style={{ width: 35 }}
               />
               <View
                 style={{
@@ -230,7 +236,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
           <MaterialCommunityIcons
             name="send-circle"
             size={50}
-            color="#FF0B45"
+            color="#7581E7"
             onPress={handleSend}
           />
         </View>

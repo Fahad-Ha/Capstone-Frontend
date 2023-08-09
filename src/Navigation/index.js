@@ -5,6 +5,7 @@ const ROUTES = {
     PROFILE: "Profile",
     OTHERPROFILE: "user-profile",
     DIRECT_MSG: "DM",
+    DIRECT_MSGLIST: "DMList",
     MY_EVENTS: "My-Events",
 
     EVENT_DETAILS: "Event-Details",
