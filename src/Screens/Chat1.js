@@ -158,11 +158,8 @@ const Chat1 = ({ route, profileData, navigation }) => {
                 name="left"
                 size={24}
                 color="white"
-
                 style={{ width: 35 }}
-
                 onPress={() => navigation.goBack()}
-
               />
               <View
                 style={{
@@ -183,7 +180,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
               <Text
                 style={{ fontSize: 16, fontWeight: "bold", color: "white" }}
               >
-                {user.username}
+                {user?.username}
               </Text>
             </View>
 
