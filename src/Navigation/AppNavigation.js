@@ -7,6 +7,8 @@ import Users from "../Screens/Users";
 import Chat1 from "../Screens/Chat1";
 import EventDetails from "../Screens/EventDetails";
 import TabNavigation from "./TabNavigation";
+import { Feather } from "@expo/vector-icons";
+import Settings from "../Screens/Settings";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -20,23 +22,27 @@ const AppNavigation = () => {
         }}
       />
       <Stack.Screen
+
         component={DirectMsg}
         name={ROUTES.APPROUTES.DIRECT_MSGLIST}
+
         options={{
           headerShown: false,
         }}
       />
 
       <Stack.Screen
-        component={Chat1}
-        name={ROUTES.APPROUTES.DIRECT_MSG}
+
+        component={EventDetails}
+        name={ROUTES.APPROUTES.EVENT_DETAILS}
+
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        component={EventDetails}
-        name={ROUTES.APPROUTES.EVENT_DETAILS}
+        component={Settings}
+        name={ROUTES.APPROUTES.SETTINGS}
         options={{
           headerShown: false,
         }}

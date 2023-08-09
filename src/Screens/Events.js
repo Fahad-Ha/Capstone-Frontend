@@ -3,6 +3,7 @@ import React, { useCallback } from "react";
 import EventList from "../Components/Events/EventList";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFocusEffect } from "@react-navigation/native";
+import DMButton from "../Components/DMButton";
 
 const Explore = () => {
   const queryClient = useQueryClient();
@@ -17,7 +18,9 @@ const Explore = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Explore The Beauty Of The World With Us!</Text>
-
+      <View className="flex right-0 items-end py-2 px-4 absolute">
+        <DMButton />
+      </View>
       <EventList />
     </SafeAreaView>
   );
@@ -38,6 +41,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
+    paddingTop: 12,
     fontWeight: "bold",
     backgroundColor: "rgba(255, 255, 255, 0.7)",
 

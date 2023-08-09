@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -10,24 +10,27 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import LocationNavigation from "./LocationNavigator";
 
-import { View, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, Pressable, TouchableOpacity } from "react-native";
 import Users from "../Screens/Users";
 import Chat1 from "../Screens/Chat1";
 import Explore from "../Screens/Events";
 import CreateEvent from "../Screens/CreateEvent";
 import MyEvents from "../Screens/MyEvents";
+import Profile from "../Screens/Profile";
 
+import DMButton from "../Components/DMButton";
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
 // import ExploreStack from "./ExploreStack";
 // import ProfileStack from "./ProfileStack";
 // import { useTheme } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
 export default function TabNavigation() {
   //   const theme = useTheme(); // Get the currently active theme
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -49,8 +52,8 @@ export default function TabNavigation() {
       }}
     >
       <Tab.Screen
-        name={ROUTES.APPROUTES.EXPLORE}
-        component={Explore}
+        name={ROUTES.APPROUTES.LOCATION_NAVIGATION}
+        component={LocationNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -93,7 +96,7 @@ export default function TabNavigation() {
       />
       <Tab.Screen
         name={ROUTES.APPROUTES.PROFILE}
-        component={Users}
+        component={Profile}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (

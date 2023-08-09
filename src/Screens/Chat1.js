@@ -158,10 +158,11 @@ const Chat1 = ({ route, profileData, navigation }) => {
                 name="left"
                 size={24}
                 color="white"
-                onPress={() =>
-                  navigation.navigate(ROUTES.APPROUTES.DIRECT_MSGLIST)
-                }
+
                 style={{ width: 35 }}
+
+                onPress={() => navigation.goBack()}
+
               />
               <View
                 style={{

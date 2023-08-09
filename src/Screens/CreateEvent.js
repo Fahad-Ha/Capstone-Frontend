@@ -1,5 +1,4 @@
 import {
-  Button,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -14,6 +13,7 @@ import { createEvent } from "../apis/event/index";
 import Create from "../Components/Events/Create";
 import ROUTES from "../Navigation/index";
 import { getLocationAddress } from "../apis/location";
+import { getProfileData } from "../apis/auth";
 
 const CreateEvent = ({ navigation, route }) => {
   const queryClient = useQueryClient();
@@ -25,34 +25,43 @@ const CreateEvent = ({ navigation, route }) => {
   const { data: locationDetails } = useQuery({
     queryKey: [
       "location",
-      location?.location.latitude,
-      location?.location.longitude,
+      location?.location?.latitude,
+      location?.location?.longitude,
     ],
     queryFn: () =>
       getLocationAddress(
-        location?.location.longitude,
-        location?.location.latitude
+        location?.location?.longitude,
+        location?.location?.latitude
       ),
+
     enabled: !!location,
   });
   const { mutate: createEventFun } = useMutation({
-    mutationFn: () =>
-      createEvent({
+    mutationFn: () => {
+      const updatedData = { ...data };
+      if (data.date instanceof Date) {
+        updatedData.date = data.date.toISOString();
+      }
+      return createEvent({
         ...data,
         location: {
-          latitude: location?.latitude,
-          longitude: location?.longitude,
+          latitude: location?.location?.latitude,
+          longitude: location?.location?.longitude,
         },
-      }),
+        date: data.date.toISOString(),
+      });
+    },
+
     onSuccess: () => {
       setData({});
       setImage(null);
       setLocation(null);
       queryClient.invalidateQueries(["events"]);
+      navigation.navigate(ROUTES.APPROUTES.EXPLORE);
     },
   });
   useEffect(() => {
-    if (route.params?.location) {
+    if (route.params?.location?.location) {
       setLocation(route.params.location);
     }
   }, [route.params?.location]);
@@ -63,6 +72,7 @@ const CreateEvent = ({ navigation, route }) => {
   const handleSubmit = () => {
     createEventFun();
   };
+
   return (
     <SafeAreaView className="flex-1 bg-red-200 justify-center items-center">
       <View>
@@ -137,4 +147,9 @@ const CreateEvent = ({ navigation, route }) => {
 
 export default CreateEvent;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  locationText: {
+    fontSize: 16,
+    color: "black",
+  },
+});
