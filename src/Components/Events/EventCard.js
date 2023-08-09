@@ -5,11 +5,12 @@ import ROUTES from "../../Navigation/index";
 
 const EventCard = ({ event = {} }) => {
   const navigation = useNavigation();
+  console.log(event?.organizer);
   return (
     <View style={styles.cardContainer}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate(ROUTES.APPROUTES.EVENT_DETAILS, {
+          navigation.navigate(ROUTES.APPROUTES.OTHERPROFILE, {
             _id: event.organizer,
           });
         }}
@@ -28,7 +29,7 @@ const EventCard = ({ event = {} }) => {
       >
         <View style={styles.card}>
           <Image
-            source={{ uri: `${BASE_URL}/${event.eventImage}` }}
+            source={{ uri: `${BASE_URL}/${event.image}` }}
             style={styles.image}
           />
           <Text style={styles.name}>{event.name}</Text>
@@ -63,11 +64,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     position: "relative",
   },
-  name: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
+  // name: {
+  //   fontSize: 16,
+  //   fontWeight: "bold",
+  //   marginBottom: 10,
+  // },
 
   name: {
     fontSize: 20,

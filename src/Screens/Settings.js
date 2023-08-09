@@ -19,7 +19,7 @@ export default function Settings() {
         >
           <View className="flex-row items-center">
             <Feather name="arrow-left" size={32} color={"black"} />
-            <Text className="text-xl mx-2 ">Event Details</Text>
+            <Text className="text-xl mx-2 ">Profile</Text>
           </View>
         </TouchableOpacity>
       </View>
