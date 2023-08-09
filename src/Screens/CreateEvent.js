@@ -37,14 +37,21 @@ const CreateEvent = ({ navigation, route }) => {
     enabled: !!location,
   });
   const { mutate: createEventFun } = useMutation({
-    mutationFn: () =>
-      createEvent({
+    mutationFn: () => {
+      const updatedData = { ...data };
+      if (data.date instanceof Date) {
+        updatedData.date = data.date.toISOString();
+      }
+      return createEvent({
         ...data,
         location: {
           latitude: location?.location?.latitude,
           longitude: location?.location?.longitude,
         },
-      }),
+        date: data.date.toISOString(),
+      });
+    },
+
     onSuccess: () => {
       setData({});
       setImage(null);

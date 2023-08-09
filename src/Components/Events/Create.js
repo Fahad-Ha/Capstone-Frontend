@@ -12,13 +12,13 @@ const Create = ({ data, setData, setErrorText }) => {
   };
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(true);
 
   const handleDateChange = (event, selected) => {
     const currentDate = selected || selectedDate;
-    setShowDatePicker(false);
     setSelectedDate(currentDate);
     setData({ ...data, date: currentDate });
+    console.log(currentDate);
   };
 
   return (
