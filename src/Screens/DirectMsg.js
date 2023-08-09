@@ -20,8 +20,9 @@ import { getMyChats } from "../apis/chat";
 import UserContext from "../context/UserContext";
 import { AntDesign } from "@expo/vector-icons";
 import { getAllUsers } from "../apis/auth";
+import moment from "moment";
 
-const DM = ({ navigation }) => {
+const DM = ({ navigation, time }) => {
   const { user } = useContext(UserContext);
   const { data, isLoading } = useQuery({
     queryKey: ["myChats"],
@@ -36,6 +37,7 @@ const DM = ({ navigation }) => {
       <Text style={styles.header}>Direct Messages</Text>
       <View style={styles.usersContainer}>
         {data?.map((chat) => {
+          console.log();
           return (
             <Pressable
               key={chat._id}
@@ -70,12 +72,19 @@ const DM = ({ navigation }) => {
                     }`,
                   }}
                 />
-
-                <Text style={styles.username}>
-                  {chat?.members?.find((member) => member._id !== user._id) &&
-                    chat?.members?.find((member) => member._id !== user._id)
-                      .username}
-                </Text>
+                <View style={{ flexDirection: "column", flex: 1 }}>
+                  <Text style={styles.username}>
+                    {chat?.members?.find((member) => member._id !== user._id) &&
+                      chat?.members?.find((member) => member._id !== user._id)
+                        .username}
+                  </Text>
+                  <Text style={{ color: "#797979", marginTop: 10 }}>
+                    {chat.msgs[chat.msgs.length - 1]?.msg}
+                  </Text>
+                  <Text style={{ marginLeft: "auto", color: "#797979" }}>
+                    {moment(time).format("LT")}
+                  </Text>
+                </View>
               </View>
               <View
                 style={{
@@ -109,7 +118,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#fff",
-    marginBottom: 30,
+    marginBottom: 60,
   },
   usersContainer: {
     marginBottom: 20,
@@ -131,7 +140,7 @@ const styles = StyleSheet.create({
   username: {
     marginLeft: 10,
     fontSize: 18,
-
+    fontWeight: "bold",
     color: "#fff",
     fontFamily: "System", // Replace with the actual custom font
   },
