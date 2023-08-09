@@ -7,7 +7,7 @@ const ROUTES = {
     OTHERPROFILE: "user-profile",
     DIRECT_MSG: "DM",
     MY_EVENTS: "My-Events",
-
+    SETTINGS: "Settings",
     EVENT_DETAILS: "Event-Details",
     MAP: "MAP",
   },
