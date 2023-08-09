@@ -1,4 +1,5 @@
 import * as SecureStore from "expo-secure-store";
+import jwt_decode from "jwt-decode";
 
 const saveToken = async (token) => {
   try {
@@ -11,8 +12,16 @@ const saveToken = async (token) => {
 const getToken = async () => {
   try {
     const token = await SecureStore.getItemAsync("token");
-
-    return token;
+    if (token) {
+      const decoded = jwt_decode(token);
+      const cureentTime = Date.now() / 1000;
+      if (decoded.exp < cureentTime) {
+        SecureStore.removeItemAsync("token");
+        return false;
+      }
+      return true;
+    }
+    return false;
   } catch (error) {
     console.log("Error while trying to get the token", error);
   }
