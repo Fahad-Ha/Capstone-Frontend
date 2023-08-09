@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import Home3Image from "../../assets/Home3.png";
 import LinearGradient from "react-native-linear-gradient";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { getChat, sendChat } from "../apis/chat";
 import { Socket } from "socket.io-client";
 import { BASE_URL } from "../apis";
@@ -25,12 +25,15 @@ import {
   Image,
 } from "react-native";
 import MsgBubble from "../Components/MsgBubble";
-import UserContext from "../context/UserContext";
+
 import { socket } from "../../socket";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
+import HomeB from "../../assets/HomeBB.png";
+import ROUTES from "../Navigation";
+import UserContext from "../context/UserContext";
 
 const Chat1 = ({ route, profileData, navigation }) => {
   const { user } = route.params;
@@ -47,7 +50,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
     queryFn: () => {
       return getChat(user._id);
     },
-    queryKey: ["getChat", user._id],
+    queryKey: ["getChat", user?._id],
   });
 
   //send chat
@@ -80,25 +83,37 @@ const Chat1 = ({ route, profileData, navigation }) => {
     };
   }, []);
 
+  const scrollViewRef = useRef(null);
+
+  const scrollToBottom = () => {
+    scrollViewRef.current.scrollToEnd({ animated: true });
+  };
   const handleSend = () => {
     if (msg.trim() !== "") {
       sendChatFunction();
+      scrollToBottom();
     }
   };
 
   const navigate = useNavigation();
 
-  const uniqueDays = {};
+  let lastTimestamp = null;
+
   const dayElements = [];
 
   data2?.msgs.forEach((msg) => {
-    const day = moment(msg.createdAt).format("MMM Do YY");
+    const currentTimestamp = moment(msg.createdAt);
 
-    if (!uniqueDays[day]) {
-      uniqueDays[day] = true;
+    // Check if the message's timestamp is within the same minute as the last message
+    const sameMinute =
+      lastTimestamp && currentTimestamp.diff(lastTimestamp, "minutes") === 0;
+
+    if (!sameMinute) {
+      // If not the same minute, add a new timestamp element
+      const day = currentTimestamp.format("MMM Do YY");
       dayElements.push(
         <Text
-          key={`day-${day}`}
+          key={`day-${day}-${currentTimestamp}`}
           style={{
             color: "grey",
             textAlign: "center",
@@ -117,11 +132,13 @@ const Chat1 = ({ route, profileData, navigation }) => {
         time={msg.createdAt}
       />
     );
-  });
 
+    // Update the last timestamp
+    lastTimestamp = currentTimestamp;
+  });
   return (
     <View style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
-      <ImageBackground source={Home3Image} style={{ flex: 1 }}>
+      <ImageBackground source={HomeB} style={{ flex: 1 }}>
         <SafeAreaView
           style={{
             flex: 1,
@@ -141,7 +158,11 @@ const Chat1 = ({ route, profileData, navigation }) => {
                 name="left"
                 size={24}
                 color="white"
+
+                style={{ width: 35 }}
+
                 onPress={() => navigation.goBack()}
+
               />
               <View
                 style={{
@@ -173,16 +194,24 @@ const Chat1 = ({ route, profileData, navigation }) => {
                 padding: 0,
               }}
             ></View>
-            <ScrollView style={{ flex: 1, padding: 10, color: "white" }}>
+            <ScrollView
+              ref={scrollViewRef}
+              style={{
+                flex: 1,
+                padding: 10,
+                color: "white",
+              }}
+              onContentSizeChange={scrollToBottom}
+            >
               {dayElements}
             </ScrollView>
-            <View
+            {/* <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 padding: 10,
               }}
-            ></View>
+            ></View> */}
             {/* Footer with background color */}
           </View>
         </SafeAreaView>
@@ -208,7 +237,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
           <MaterialCommunityIcons
             name="send-circle"
             size={50}
-            color="#FF2500"
+            color="#7581E7"
             onPress={handleSend}
           />
         </View>

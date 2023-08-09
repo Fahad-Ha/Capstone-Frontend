@@ -10,20 +10,47 @@ const MsgBubble = ({ msg, me, time }) => {
           styles.bubble,
           {
             alignSelf: me ? "flex-end" : "flex-start",
-            backgroundColor: me ? "#848484" : "#323435",
+            backgroundColor: me ? "#758DE2" : "#323435",
+            elevation: Platform.OS === "android" ? 4 : 0,
+            shadowColor: "#758DE2",
+
+            shadowOffset: {
+              width: 0,
+              height: 4,
+            },
+            shadowOpacity: 0.5,
+            shadowRadius: 50,
+            shadowOpacity: 0.25,
+            marginLeft: me ? 20 : 0,
+            marginRight: me ? 0 : 20,
           },
         ]}
       >
         <Text style={{ color: me ? "#FFF" : "#FFF" }}>{msg}</Text>
+        <Text
+          style={{
+            fontSize: 10,
+            paddingLeft: "auto",
+
+            alignSelf: me ? "flex-end" : "flex-start",
+            color: me
+              ? "#rgba(255, 255, 255, 0.5);"
+              : "#rgba(255, 255, 255, 0.5);",
+          }}
+        >
+          {moment(time).format("LT")}
+        </Text>
       </View>
-      <Text
+      {/* <Text
         style={{
           alignSelf: me ? "flex-end" : "flex-start",
-          color: me ? "#FF2500" : "#303030",
+          color: me
+            ? "#rgba(255, 255, 255, 0.5);"
+            : "#rgba(255, 255, 255, 0.5);",
         }}
       >
         {moment(time).format("LT")}
-      </Text>
+      </Text> */}
     </>
   );
 };

@@ -13,6 +13,7 @@ import { getAllUsers } from "../apis/auth";
 import { removeToken } from "../apis/auth/storage";
 import UserContext from "../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
+import ROUTES from "../Navigation";
 
 const Users = () => {
   const { data } = useQuery(["users"], getAllUsers);
@@ -32,7 +33,7 @@ const Users = () => {
               style={styles.userCard}
               key={user._id}
               onPress={() => {
-                navigation.navigate("Chat", {
+                navigation.navigate(ROUTES.APPROUTES.DIRECT_MSGLIST, {
                   user: user,
                 });
               }}
@@ -95,10 +96,6 @@ const styles = StyleSheet.create({
 
     color: "#fff",
     fontFamily: "System", // Replace with the actual custom font
-  },
-  noiseEffect: {
-    backgroundColor: "yellow", // Change color for noise effect
-    opacity: 40,
   },
 });
 
