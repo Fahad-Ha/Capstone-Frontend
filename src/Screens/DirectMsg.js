@@ -19,6 +19,7 @@ import { useTheme } from "@react-navigation/native";
 import { getMyChats } from "../apis/chat";
 import UserContext from "../context/UserContext";
 import { AntDesign } from "@expo/vector-icons";
+import { getAllUsers } from "../apis/auth";
 
 const DM = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -27,6 +28,7 @@ const DM = ({ navigation }) => {
     queryFn: () => getMyChats(),
   });
   const theme = useTheme(); // Get the currently active theme
+  const { data: usersData } = useQuery(["users"], getAllUsers);
 
   if (isLoading) return <ActivityIndicator color="black"></ActivityIndicator>;
   return (
@@ -40,7 +42,9 @@ const DM = ({ navigation }) => {
               onPress={() => {
                 navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
                   chatId: chat._id,
-                  user: user,
+                  user: chat.members.find(
+                    (member) => member.username !== user.username
+                  ),
                 });
               }}
               style={styles.userCard}
