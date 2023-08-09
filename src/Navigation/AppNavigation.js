@@ -22,20 +22,20 @@ const AppNavigation = () => {
         }}
       />
       <Stack.Screen
-
         component={DirectMsg}
         name={ROUTES.APPROUTES.DIRECT_MSGLIST}
-
         options={{
           headerShown: false,
         }}
       />
-
       <Stack.Screen
-
+        component={Chat1}
+        name={ROUTES.APPROUTES.DIRECT_MSG}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         component={EventDetails}
         name={ROUTES.APPROUTES.EVENT_DETAILS}
-
         options={{
           headerShown: false,
         }}
