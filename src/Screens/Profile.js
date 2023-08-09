@@ -52,7 +52,7 @@ const Profile = () => {
           className="absolute  top-10 left-1 rounded-full shadow p-2"
         >
           <View className="flex-row items-center ">
-            {/* <Feather name="arrow-left" size={saaa32} color={"white"} /> */}
+            <Feather name="arrow-left" size={32} color={"white"} />
             <Text className="text-white text-xl mx-2 ">Profile</Text>
           </View>
         </TouchableOpacity>
