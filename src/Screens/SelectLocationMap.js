@@ -21,7 +21,6 @@ const SelectLocationMap = ({ navigation }) => {
           location: selectedLocation,
         },
       });
-      console.log(selectedLocation);
     }
   };
 

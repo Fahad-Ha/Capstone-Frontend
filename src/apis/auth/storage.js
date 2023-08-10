@@ -12,16 +12,7 @@ const saveToken = async (token) => {
 const getToken = async () => {
   try {
     const token = await SecureStore.getItemAsync("token");
-    if (token) {
-      const decoded = jwt_decode(token);
-      const cureentTime = Date.now() / 1000;
-      if (decoded.exp < cureentTime) {
-        SecureStore.removeItemAsync("token");
-        return false;
-      }
-      return true;
-    }
-    return false;
+    return token;
   } catch (error) {
     console.log("Error while trying to get the token", error);
   }

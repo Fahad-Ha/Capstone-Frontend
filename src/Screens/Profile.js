@@ -31,7 +31,6 @@ const Profile = () => {
       </View>
     );
   }
-  console.log(profile);
   return (
     <ScrollView
       className="bg-gray-600"

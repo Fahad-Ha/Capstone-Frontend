@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 
 const Create = ({ data, setData, setErrorText }) => {
   const handleTitleFocus = () => {
@@ -18,7 +19,6 @@ const Create = ({ data, setData, setErrorText }) => {
     const currentDate = selected || selectedDate;
     setSelectedDate(currentDate);
     setData({ ...data, date: currentDate });
-    console.log(currentDate);
   };
 
   return (
@@ -42,17 +42,10 @@ const Create = ({ data, setData, setErrorText }) => {
         onFocus={handleTitleFocus}
       />
       <Text style={styles.label}>Date</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Date"
-        placeholderTextColor="#A9A9A9"
-        value={selectedDate.toLocaleString()}
-        onFocus={() => setShowDatePicker(true)}
-      />
       {showDatePicker && (
         <DateTimePicker
           value={selectedDate}
-          mode="datetime"
+          mode="date"
           is24Hour={true}
           display="default"
           onChange={handleDateChange}
