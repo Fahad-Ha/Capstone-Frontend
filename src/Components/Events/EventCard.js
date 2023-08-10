@@ -5,7 +5,6 @@ import ROUTES from "../../Navigation/index";
 
 const EventCard = ({ event = {} }) => {
   const navigation = useNavigation();
-  console.log(event?.organizer);
   return (
     <View style={styles.cardContainer}>
       <TouchableOpacity

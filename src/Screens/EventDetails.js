@@ -18,16 +18,16 @@ import UserContext from "../context/UserContext";
 import { deleteEvent, getEventById } from "../apis/event";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const formatDate = (date) => {
-  const options = {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  };
-  return new Intl.DateTimeFormat("en-US", options).format(date);
-};
+// const formatDate = (date) => {
+//   const options = {
+//     weekday: "long",
+//     month: "long",
+//     day: "numeric",
+//     hour: "numeric",
+//     minute: "numeric",
+//   };
+//   return new Intl.DateTimeFormat("en-US", options).format(date);
+// };
 
 const EventDetails = ({ navigation, route }) => {
   const [showBox, setShowBox] = useState(true);
@@ -145,7 +145,7 @@ const EventDetails = ({ navigation, route }) => {
           {/* <Text className="pb-2 text-lg">{event.tags}</Text> */}
           {/* <Text className="pb-2 text-lg">{event.attendees}</Text> */}
           <View className="flex-row justify-end mt-10">
-            {event?.organizer._id === user?._id && (
+            {event?.organizer?._id === user?._id && (
               <TouchableOpacity className="mx-4" onPress={handleDelete}>
                 <View className="flex-row items-center mb-10">
                   {showBox}

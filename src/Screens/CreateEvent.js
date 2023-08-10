@@ -33,25 +33,19 @@ const CreateEvent = ({ navigation, route }) => {
         location?.location?.longitude,
         location?.location?.latitude
       ),
-
     enabled: !!location,
   });
-  const { mutate: createEventFun } = useMutation({
-    mutationFn: () => {
-      const updatedData = { ...data };
-      if (data.date instanceof Date) {
-        updatedData.date = data.date.toISOString();
-      }
+
+  const { mutate: createEventFun, isLoading: isCreatingEvent } = useMutation({
+    mutationFn: async () => {
       return createEvent({
         ...data,
         location: {
           latitude: location?.location?.latitude,
           longitude: location?.location?.longitude,
         },
-        date: data.date.toISOString(),
       });
     },
-
     onSuccess: () => {
       setData({});
       setImage(null);
@@ -60,6 +54,7 @@ const CreateEvent = ({ navigation, route }) => {
       navigation.navigate(ROUTES.APPROUTES.EXPLORE);
     },
   });
+
   useEffect(() => {
     if (route.params?.location?.location) {
       setLocation(route.params.location);
@@ -67,89 +62,123 @@ const CreateEvent = ({ navigation, route }) => {
   }, [route.params?.location]);
 
   const handleSelectLocation = () => {
-    navigation.navigate("SelectLocationMap"); // Navigate to Map screen
+    navigation.navigate("SelectLocationMap");
   };
+
   const handleSubmit = () => {
     createEventFun();
   };
-
   return (
-    <SafeAreaView className="flex-1 bg-red-200 justify-center items-center">
-      <View>
-        <ScrollView className="bg-red-500 ">
-          <View style={styles.container} className="flex-1 p-2 bg-green-300">
-            <Text style={styles.label}>Set Your Event Location</Text>
-            <View style={styles.locationContainer}>
-              <TouchableOpacity onPress={handleSelectLocation}>
-                {location ? (
-                  <>
-                    <Text style={styles.locationText}>
-                      Country: {locationDetails?.countryName}
-                    </Text>
-                    <Text style={styles.locationText}>
-                      City: {locationDetails?.city}
-                    </Text>
-                  </>
-                ) : (
-                  <Text style={styles.selectLocation}>Select Location</Text>
-                )}
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.label} className="bg-red-200">
-              Choose an Image to Represent Your Event
-            </Text>
-            <ImagePickerC
-              image={image}
-              setImage={setImage}
-              height={100}
-              width={100}
-              className="max-h-52 rounded-xl overflow-hidden"
-              style={styles.image}
-              onImagePicked={(imageUri) =>
-                setData({ ...data, image: imageUri })
-              }
-            >
-              <View
-                className="my-2 bg-gray-300 h-full"
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ color: "grey" }}>
-                  Tap to select a event image
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <Text style={styles.label}>Set Your Event Location</Text>
+        <View style={styles.locationContainer}>
+          <TouchableOpacity onPress={handleSelectLocation}>
+            {location ? (
+              <>
+                <Text style={styles.locationText}>
+                  Country: {locationDetails?.countryName}
                 </Text>
-              </View>
-            </ImagePickerC>
-
-            <Create data={data} setData={setData} setErrorText={setErrorText} />
-            {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
-            <View>
-              <TouchableOpacity
-                className="bg-red-500 rounded"
-                style={styles.buttonContainer}
-                onPress={handleSubmit}
-              >
-                <Text
-                  className="text-white text-lg text-center py-4"
-                  style={styles.buttonText}
-                >
-                  Create event
+                <Text style={styles.locationText}>
+                  City: {locationDetails?.city}
                 </Text>
-              </TouchableOpacity>
-            </View>
+              </>
+            ) : (
+              <Text style={styles.selectLocation}>Select Location</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.label}>
+          Choose an Image to Represent Your Event
+        </Text>
+        <ImagePickerC
+          image={image}
+          setImage={setImage}
+          height={100}
+          width={100}
+          style={styles.image}
+          onImagePicked={(imageUri) => setData({ ...data, image: imageUri })}
+        >
+          <View style={styles.imagePlaceholder}>
+            <Text style={{ color: "grey" }}>Tap to select an event image</Text>
           </View>
-        </ScrollView>
-      </View>
+        </ImagePickerC>
+
+        <Create data={data} setData={setData} setErrorText={setErrorText} />
+        {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
+
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={handleSubmit}
+          disabled={isCreatingEvent}
+        >
+          <Text style={styles.buttonText}>
+            {isCreatingEvent ? "Creating Event..." : "Create Event"}
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default CreateEvent;
-
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  scrollViewContainer: {
+    padding: 16,
+  },
   locationText: {
     fontSize: 16,
     color: "black",
   },
+  image: {
+    maxWidth: "100%",
+    height: 100,
+    borderRadius: 8,
+    overflow: "hidden",
+    marginBottom: 16,
+  },
+  imagePlaceholder: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ddd",
+    height: "100%",
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginVertical: 8,
+  },
+  locationContainer: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    padding: 8,
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  selectLocation: {
+    fontSize: 16,
+    color: "blue",
+  },
+  buttonContainer: {
+    backgroundColor: "blue",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 16,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+  },
+  error: {
+    color: "red",
+    fontSize: 16,
+    marginTop: 8,
+  },
 });
+
+export default CreateEvent;

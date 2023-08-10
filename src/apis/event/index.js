@@ -13,13 +13,8 @@ const getEventById = async (id) => {
 };
 
 const createEvent = async (data) => {
-  const token = await SecureStore.getItemAsync("token");
-  const instance = axios.create({
-    baseURL: BASE_URL + "/api",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  data.date = `${data.date}`;
+
   const formData = new FormData();
 
   for (const key in data) {
@@ -35,12 +30,6 @@ const createEvent = async (data) => {
         uri: data.image,
       });
     }
-  }
-  if (data.date instanceof Date) {
-    formData.append("date", data.date);
-  } else {
-    // Handle the case when data.date is not a valid Date object
-    console.error("Invalid date format:", data.date);
   }
   const res = await instance.post("/events/createEvent", formData, {
     headers: {
