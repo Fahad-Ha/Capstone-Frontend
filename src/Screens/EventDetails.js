@@ -17,7 +17,9 @@ import { BASE_URL } from "../apis";
 import UserContext from "../context/UserContext";
 import { deleteEvent, getEventById } from "../apis/event";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import moment from "moment";
 import { BlurView } from "expo-blur";
+
 
 const EventDetails = ({ navigation, route }) => {
   const [showBox, setShowBox] = useState(true);
@@ -30,15 +32,9 @@ const EventDetails = ({ navigation, route }) => {
     isError,
   } = useQuery(["event", _id], () => getEventById(_id));
 
-  const formatDate = (date) => {
-    const options = {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-    };
-    return new Intl.DateTimeFormat("en-US", options).format(date);
-  };
-  const formattedDate = event?.date ? formatDate(new Date(event.date)) : "";
+  const eventDateParts = event?.date ? event.date.split("T") : [];
+  const eventDate = eventDateParts[0];
+
 
   const showConfirmDialog = () => {
     return Alert.alert(
@@ -158,8 +154,19 @@ const EventDetails = ({ navigation, route }) => {
             {event.description}
           </Text>
           <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
-            <Text className="pb-2  text-lg font-bold p-2 ">
-              {formattedDate}
+            <Text className="pb-2 text-lg text-center mx-2 justify-center">
+              {eventDate}
+            </Text>
+          </View>
+          <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
+            <Text className="pb-2 text-lg text-center mx-2 justify-center">
+              {moment(event.from).format("h:mm A")}
+            </Text>
+          </View>
+          <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
+            <Text className="pb-2 text-lg text-center mx-2 justify-center">
+              {moment(event.to).format("h:mm A")}
+
             </Text>
           </View>
 

@@ -12,13 +12,39 @@ const Create = ({ data, setData, setErrorText }) => {
     setErrorText("");
   };
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedFromTime, setSelectedFromTime] = useState(new Date());
+  const [selectedToTime, setSelectedToTime] = useState(new Date());
 
   const handleDateChange = (event, selected) => {
     const currentDate = selected || selectedDate;
     setSelectedDate(currentDate);
     setData({ ...data, date: currentDate });
+  };
+
+  const handleFromTimeChange = (event, selected) => {
+    const selectedTime = selected || selectedFromTime;
+    setSelectedFromTime(selectedTime);
+    const formattedTime = moment(selectedTime).format("HH:mm:ss");
+    const isoFormattedTime =
+      moment(selectedDate).format("YYYY-MM-DD") + "T" + formattedTime;
+    setData({
+      ...data,
+      from: isoFormattedTime,
+    });
+  };
+
+  const handleToTimeChange = (event, selected) => {
+    const selectedTime = selected || selectedToTime;
+    setSelectedToTime(selectedTime);
+    const formattedTime = moment(selectedTime).format("HH:mm:ss");
+    const isoFormattedTime =
+      moment(selectedDate).format("YYYY-MM-DD") + "T" + formattedTime;
+    setData({
+      ...data,
+      to: isoFormattedTime,
+    });
   };
 
   return (
@@ -51,6 +77,26 @@ const Create = ({ data, setData, setErrorText }) => {
           onChange={handleDateChange}
         />
       )}
+      <Text style={styles.label}>From Time</Text>
+      <DateTimePicker
+        value={selectedFromTime}
+        mode="time"
+        is24Hour={false} // Set to 12-hour format
+        display="default"
+        onChange={handleFromTimeChange}
+      />
+      <Text>{moment(selectedFromTime).format("h:mm A")}</Text>
+
+      <Text style={styles.label}>To Time</Text>
+      <DateTimePicker
+        value={selectedToTime}
+        mode="time"
+        is24Hour={false} // Set to 12-hour format
+        display="default"
+        onChange={handleToTimeChange}
+      />
+      <Text>{moment(selectedToTime).format("h:mm A")}</Text>
+
       <Text style={styles.label}>Description</Text>
       <TextInput
         style={[styles.input, styles.textArea]}
