@@ -17,6 +17,7 @@ import { BASE_URL } from "../apis";
 import UserContext from "../context/UserContext";
 import { deleteEvent, getEventById } from "../apis/event";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import moment from "moment";
 
 // const formatDate = (date) => {
 //   const options = {
@@ -40,6 +41,9 @@ const EventDetails = ({ navigation, route }) => {
     isLoading,
     isError,
   } = useQuery(["event", _id], () => getEventById(_id));
+
+  const eventDateParts = event?.date ? event.date.split("T") : [];
+  const eventDate = eventDateParts[0];
 
   const showConfirmDialog = () => {
     return Alert.alert(
@@ -136,9 +140,19 @@ const EventDetails = ({ navigation, route }) => {
             {event.description}
           </Text>
           <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
-            {/* <Text className="pb-2  text-lg font-bold p-2 ">
-              {formattedDate}
-            </Text> */}
+            <Text className="pb-2 text-lg text-center mx-2 justify-center">
+              {eventDate}
+            </Text>
+          </View>
+          <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
+            <Text className="pb-2 text-lg text-center mx-2 justify-center">
+              {moment(event.from).format("h:mm A")}
+            </Text>
+          </View>
+          <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
+            <Text className="pb-2 text-lg text-center mx-2 justify-center">
+              {moment(event.to).format("h:mm A")}
+            </Text>
           </View>
 
           {/* <Text className="pb-2 text-lg">Duration {event.duration} hours</Text> */}

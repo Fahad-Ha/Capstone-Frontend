@@ -1,7 +1,4 @@
 import instance from "..";
-import axios from "axios";
-import * as SecureStore from "expo-secure-store";
-import { BASE_URL } from "..";
 
 const getEvents = async () => {
   const res = await instance.get("/events/");
@@ -14,6 +11,8 @@ const getEventById = async (id) => {
 
 const createEvent = async (data) => {
   data.date = `${data.date}`;
+  data.from = `${data.from}`;
+  data.to = `${data.to}`;
 
   const formData = new FormData();
 
