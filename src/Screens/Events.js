@@ -1,13 +1,14 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import EventList from "../Components/Events/EventList";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFocusEffect } from "@react-navigation/native";
 import DMButton from "../Components/DMButton";
+import UserContext from "../context/UserContext";
 
 const Explore = () => {
   const queryClient = useQueryClient();
-
+  const { user, setUser } = useContext(UserContext);
   useFocusEffect(
     useCallback(() => {
       queryClient.invalidateQueries(["events"]);
@@ -19,7 +20,7 @@ const Explore = () => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Explore The Beauty Of The World With Us!</Text>
       <View className="flex right-0 items-end py-2 px-4 absolute">
-        <DMButton />
+        {user ? <DMButton /> : null}
       </View>
       <EventList />
     </SafeAreaView>

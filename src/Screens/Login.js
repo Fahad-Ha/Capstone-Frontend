@@ -1,4 +1,11 @@
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useContext, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../apis/auth";
@@ -6,6 +13,7 @@ import UserContext from "../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
 import { saveToken } from "../apis/auth/storage";
 import jwt_decode from "jwt-decode";
+import ROUTES from "../Navigation";
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -17,12 +25,17 @@ const Login = () => {
       const user = jwt_decode(data.token);
       saveToken(data.token);
       setUser(user);
-      //   navigation.navigate("Users");
+      navigation.navigate(ROUTES.APPROUTES.LOCATION_NAVIGATION);
     },
   });
   const handleSubmit = () => {
     loginFunc();
   };
+
+  const handleSignup = () => {
+    navigation.navigate(ROUTES.AUTHROUTES.REGISTER);
+  };
+
   return (
     <View className="flex-1 justify-center item-center mx-6">
       <TextInput
@@ -36,6 +49,11 @@ const Login = () => {
         onChangeText={(v) => setUserInfo({ ...userInfo, password: v })}
       />
       <Button title="Login" onPress={handleSubmit} />
+      <View>
+        <TouchableOpacity onPress={handleSignup}>
+          <Text>You arent registered? Please Signup here</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

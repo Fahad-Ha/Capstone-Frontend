@@ -16,7 +16,7 @@ const AppNavigation = () => {
     <Stack.Navigator>
       <Stack.Screen
         component={TabNavigation}
-        name="Main"
+        name={ROUTES.APPROUTES.MAIN}
         options={{
           headerShown: false,
         }}

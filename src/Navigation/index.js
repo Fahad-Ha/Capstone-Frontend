@@ -11,6 +11,7 @@ const ROUTES = {
     SETTINGS: "Settings",
     EVENT_DETAILS: "Event-Details",
     MAP: "MAP",
+    MAIN: "Main",
   },
   AUTHROUTES: {
     LOGIN: "Login",

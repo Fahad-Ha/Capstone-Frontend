@@ -28,6 +28,7 @@ export default function Settings() {
         onPress={() => {
           setUser(false);
           removeToken();
+          navigation.navigate(ROUTES.APPROUTES.LOCATION_NAVIGATION);
         }}
       >
         <View className="flex-row bg-red-400 rounded-xl p-5 w-44 space-x-6 items-center">

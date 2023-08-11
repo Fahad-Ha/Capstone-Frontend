@@ -5,6 +5,8 @@ const login = async (userInfo) => {
   return res.data;
 };
 
+//in the register tags(from mulitselect) should be an array of strings and send to the backend
+
 const register = async (userInfo) => {
   const formData = new FormData();
 

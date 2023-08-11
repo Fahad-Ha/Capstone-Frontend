@@ -12,6 +12,8 @@ const getEventById = async (id) => {
   return res.data;
 };
 
+//get suggested events
+
 const createEvent = async (data) => {
   const token = await SecureStore.getItemAsync("token");
   const instance = axios.create({
