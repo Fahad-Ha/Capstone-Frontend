@@ -15,7 +15,13 @@ const ROUTES = {
   },
   AUTHROUTES: {
     LOGIN: "Login",
-    REGISTER: "Register",
+    REGISTER: {
+      USERNAME_EMAIL: "username&email",
+      PASSWORD: "password",
+      IMAGE: "image",
+      BIRTHDATE: "birthdate",
+      INTERESTS: "TagsAsInterests",
+    },
   },
 };
 

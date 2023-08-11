@@ -41,4 +41,27 @@ const getProfileData = async () => {
   const res = await instance.get("/auth/my-profile");
   return res.data;
 };
-export { register, login, getAllUsers, getProfileData };
+
+const checkUsername = async (username) => {
+  const res = await instance.post("/auth/checkusername", {
+    username: `${username}`,
+  });
+  return res.data;
+};
+
+const checkEmail = async (email) => {
+  const res = await instance.post("/auth/checkusername", {
+    email: `${email}`,
+  });
+
+  //res should be true or false
+  return res.data;
+};
+export {
+  register,
+  login,
+  getAllUsers,
+  getProfileData,
+  checkUsername,
+  checkEmail,
+};

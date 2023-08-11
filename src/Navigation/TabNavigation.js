@@ -79,7 +79,7 @@ export default function TabNavigation() {
               style={{ height: 54 }}
             />
           ),
-          headerShown: false,
+          headerShown: user ? true : false,
         }}
       />
       <Tab.Screen
@@ -94,14 +94,14 @@ export default function TabNavigation() {
               style={{ height: 44 }}
             />
           ),
-          headerShown: false,
+          headerShown: user ? true : false,
         }}
       />
       <Tab.Screen
         name={ROUTES.APPROUTES.PROFILE}
         component={user ? Profile : AuthNavigation}
         options={{
-          headerShown: false,
+          headerShown: user ? true : false,
           tabBarIcon: ({ color, size }) => (
             <FontAwesome
               name="user-circle-o"

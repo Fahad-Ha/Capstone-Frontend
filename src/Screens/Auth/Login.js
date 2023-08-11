@@ -8,17 +8,17 @@ import {
 } from "react-native";
 import React, { useContext, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { login } from "../apis/auth";
-import UserContext from "../context/UserContext";
+import { login } from "../../apis/auth";
+import UserContext from "../../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
-import { saveToken } from "../apis/auth/storage";
+import { saveToken } from "../../apis/auth/storage";
 import jwt_decode from "jwt-decode";
-import ROUTES from "../Navigation";
+import ROUTES from "../../Navigation";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState({});
   const { setUser } = useContext(UserContext);
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const { mutate: loginFunc } = useMutation({
     mutationFn: () => login(userInfo),
     onSuccess: (data) => {
