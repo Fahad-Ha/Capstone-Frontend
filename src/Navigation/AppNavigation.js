@@ -9,6 +9,7 @@ import EventDetails from "../Screens/EventDetails";
 import TabNavigation from "./TabNavigation";
 import { Feather } from "@expo/vector-icons";
 import Settings from "../Screens/Settings";
+import { BlurView } from "expo-blur";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
