@@ -12,6 +12,8 @@ import React from "react";
 import Rectangle from "../../assets/Rectangle.png";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { BlurView } from "expo-blur";
+
 import ROUTES from "../Navigation";
 
 const Profile = () => {
@@ -64,40 +66,60 @@ const Profile = () => {
           </View>
         </TouchableOpacity>
       </View>
+      {/* Background for details  */}
       <View
-        style={{ borderTopLeftRadius: 40, borderTopRightRadius: 40 }}
-        className="bg-gray-300 -mt-12 pt-6 "
+        style={{
+          borderWidth: 1,
+          elevation: 8,
+          transform: [{ perspective: 1000 }, { translateY: -30 }],
+        }}
       >
-        <View className="pb-64 items-center">
-          <Image
-            width={100}
-            height={100}
-            source={{ uri: `${profile?.image}` }}
-          />
+        <BlurView
+          intensity={30}
+          tint="dark"
+          style={{
+            borderTopLeftRadius: 40,
+            borderTopRightRadius: 40,
+            backgroundColor: "rgba(0, 0, 0)",
+            borderColor: "rgba(255, 255, 255, 0.3)",
+            borderWidth: 1.5,
+          }}
+          className="-mt-12 pt-6  overflow-hidden"
+        >
+          <View className="pb-64 items-center">
+            <Image
+              width={100}
+              height={100}
+              source={{ uri: `${profile?.image}` }}
+            />
 
-          <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
-            <Text className="pb-2  text-lg font-bold p-2 ">
-              Interests: {profile?.interests}
-            </Text>
-          </View>
-
-          <Text className="pb-2 text-lg font-bold">
-            Created Events: {profile?.createdEvents}
-          </Text>
-          <View className="bg-slate-100 rounded-lg shadow-2xl shadow-gray-600 mb-3 items-center mx-2 w-72">
-            <TouchableOpacity>
-              <Text className="text-lg p-8 font-semibold">
-                Workshop for design
+            <View
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
+              className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-3 "
+            >
+              <Text className="pb-2 text-white  text-lg font-bold p-2 ">
+                Interests: {profile?.interests}
               </Text>
-            </TouchableOpacity>
+            </View>
+
+            <Text className="pb-2 text-white text-lg font-bold">
+              Created Events: {profile?.createdEvents}
+            </Text>
+            <View className="bg-slate-100 rounded-lg shadow-2xl shadow-gray-600 mb-3 items-center mx-2 w-72">
+              <TouchableOpacity>
+                <Text className="text-lg p-8 font-semibold">
+                  Workshop for design
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View className="bg-slate-100 rounded-lg shadow-2xl shadow-gray-600 mb-3 items-center mx-2 w-72">
+              <TouchableOpacity>
+                <Text className="text-lg p-8 font-semibold">Music Event</Text>
+              </TouchableOpacity>
+            </View>
+            {/* <Image source={{ uri: image }} style={{ height: 100, width: 100 }} /> */}
           </View>
-          <View className="bg-slate-100 rounded-lg shadow-2xl shadow-gray-600 mb-3 items-center mx-2 w-72">
-            <TouchableOpacity>
-              <Text className="text-lg p-8 font-semibold">Music Event</Text>
-            </TouchableOpacity>
-          </View>
-          {/* <Image source={{ uri: image }} style={{ height: 100, width: 100 }} /> */}
-        </View>
+        </BlurView>
       </View>
     </ScrollView>
   );
