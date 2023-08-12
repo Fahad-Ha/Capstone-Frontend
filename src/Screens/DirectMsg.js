@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  SafeAreaView,
 } from "react-native";
 import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -32,74 +33,98 @@ const DM = ({ navigation, time }) => {
   const { data: usersData } = useQuery(["users"], getAllUsers);
 
   if (isLoading) return <ActivityIndicator color="black"></ActivityIndicator>;
+
+  // Sort chats based on the last message date
+  const sortedChats = data?.slice().sort((chatA, chatB) => {
+    const lastMessageA = chatA.msgs[chatA.msgs.length - 1];
+    const lastMessageB = chatB.msgs[chatB.msgs.length - 1];
+
+    if (lastMessageA && lastMessageB) {
+      return moment(lastMessageB.createdAt).diff(
+        moment(lastMessageA.createdAt)
+      );
+    } else if (lastMessageA) {
+      return -1; // Put chatA first since chatB has no last message
+    } else if (lastMessageB) {
+      return 1; // Put chatB first since chatA has no last message
+    }
+
+    return 0; // Both chats have no last message
+  });
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.header}>Direct Messages</Text>
-      <View style={styles.usersContainer}>
-        {data?.map((chat) => {
-          console.log(
-            `${BASE_URL}/${
-              chat?.members?.find((member) => member._id !== user._id).image
-            }`
-          );
-          return (
-            <Pressable
-              key={chat._id}
-              onPress={() => {
-                navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
-                  chatId: chat._id,
-                  user: chat.members.find(
-                    (member) => member.username !== user.username
-                  ),
-                });
-              }}
-              style={styles.userCard}
-            >
-              <View
-                style={{
-                  marginRight: "auto",
-                  flexDirection: "row",
-                  gap: 15,
-                  marginLeft: 20,
-                  width: "85%",
+    <SafeAreaView
+      style={{ flex: 1, paddingBottom: 88, backgroundColor: "#1E1E1E" }}
+    >
+      <ScrollView style={styles.container}>
+        <Text style={styles.header}>Direct Messages</Text>
+        <View style={styles.usersContainer}>
+          {sortedChats?.map((chat) => {
+            console.log(
+              `${BASE_URL}/${
+                chat?.members?.find((member) => member._id !== user._id).image
+              }`
+            );
+            return (
+              <Pressable
+                key={chat._id}
+                onPress={() => {
+                  navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
+                    chatId: chat._id,
+                    user: chat.members.find(
+                      (member) => member.username !== user.username
+                    ),
+                  });
                 }}
+                style={styles.userCard}
               >
-                <Image
-                  style={styles.profilePicture}
-                  source={{
-                    uri: `${BASE_URL}/${
-                      chat?.members?.find((member) => member._id !== user._id)
-                        .image
-                    }`,
+                <View
+                  style={{
+                    marginRight: "auto",
+                    flexDirection: "row",
+                    gap: 15,
+                    marginLeft: 20,
+                    width: "85%",
                   }}
-                />
-                <View style={{ flexDirection: "column", flex: 1 }}>
-                  <Text style={styles.username}>
-                    {
-                      chat?.members?.find((member) => member._id !== user._id)
-                        .username
-                    }
-                  </Text>
-                  <Text style={{ color: "#797979", marginTop: 10 }}>
-                    {chat.msgs[chat.msgs.length - 1]?.msg}
-                  </Text>
-                  <Text style={{ marginLeft: "auto", color: "#797979" }}>
-                    {moment(time).format("LT")}
-                  </Text>
+                >
+                  <Image
+                    style={styles.profilePicture}
+                    source={{
+                      uri: `${BASE_URL}/${
+                        chat?.members?.find((member) => member._id !== user._id)
+                          .image
+                      }`,
+                    }}
+                  />
+                  <View style={{ flexDirection: "column", flex: 1 }}>
+                    <Text style={styles.username}>
+                      {
+                        chat?.members?.find((member) => member._id !== user._id)
+                          .username
+                      }
+                    </Text>
+                    <Text style={{ color: "#797979", marginTop: 10 }}>
+                      {chat.msgs[chat.msgs.length - 1]?.msg}
+                    </Text>
+                    <Text style={{ marginLeft: "auto", color: "#797979" }}>
+                      {moment(
+                        chat.msgs[chat.msgs.length - 1]?.createdAt
+                      ).format("LT")}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-              <View
-                style={{
-                  marginRight: 20,
-                }}
-              >
-                <AntDesign name="right" size={24} color="#758DE2" />
-              </View>
-            </Pressable>
-          );
-        })}
-      </View>
-    </ScrollView>
+                <View
+                  style={{
+                    marginRight: 20,
+                  }}
+                >
+                  <AntDesign name="right" size={24} color="#758DE2" />
+                </View>
+              </Pressable>
+            );
+          })}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
