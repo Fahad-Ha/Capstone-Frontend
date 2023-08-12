@@ -17,8 +17,10 @@ import { BlurView } from "expo-blur";
 import ProfileB from "../../assets/banner2.png";
 import ROUTES from "../Navigation";
 import useNotifications from "../hooks/useNotifications";
-
+import bgImage from "../../assets/bg4.jpeg";
 import ShareBtn from "../Components/Events/ShareBtn";
+import homeB from "../../assets/HomeBB.png";
+import pfp from "../../assets/pfp.jpeg";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -38,7 +40,7 @@ const Profile = () => {
     );
   }
   return (
-    <ImageBackground source={ProfileB} style={{ flex: 1 }}>
+    <ImageBackground source={homeB} style={{ flex: 1 }}>
       <ScrollView
       // className="bg-gray-600"
       // style={{
@@ -60,8 +62,8 @@ const Profile = () => {
               style={{
                 borderRadius: 100,
 
-                width: 150,
-                height: 150,
+                width: 120,
+                height: 120,
               }}
               source={Rectangle}
             />
@@ -115,58 +117,70 @@ const Profile = () => {
             }}
             className=" overflow-hidden"
           >
-            <ScrollView>
-              <View className="pb-50 items-center">
-                <Image
-                  width={100}
-                  height={100}
-                  source={{ uri: `${profile?.image}` }}
-                />
+            <ImageBackground source={bgImage} style={{ flex: 1 }}>
+              <BlurView
+                intensity={40}
+                tint="default"
+                style={{
+                  backgroundColor: "rgba(0, 0, 0)",
+                  borderColor: "rgba(100, 0, 0, 0.3)",
+                }}
+                className=" overflow-hidden"
+              >
+                <ScrollView>
+                  <View className="pb-50 items-center">
+                    <Image
+                      width={100}
+                      height={100}
+                      source={{ uri: `${profile?.image}` }}
+                    />
 
-                <View
-                  style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
-                  className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-5 "
-                >
-                  <Text className="pb-2 text-white  text-lg font-bold p-2 ">
-                    Interests: {profile?.interests}
-                  </Text>
-                </View>
+                    <View
+                      style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
+                      className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-5 "
+                    >
+                      <Text className="pb-2 text-white  text-lg font-bold p-2 ">
+                        Interests: {profile?.interests}
+                      </Text>
+                    </View>
 
-                <Text className="pb-5 text-white text-lg font-bold">
-                  Created Events: {profile?.createdEvents}
-                </Text>
-
-                <View
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.3)",
-                    borderRadius: 20,
-                    marginBottom: 30,
-                  }}
-                  // className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-3"
-                >
-                  <TouchableOpacity>
-                    <Text className="text-lg p-8 font-semibold text-white">
-                      Workshop for design
+                    <Text className="pb-5 text-white text-lg font-bold">
+                      Created Events: {profile?.createdEvents}
                     </Text>
-                  </TouchableOpacity>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.3)",
-                    borderRadius: 20,
-                    marginBottom: 30,
-                  }}
-                >
-                  <TouchableOpacity>
-                    <Text className="text-lg p-8 font-semibold text-white">
-                      Music Event
-                    </Text>
-                    <ShareBtn />
-                  </TouchableOpacity>
-                </View>
-                {/* <Image source={{ uri: image }} style={{ height: 100, width: 100 }} /> */}
-              </View>
-            </ScrollView>
+
+                    <View
+                      style={{
+                        backgroundColor: "rgba(0, 0, 0, 0.3)",
+                        borderRadius: 20,
+                        marginBottom: 30,
+                      }}
+                      // className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-3"
+                    >
+                      <TouchableOpacity>
+                        <Text className="text-lg p-8 font-semibold text-white">
+                          Workshop for design
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        backgroundColor: "rgba(0, 0, 0, 0.3)",
+                        borderRadius: 20,
+                        marginBottom: 30,
+                      }}
+                    >
+                      <TouchableOpacity>
+                        <Text className="text-lg p-8 font-semibold text-white">
+                          Music Event
+                        </Text>
+                        <ShareBtn />
+                      </TouchableOpacity>
+                    </View>
+                    {/* <Image source={{ uri: image }} style={{ height: 100, width: 100 }} /> */}
+                  </View>
+                </ScrollView>
+              </BlurView>
+            </ImageBackground>
           </BlurView>
         </View>
       </ScrollView>
