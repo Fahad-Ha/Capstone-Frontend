@@ -78,6 +78,10 @@ export default function useNotifications(notificationListener) {
         response.notification.request.content.data.user
       );
 
+      console.log(
+        response.notification.request.content.data.chatId,
+        response.notification.request.content.data.user
+      );
       navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
         chatId: response.notification.request.content.data.chatId,
         user: response.notification.request.content.data.user,
