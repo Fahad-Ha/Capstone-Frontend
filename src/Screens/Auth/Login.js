@@ -33,7 +33,7 @@ const Login = ({ navigation }) => {
   };
 
   const handleSignup = () => {
-    navigation.navigate(ROUTES.AUTHROUTES.REGISTER);
+    navigation.navigate(ROUTES.AUTHROUTES.REGISTER.USERNAME_EMAIL_PASSWORD);
   };
 
   return (

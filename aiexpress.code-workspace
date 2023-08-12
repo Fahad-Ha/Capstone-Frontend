@@ -1,0 +1,20 @@
+{
+  "folders": [
+	{
+		"path": "../../openai-test/aiexpress"
+	},
+	{
+		"path": "../../phase3/backend/projectRealtions/ExpressProjectRelations"
+	},
+	{
+		"path": "../Capstone-Backend"
+	},
+	{
+		"path": "."
+	},
+	{
+		"path": "../../phase3/nativeProject/Travio-Frontend"
+	}
+],
+  "settings": {}
+}

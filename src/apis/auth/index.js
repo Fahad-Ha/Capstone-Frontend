@@ -50,7 +50,7 @@ const checkUsername = async (username) => {
 };
 
 const checkEmail = async (email) => {
-  const res = await instance.post("/auth/checkusername", {
+  const res = await instance.post("/auth/checkemail", {
     email: `${email}`,
   });
 
