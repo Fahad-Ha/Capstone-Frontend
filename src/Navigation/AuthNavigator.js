@@ -5,6 +5,7 @@ import Login from "../Screens/Auth/Login";
 import RegisterUsernameEmailPassword from "../Screens/Auth/RegisterUsernameEmailPassword";
 import ROUTES from ".";
 import RegisterImageBirthdate from "../Screens/Auth/RegisterImageBirthdate";
+import RegisterInterests from "../Screens/Auth/RegisterInterests";
 const Stack = createStackNavigator();
 const AuthNavigation = () => {
   return (
@@ -17,6 +18,10 @@ const AuthNavigation = () => {
       <Stack.Screen
         component={RegisterImageBirthdate}
         name={ROUTES.AUTHROUTES.REGISTER.IMAGE_BIRTHDATE}
+      />
+      <Stack.Screen
+        component={RegisterInterests}
+        name={ROUTES.AUTHROUTES.REGISTER.INTERESTS}
       />
     </Stack.Navigator>
   );

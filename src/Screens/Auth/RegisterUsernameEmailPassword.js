@@ -84,6 +84,7 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
         navigation.navigate(ROUTES.AUTHROUTES.REGISTER.IMAGE_BIRTHDATE, {
           username: username.toLowerCase(),
           email: email.toLowerCase(),
+          password: values.password,
         });
         if (
           usernameError.includes("available") &&
