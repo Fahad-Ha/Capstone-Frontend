@@ -25,7 +25,7 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
   };
   const handleDate = (date) => {
     setStartDate(date);
-    setData({ ...data, birthdate: date });
+    setData({ ...data, dateOfBirth: date });
   };
   return (
     <View style={styles.container}>

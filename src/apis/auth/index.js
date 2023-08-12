@@ -9,10 +9,17 @@ const login = async (userInfo) => {
 
 const register = async (userInfo) => {
   const formData = new FormData();
+  console.log("here from auth", userInfo);
 
   for (const key in userInfo) {
     if (key != "image") {
-      formData.append(key, userInfo[key]);
+      if (key === "interests") {
+        userInfo.interests.forEach((interest) => {
+          formData.append("interests", interest);
+        });
+      } else {
+        formData.append(key, userInfo[key]);
+      }
     } else {
       formData.append("image", {
         name: userInfo.image,
