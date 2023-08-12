@@ -224,7 +224,7 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
               <Text style={{ color: "red" }}>*</Text>
             </Text>
           </View>
-          <TextInput
+          <View
             style={{
               backgroundColor: theme.colors.inputBackground,
               color: theme.colors.text,
@@ -232,31 +232,33 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
               borderWidth: 1,
             }}
             className="w-4/5 h-12 mb-2 py-2 px-4 border-s border-gray-300 rounded-xl  relative"
-            placeholder="Password"
-            secureTextEntry={!showPassword}
-            onBlur={handleBlur("password")}
-            onChangeText={handleChange("password")}
-            value={values.password}
-            placeholderTextColor={theme.colors.inputPlaceholder}
-          />
-
-          <Pressable
-            className="absolute p-2 top-56 mt-2 right-12"
-            onPress={() => {
-              toggleShowPassword();
-            }}
           >
-            <FontAwesome
-              name={showPassword ? "eye" : "eye-slash"}
-              size={24}
-              color={theme.colors.text}
-              style={{ marginTop: 130, opacity: 0.6 }}
+            <TextInput
+              placeholder="Password"
+              secureTextEntry={!showPassword}
+              onBlur={handleBlur("password")}
+              onChangeText={handleChange("password")}
+              value={values.password}
+              placeholderTextColor={theme.colors.inputPlaceholder}
             />
-          </Pressable>
-
+            <Pressable
+              className="absolute p-2  mt-1 right-2"
+              onPress={() => {
+                toggleShowPassword();
+              }}
+            >
+              <FontAwesome
+                name={showPassword ? "eye" : "eye-slash"}
+                size={24}
+                color={theme.colors.text}
+                style={{ opacity: 0.6 }}
+              />
+            </Pressable>
+          </View>
           {errors.password && touched.password && (
             <Text style={{ color: "red" }}>{errors.password}</Text>
           )}
+
           <View className="mt-2">
             <Button title="Next" onPress={handleSubmit} />
           </View>
