@@ -65,29 +65,31 @@ export default function useNotifications(notificationListener) {
       setExpoToken(token);
     }
     getToken();
-    // When the notiction is sent
-    Notifications.addNotificationReceivedListener((notification) => {
-      // console.log(notification);
-      // setNotification(notification);
-    });
+    // When the notification is sent
+    const notificationReceivedListener =
+      Notifications.addNotificationReceivedListener((notification) => {
+        // console.log(notification);
+        // setNotification(notification);
+      });
 
     // When I click on the notification
-    Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log(
-        "this is other userId",
-        response.notification.request.content.data.user
-      );
-
-      console.log(
-        response.notification.request.content.data.chatId,
-        response.notification.request.content.data.user
-      );
-      navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
-        chatId: response.notification.request.content.data.chatId,
-        user: response.notification.request.content.data.user,
+    const notificationResponseListener =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        const { chatId, user } = response.notification.request.content.data;
+        navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
+          chatId,
+          user,
+        });
       });
-    });
-    [];
-  });
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationReceivedListener
+      );
+      Notifications.removeNotificationSubscription(
+        notificationResponseListener
+      );
+    };
+  }, []);
   return expoToken;
 }
