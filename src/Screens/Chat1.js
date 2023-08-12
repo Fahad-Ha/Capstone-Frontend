@@ -96,17 +96,23 @@ const Chat1 = ({ route, profileData, navigation }) => {
 
   const navigate = useNavigation();
 
-  const uniqueDays = {};
+  let lastTimestamp = null;
+
   const dayElements = [];
 
-  data2?.msgs.forEach((msg) => {
-    const day = moment(msg.createdAt).format("MMM Do YY");
+  data2?.msgs.forEach((msg, index) => {
+    const currentTimestamp = moment(msg.createdAt);
 
-    if (!uniqueDays[day]) {
-      uniqueDays[day] = true;
+    // Check if the message's timestamp is within the same minute as the last message
+    const sameMinute =
+      lastTimestamp && currentTimestamp.diff(lastTimestamp, "minutes") === 0;
+
+    if (!sameMinute) {
+      // If not the same minute, add a new timestamp element
+      const day = currentTimestamp.format("MMM Do YY");
       dayElements.push(
         <Text
-          key={`day-${day}`}
+          key={`day-${day}-${currentTimestamp}`}
           style={{
             color: "grey",
             textAlign: "center",
@@ -118,13 +124,21 @@ const Chat1 = ({ route, profileData, navigation }) => {
     }
 
     dayElements.push(
-      <MsgBubble
-        me={msg.from === me._id}
-        msg={msg.msg}
-        key={msg._id}
-        time={msg.createdAt}
-      />
+      <>
+        <MsgBubble
+          me={msg.from === me._id}
+          msg={msg.msg}
+          key={msg._id}
+          time={msg.createdAt}
+        />
+        {index == data2?.msgs.length - 1 && (
+          <View style={{ width: "100%", height: 10 }}></View>
+        )}
+      </>
     );
+
+    // Update the last timestamp
+    lastTimestamp = currentTimestamp;
   });
   return (
     <View style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
