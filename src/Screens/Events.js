@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 
     textAlign: "center",
     marginBottom: 20,
-    marginTop: 40,
+    marginTop: 55,
     color: "white",
   },
   addButtonContainer: {
