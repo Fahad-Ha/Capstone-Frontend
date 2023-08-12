@@ -52,7 +52,7 @@ export default function TabNavigation() {
           overflow: "hidden", // Hide the overflow from the border
         }}
         tint="dark"
-        intensity={30}
+        intensity={60}
       >
         <BottomTabBar {...props} />
       </BlurView>

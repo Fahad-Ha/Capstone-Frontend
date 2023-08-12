@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, Share, View, Button } from "react-native";
 
-const ShareButton = () => {
+const ShareBtn = () => {
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -28,4 +28,4 @@ const ShareButton = () => {
   );
 };
 
-export default ShareButton;
+export default ShareBtn;
