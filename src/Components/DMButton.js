@@ -13,7 +13,7 @@ const DMButton = () => {
       <Pressable
         onPress={() => navigation.navigate(ROUTES.APPROUTES.DIRECT_MSGLIST)}
       >
-        <Feather name="mail" color={"black"} size={36} />
+        <Feather name="mail" color={"white"} size={36} />
       </Pressable>
     </View>
   );

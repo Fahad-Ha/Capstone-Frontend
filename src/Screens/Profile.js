@@ -16,7 +16,8 @@ import { BlurView } from "expo-blur";
 
 import ROUTES from "../Navigation";
 import useNotifications from "../hooks/useNotifications";
-import ShareButton from "../Components/Events/shareButton";
+
+import ShareBtn from "../Components/Events/ShareBtn";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -119,7 +120,7 @@ const Profile = () => {
               <TouchableOpacity>
                 <Text className="text-lg p-8 font-semibold">Music Event</Text>
               </TouchableOpacity>
-              <ShareButton />
+              <ShareBtn />
             </View>
             {/* <Image source={{ uri: image }} style={{ height: 100, width: 100 }} /> */}
           </View>

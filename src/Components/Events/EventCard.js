@@ -31,7 +31,9 @@ const EventCard = ({ event = {} }) => {
             source={{ uri: `${BASE_URL}/${event.image}` }}
             style={styles.image}
           />
-          <Text style={styles.name}>{event.name}</Text>
+          <View style={{ flex: 1, backgroundColor: "red" }}>
+            <Text style={styles.name}>{event.name}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -42,19 +44,21 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: 26,
+    marginBottom: 0,
     marginTop: 40,
     height: 400,
     margin: 20,
   },
   card: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    shadowColor: "#000",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    borderRadius: 75,
+    shadowColor: "white",
+    height: 350,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.45,
     shadowRadius: 3.84,
     elevation: 5,
+    overflow: "hidden",
   },
   image: {
     width: "100%",
@@ -73,9 +77,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     padding: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.7)", // optional, you can set the background of the name to be slightly transparent
+    // backgroundColor: "rgba(255, 255, 255, 0.7)", // optional, you can set the background of the name to be slightly transparent
     position: "absolute",
     bottom: 0,
+    color: "white",
     left: 0,
     right: 0,
     textAlign: "center",
