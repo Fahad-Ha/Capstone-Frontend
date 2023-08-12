@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 
 import ROUTES from "../Navigation";
+import useNotifications from "../hooks/useNotifications";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -105,6 +106,7 @@ const Profile = () => {
             <Text className="pb-2 text-white text-lg font-bold">
               Created Events: {profile?.createdEvents}
             </Text>
+
             <View className="bg-slate-100 rounded-lg shadow-2xl shadow-gray-600 mb-3 items-center mx-2 w-72">
               <TouchableOpacity>
                 <Text className="text-lg p-8 font-semibold">

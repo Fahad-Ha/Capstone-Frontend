@@ -177,7 +177,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
                 <Image
                   className="w-full h-full"
                   style={{
-                    borderRadius: "100%",
+                    borderRadius: 100,
                   }}
                   source={{
                     uri: `${BASE_URL}/${user?.image}`,

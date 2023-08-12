@@ -10,9 +10,12 @@ import TabNavigation from "./TabNavigation";
 import { Feather } from "@expo/vector-icons";
 import Settings from "../Screens/Settings";
 import { BlurView } from "expo-blur";
+import useNotifications from "../hooks/useNotifications";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
+  useNotifications();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
