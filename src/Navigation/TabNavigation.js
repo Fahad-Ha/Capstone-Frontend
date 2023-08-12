@@ -40,13 +40,14 @@ export default function TabNavigation() {
       <BlurView
         style={{
           position: "absolute",
-          backgroundColor: "rgba(0, 0, 0,0.7)",
-          borderColor: "rgba(255, 255, 255, 0.3)",
-          borderWidth: 1.5,
+          backgroundColor: "rgba(0, 0, 0,0.2)",
+          // borderColor: "rgba(255, 255, 255, 0.3)",
+          // borderWidth: 1.5,
+
           bottom: 5,
           left: 0,
           right: 0,
-          height: 80,
+          height: 78,
           borderRadius: 16,
           marginHorizontal: 4,
           overflow: "hidden", // Hide the overflow from the border
