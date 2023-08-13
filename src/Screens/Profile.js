@@ -5,7 +5,6 @@ import {
   StatusBar,
   TouchableOpacity,
   ScrollView,
-  ImageBackground,
 } from "react-native";
 import { useQuery, useQueryClient } from "@tanstack/react-query"; // Import the useQuery hook
 import { getProfileData } from "../apis/auth/index";
@@ -14,7 +13,7 @@ import Rectangle from "../../assets/Rectangle.png";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
-import ProfileB from "../../assets/banner2.png";
+
 import ROUTES from "../Navigation";
 import useNotifications from "../hooks/useNotifications";
 import bgImage from "../../assets/bg4.jpeg";
@@ -46,17 +45,21 @@ const Profile = () => {
       // style={{
       //   flex: 1,
       // }}
+
       >
-        <StatusBar translucent backgroundColor="rgba(255, 255, 255, 0.45)" />
-        <View className="relative h-72">
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
-              marginTop: 67,
-            }}
-          >
+        <BlurView
+          intensity={30}
+          tint="dark"
+          style={{
+            borderTopLeftRadius: 40,
+            borderTopRightRadius: 40,
+            backgroundColor: "rgba(0, 0, 0)",
+            borderColor: "rgba(255, 255, 255, 0.3)",
+            borderWidth: 1.5,
+          }}
+          className="-mt-12 pt-6  overflow-hidden"
+        >
+          <View className="pb-64 items-center">
             <Image
               className="h-full w-full"
               style={{
@@ -66,33 +69,18 @@ const Profile = () => {
                 height: 120,
               }}
               source={Rectangle}
+
             />
-            <Text
-              style={{
-                fontSize: 20,
-                color: "white",
-              }}
+
+            <View
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
+              className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-3 "
             >
-              {" "}
-              @{profile?.username}
-            </Text>
-          </View>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            className="absolute  top-10 left-1 rounded-full shadow p-2"
-          >
-            <View className="flex-row items-center ">
-              <Feather name="arrow-left" size={32} color={"white"} />
-              <Text className="text-white text-xl mx-2 ">Profile</Text>
+              <Text className="pb-2 text-white  text-lg font-bold p-2 ">
+                Interests: {profile?.interests}
+              </Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate(ROUTES.APPROUTES.SETTINGS)}
-            className="absolute  top-10 right-1 rounded-full shadow p-2"
-          >
-            <View className="flex-row items-center">
-              <Feather name="settings" size={32} color={"white"} />
-            </View>
+
           </TouchableOpacity>
         </View>
         {/* Background for details  */}
@@ -185,6 +173,7 @@ const Profile = () => {
         </View>
       </ScrollView>
     </ImageBackground>
+
   );
 };
 
