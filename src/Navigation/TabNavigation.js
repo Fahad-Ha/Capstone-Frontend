@@ -26,6 +26,7 @@ import Profile from "../Screens/Profile";
 import DMButton from "../Components/DMButton";
 import UserContext from "../context/UserContext";
 import { BlurView } from "expo-blur";
+import CreateEventNavigation from "./CreateEventNavigation";
 
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
 // import ExploreStack from "./ExploreStack";
@@ -115,9 +116,10 @@ export default function TabNavigation() {
         }}
       />
       <Tab.Screen
-        name={ROUTES.APPROUTES.ADD_EVENT}
-        component={user ? CreateEvent : AuthNavigation}
+        name="Create event navigation"
+        component={user ? CreateEventNavigation : AuthNavigation}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Feather
               name="plus-square"
@@ -126,7 +128,6 @@ export default function TabNavigation() {
               style={{ height: 44 }}
             />
           ),
-          headerShown: user ? true : false,
         }}
       />
       <Tab.Screen

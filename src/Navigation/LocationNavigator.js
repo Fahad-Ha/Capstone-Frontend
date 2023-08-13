@@ -19,7 +19,7 @@ export default function LocationNavigation() {
       <Stack.Screen
         name={ROUTES.APPROUTES.MAP}
         component={Map}
-        options={{ tabBarVisible: false }}
+        options={{ tabBarVisible: false, headerShown: true }}
       />
       <Stack.Screen
         component={DirectMsg}
@@ -28,7 +28,6 @@ export default function LocationNavigation() {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="SelectLocationMap" component={SelectLocationMap} />
       {/* <Stack.Screen
         name={ROUTES.APPROUTES.OTHERPROFILE}
         component={OtherProfiles}

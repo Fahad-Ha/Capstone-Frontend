@@ -21,15 +21,6 @@ const Map = ({ route, navigation }) => {
           title={title}
         />
       </MapView>
-      <View className="bottom-20 mb-15 p-5 rounded-2xl self-center bg-blue-900">
-      {/* z-10 bottom-20 mb-5 p-5 rounded-2xl self-center bg-blue-900" */}
-        <TouchableOpacity
-          //   style={styles.button}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.buttonText}>Back to event details</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
