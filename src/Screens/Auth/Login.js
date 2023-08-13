@@ -14,18 +14,24 @@ import { useNavigation } from "@react-navigation/native";
 import { saveToken } from "../../apis/auth/storage";
 import jwt_decode from "jwt-decode";
 import ROUTES from "../../Navigation";
+import useNotifications from "../hooks/useNotifications";
 
 const Login = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState({});
   const { setUser } = useContext(UserContext);
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
+
+  // Get the expoToken from the useNotifications hook
+  const expoToken = useNotifications();
+
   const { mutate: loginFunc } = useMutation({
-    mutationFn: () => login(userInfo),
+    mutationFn: () => login({ ...userInfo, expoPushToken: expoToken }),
     onSuccess: (data) => {
       const user = jwt_decode(data.token);
       saveToken(data.token);
       setUser(user);
-      navigation.navigate(ROUTES.APPROUTES.LOCATION_NAVIGATION);
+
+      //   navigation.navigate("Users");
     },
   });
   const handleSubmit = () => {

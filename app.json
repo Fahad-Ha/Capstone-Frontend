@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "18032b8c-65a8-42c4-af6f-b2d370b67173"
+      }
+    },
+    "owner": "fahad.ah"
   }
 }

@@ -1,11 +1,8 @@
 import instance from "..";
-import axios from "axios";
-import * as SecureStore from "expo-secure-store";
-import { BASE_URL } from "..";
 
 const getEvents = async () => {
   const res = await instance.get("/events/");
-  return res.data;
+  return res.data.reverse();
 };
 const getEventById = async (id) => {
   const res = await instance.get(`/events/${id}`);
@@ -15,13 +12,10 @@ const getEventById = async (id) => {
 //get suggested events
 
 const createEvent = async (data) => {
-  const token = await SecureStore.getItemAsync("token");
-  const instance = axios.create({
-    baseURL: BASE_URL + "/api",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  data.date = `${data.date}`;
+  data.from = `${data.from}`;
+  data.to = `${data.to}`;
+
   const formData = new FormData();
 
   for (const key in data) {
@@ -37,12 +31,6 @@ const createEvent = async (data) => {
         uri: data.image,
       });
     }
-  }
-  if (data.date instanceof Date) {
-    formData.append("date", data.date);
-  } else {
-    // Handle the case when data.date is not a valid Date object
-    console.error("Invalid date format:", data.date);
   }
   const res = await instance.post("/events/createEvent", formData, {
     headers: {

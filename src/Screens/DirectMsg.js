@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  SafeAreaView,
 } from "react-native";
 import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -20,8 +21,9 @@ import { getMyChats } from "../apis/chat";
 import UserContext from "../context/UserContext";
 import { AntDesign } from "@expo/vector-icons";
 import { getAllUsers } from "../apis/auth";
+import moment from "moment";
 
-const DM = ({ navigation }) => {
+const DM = ({ navigation, time }) => {
   const { user } = useContext(UserContext);
   const { data, isLoading } = useQuery({
     queryKey: ["myChats"],
@@ -31,64 +33,98 @@ const DM = ({ navigation }) => {
   const { data: usersData } = useQuery(["users"], getAllUsers);
 
   if (isLoading) return <ActivityIndicator color="black"></ActivityIndicator>;
-  return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.header}>Direct Messages</Text>
-      <View style={styles.usersContainer}>
-        {data?.map((chat) => {
-          return (
-            <Pressable
-              key={chat._id}
-              onPress={() => {
-                navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
-                  chatId: chat._id,
-                  user: chat.members.find(
-                    (member) => member.username !== user.username
-                  ),
-                });
-              }}
-              style={styles.userCard}
-            >
-              <View
-                style={{
-                  marginRight: "auto",
-                  flexDirection: "row",
-                  gap: 15,
-                  marginLeft: 20,
-                  width: "85%",
-                }}
-              >
-                <Image
-                  style={styles.profilePicture}
-                  source={{
-                    uri: `${BASE_URL}/${
-                      chat?.members?.find(
-                        (member) => member._id !== user._id
-                      ) &&
-                      chat?.members?.find((member) => member._id !== user._id)
-                        .image
-                    }`,
-                  }}
-                />
 
-                <Text style={styles.username}>
-                  {chat?.members?.find((member) => member._id !== user._id) &&
-                    chat?.members?.find((member) => member._id !== user._id)
-                      .username}
-                </Text>
-              </View>
-              <View
-                style={{
-                  marginRight: 20,
+  // Sort chats based on the last message date
+  const sortedChats = data?.slice().sort((chatA, chatB) => {
+    const lastMessageA = chatA.msgs[chatA.msgs.length - 1];
+    const lastMessageB = chatB.msgs[chatB.msgs.length - 1];
+
+    if (lastMessageA && lastMessageB) {
+      return moment(lastMessageB.createdAt).diff(
+        moment(lastMessageA.createdAt)
+      );
+    } else if (lastMessageA) {
+      return -1; // Put chatA first since chatB has no last message
+    } else if (lastMessageB) {
+      return 1; // Put chatB first since chatA has no last message
+    }
+
+    return 0; // Both chats have no last message
+  });
+  return (
+    <SafeAreaView
+      style={{ flex: 1, paddingBottom: 88, backgroundColor: "#1E1E1E" }}
+    >
+      <ScrollView style={styles.container}>
+        <Text style={styles.header}>Direct Messages</Text>
+        <View style={styles.usersContainer}>
+          {sortedChats?.map((chat) => {
+            console.log(
+              `${BASE_URL}/${
+                chat?.members?.find((member) => member._id !== user._id).image
+              }`
+            );
+            return (
+              <Pressable
+                key={chat._id}
+                onPress={() => {
+                  navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
+                    chatId: chat._id,
+                    user: chat.members.find(
+                      (member) => member.username !== user.username
+                    ),
+                  });
                 }}
+                style={styles.userCard}
               >
-                <AntDesign name="right" size={24} color="#758DE2" />
-              </View>
-            </Pressable>
-          );
-        })}
-      </View>
-    </ScrollView>
+                <View
+                  style={{
+                    marginRight: "auto",
+                    flexDirection: "row",
+                    gap: 15,
+                    marginLeft: 20,
+                    width: "85%",
+                  }}
+                >
+                  <Image
+                    style={styles.profilePicture}
+                    source={{
+                      uri: `${BASE_URL}/${
+                        chat?.members?.find((member) => member._id !== user._id)
+                          .image
+                      }`,
+                    }}
+                  />
+                  <View style={{ flexDirection: "column", flex: 1 }}>
+                    <Text style={styles.username}>
+                      {
+                        chat?.members?.find((member) => member._id !== user._id)
+                          .username
+                      }
+                    </Text>
+                    <Text style={{ color: "#797979", marginTop: 10 }}>
+                      {chat.msgs[chat.msgs.length - 1]?.msg}
+                    </Text>
+                    <Text style={{ marginLeft: "auto", color: "#797979" }}>
+                      {moment(
+                        chat.msgs[chat.msgs.length - 1]?.createdAt
+                      ).format("LT")}
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    marginRight: 20,
+                  }}
+                >
+                  <AntDesign name="right" size={24} color="#758DE2" />
+                </View>
+              </Pressable>
+            );
+          })}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -109,7 +145,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#fff",
-    marginBottom: 30,
+    marginBottom: 60,
   },
   usersContainer: {
     marginBottom: 20,
@@ -131,7 +167,7 @@ const styles = StyleSheet.create({
   username: {
     marginLeft: 10,
     fontSize: 18,
-
+    fontWeight: "bold",
     color: "#fff",
     fontFamily: "System", // Replace with the actual custom font
   },

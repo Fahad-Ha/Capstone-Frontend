@@ -100,7 +100,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
 
   const dayElements = [];
 
-  data2?.msgs.forEach((msg) => {
+  data2?.msgs.forEach((msg, index) => {
     const currentTimestamp = moment(msg.createdAt);
 
     // Check if the message's timestamp is within the same minute as the last message
@@ -124,12 +124,17 @@ const Chat1 = ({ route, profileData, navigation }) => {
     }
 
     dayElements.push(
-      <MsgBubble
-        me={msg.from === me._id}
-        msg={msg.msg}
-        key={msg._id}
-        time={msg.createdAt}
-      />
+      <>
+        <MsgBubble
+          me={msg.from === me._id}
+          msg={msg.msg}
+          key={msg._id}
+          time={msg.createdAt}
+        />
+        {index == data2?.msgs.length - 1 && (
+          <View style={{ width: "100%", height: 10 }}></View>
+        )}
+      </>
     );
 
     // Update the last timestamp
@@ -171,8 +176,11 @@ const Chat1 = ({ route, profileData, navigation }) => {
               >
                 <Image
                   className="w-full h-full"
+                  style={{
+                    borderRadius: 100,
+                  }}
                   source={{
-                    uri: `${BASE_URL}/${profileData?.image}`,
+                    uri: `${BASE_URL}/${user?.image}`,
                   }}
                 />
               </View>

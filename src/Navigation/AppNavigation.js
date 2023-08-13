@@ -9,9 +9,13 @@ import EventDetails from "../Screens/EventDetails";
 import TabNavigation from "./TabNavigation";
 import { Feather } from "@expo/vector-icons";
 import Settings from "../Screens/Settings";
+import { BlurView } from "expo-blur";
+import useNotifications from "../hooks/useNotifications";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
+  useNotifications();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -22,17 +26,17 @@ const AppNavigation = () => {
         }}
       />
       <Stack.Screen
-        component={DirectMsg}
-        name={ROUTES.APPROUTES.DIRECT_MSGLIST}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         component={Chat1}
         name={ROUTES.APPROUTES.DIRECT_MSG}
         options={{ headerShown: false }}
       />
+
+      <Stack.Screen
+        component={DirectMsg}
+        name={ROUTES.APPROUTES.DIRECT_MSGLIST}
+        options={{ headerShown: false }}
+      />
+
       <Stack.Screen
         component={EventDetails}
         name={ROUTES.APPROUTES.EVENT_DETAILS}

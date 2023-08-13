@@ -1,7 +1,7 @@
 import instance from "..";
 
-const login = async (userInfo) => {
-  const res = await instance.post("/auth/login", userInfo);
+const login = async (userInfo, expoPushToken) => {
+  const res = await instance.post("/auth/login", userInfo, expoPushToken);
   return res.data;
 };
 

@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  createBottomTabNavigator,
+  BottomTabBar,
+} from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import ROUTES from ".";
@@ -22,6 +25,8 @@ import Profile from "../Screens/Profile";
 
 import DMButton from "../Components/DMButton";
 import UserContext from "../context/UserContext";
+import { BlurView } from "expo-blur";
+
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
 // import ExploreStack from "./ExploreStack";
 // import ProfileStack from "./ProfileStack";
@@ -32,9 +37,36 @@ const Tab = createBottomTabNavigator();
 export default function TabNavigation() {
   //   const theme = useTheme(); // Get the currently active theme
   const { user, setUser } = useContext(UserContext);
+  const TabBar = (props) => (
+    <View>
+      <BlurView
+        style={{
+          position: "absolute",
+          backgroundColor: "rgba(0, 0, 0,0.2)",
+          // borderColor: "rgba(255, 255, 255, 0.3)",
+          // borderWidth: 1.5,
+
+          bottom: 5,
+          left: 0,
+          right: 0,
+          height: 78,
+          borderRadius: 16,
+          marginHorizontal: 4,
+          overflow: "hidden", // Hide the overflow from the border
+        }}
+        tint="dark"
+        intensity={60}
+      >
+        <BottomTabBar {...props} />
+      </BlurView>
+    </View>
+  );
   return (
     <Tab.Navigator
+      tabBar={TabBar}
       screenOptions={{
+        tabBarInactiveTintColor: "#cbd5e0",
+        tabBarActiveTintColor: "#f56565",
         tabBarLabelStyle: {
           display: "none",
         },
@@ -43,10 +75,10 @@ export default function TabNavigation() {
           position: "absolute",
           alignContent: "center",
           justifyContent: "center",
-          elevation: 5,
-          //   backgroundColor: theme.colors.background,
-          borderRadius: 15,
-          height: 80,
+          elevation: 1,
+          backgroundColor: "transparent",
+          height: 84,
+          marginHorizontal: 2,
           bottom: -4,
           // ...styles.shadow,
         },
