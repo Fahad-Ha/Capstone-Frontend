@@ -21,6 +21,7 @@ import bgImage from "../../assets/bg5.jpeg";
 import ShareBtn from "../Components/Events/ShareBtn";
 import homeB from "../../assets/home4.jpg";
 import pfp from "../../assets/LOGO.png";
+import EventCard from "../Components/Events/EventCard";
 
 const Profile = () => {
   const navigation = useNavigation();
