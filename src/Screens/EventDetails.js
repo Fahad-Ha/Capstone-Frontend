@@ -42,33 +42,6 @@ const EventDetails = ({ navigation, route }) => {
     isLoading,
     isError,
   } = useQuery(["event", _id], () => getEventById(_id));
-  console.log(
-    `
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-`,
-    event
-  );
   const eventDateParts = event?.date ? event.date.split("T") : [];
   const eventDate = eventDateParts[0];
 

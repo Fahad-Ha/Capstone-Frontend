@@ -11,33 +11,32 @@ import EventList from "../Components/Events/EventList";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFocusEffect } from "@react-navigation/native";
 import DMButton from "../Components/DMButton";
-import UserContext from "../context/UserContext";
 import HomeBB from "../../assets/Home1.png";
 import { BlurView } from "expo-blur";
+import UserContext from "../context/UserContext";
 
 const Explore = () => {
-  const queryClient = useQueryClient();
   const { user, setUser } = useContext(UserContext);
+  const queryClient = useQueryClient();
   useFocusEffect(
     useCallback(() => {
       queryClient.invalidateQueries(["events"]);
       return () => {};
     }, [])
   );
-
   return (
     <ImageBackground source={HomeBB} style={{ flex: 1 }}>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>
-          Explore The Beauty Of The World With Us!
+      <SafeAreaView className="flex-1 p-20">
+        <Text className="text-2xl pt-3 font-bold text-center mb-5 mt-14 text-white">
+          Explore The Events Around Us!
         </Text>
 
         <TextInput
-          style={styles.filterInput}
+          className="bg-white py-2 px-2 ml-4 mr-4 rounded-lg mb-2"
           placeholder="Filter..."
         ></TextInput>
         <View className="flex right-0 top-10 items-end py-2 px-4 absolute ">
-          <DMButton />
+          {user ? <DMButton /> : null}
         </View>
         <EventList />
       </SafeAreaView>
@@ -46,45 +45,3 @@ const Explore = () => {
 };
 
 export default Explore;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    // backgroundColor: "#1E1E1E",
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: "cover", // or 'stretch' if you prefer
-  },
-  filterInput: {
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    // backgroundColor: "rgba(117, 141, 226, 0.47)",
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    borderRadius: 20,
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 20,
-    paddingTop: 12,
-    fontWeight: "bold",
-
-    textAlign: "center",
-    marginBottom: 20,
-    marginTop: 55,
-    color: "white",
-  },
-  addButtonContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    paddingRight: 10,
-  },
-  eventListContainer: {
-    flex: 1,
-    borderRadius: 20,
-    padding: 10,
-  },
-});

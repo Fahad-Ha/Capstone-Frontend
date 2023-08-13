@@ -16,14 +16,13 @@ import ROUTES from "../Navigation/index";
 import { ActivityIndicator } from "react-native-paper";
 import { BASE_URL } from "../apis";
 import { useTheme } from "@react-navigation/native";
-// import { AntDesign } from "@expo/vector-icons";
 import { getMyChats } from "../apis/chat";
 import UserContext from "../context/UserContext";
 import { AntDesign } from "@expo/vector-icons";
 import { getAllUsers } from "../apis/auth";
 import moment from "moment";
 
-const DM = ({ navigation, time }) => {
+const DM = ({ navigation }) => {
   const { user } = useContext(UserContext);
   const { data, isLoading } = useQuery({
     queryKey: ["myChats"],

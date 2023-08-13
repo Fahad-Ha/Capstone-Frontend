@@ -27,10 +27,6 @@ const UsernameSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email.").required("Email is required."),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long.")
-    .matches(/\d/, "Password must contain a number.")
-    .matches(/[A-Z]/, "Password must contain an uppercase letter.")
-    .matches(/[a-z]/, "Password must contain a lowercase letter.")
-    .matches(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain a symbol.")
     .required("Password is required."),
 });
 const RegisterUsernameEmailPassword = ({ navigation }) => {

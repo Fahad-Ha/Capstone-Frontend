@@ -112,7 +112,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
       const day = currentTimestamp.format("MMM Do YY");
       dayElements.push(
         <Text
-          key={`day-${day}-${currentTimestamp}`}
+          key={`day-${day}-${index}`}
           style={{
             color: "grey",
             textAlign: "center",
