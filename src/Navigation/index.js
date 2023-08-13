@@ -11,10 +11,15 @@ const ROUTES = {
     SETTINGS: "Settings",
     EVENT_DETAILS: "Event-Details",
     MAP: "MAP",
+    MAIN: "Main",
   },
   AUTHROUTES: {
     LOGIN: "Login",
-    REGISTER: "Register",
+    REGISTER: {
+      USERNAME_EMAIL_PASSWORD: "Registration 1",
+      IMAGE_BIRTHDATE: "Registration 2",
+      INTERESTS: "Registration 3",
+    },
   },
 };
 

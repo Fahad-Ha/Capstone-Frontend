@@ -9,6 +9,8 @@ const getEventById = async (id) => {
   return res.data;
 };
 
+//get suggested events
+
 const createEvent = async (data) => {
   data.date = `${data.date}`;
   data.from = `${data.from}`;

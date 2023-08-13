@@ -5,12 +5,21 @@ const login = async (userInfo, expoPushToken) => {
   return res.data;
 };
 
+//in the register tags(from mulitselect) should be an array of strings and send to the backend
+
 const register = async (userInfo) => {
   const formData = new FormData();
+  console.log("here from auth", userInfo);
 
   for (const key in userInfo) {
     if (key != "image") {
-      formData.append(key, userInfo[key]);
+      if (key === "interests") {
+        userInfo.interests.forEach((interest) => {
+          formData.append("interests", interest);
+        });
+      } else {
+        formData.append(key, userInfo[key]);
+      }
     } else {
       formData.append("image", {
         name: userInfo.image,
@@ -39,4 +48,27 @@ const getProfileData = async () => {
   const res = await instance.get("/auth/my-profile");
   return res.data;
 };
-export { register, login, getAllUsers, getProfileData };
+
+const checkUsername = async (username) => {
+  const res = await instance.post("/auth/checkusername", {
+    username: `${username}`,
+  });
+  return res.data;
+};
+
+const checkEmail = async (email) => {
+  const res = await instance.post("/auth/checkemail", {
+    email: `${email}`,
+  });
+
+  //res should be true or false
+  return res.data;
+};
+export {
+  register,
+  login,
+  getAllUsers,
+  getProfileData,
+  checkUsername,
+  checkEmail,
+};
