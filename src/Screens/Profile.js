@@ -20,7 +20,7 @@ import useNotifications from "../hooks/useNotifications";
 import bgImage from "../../assets/bg5.jpeg";
 import ShareBtn from "../Components/Events/ShareBtn";
 import homeB from "../../assets/home4.jpg";
-import pfp from "../../assets/pfp.jpeg";
+import pfp from "../../assets/LOGO.png";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -74,7 +74,7 @@ const Profile = () => {
                   width: 120,
                   height: 120,
                 }}
-                source={Rectangle}
+                source={pfp}
               />
               <Text
                 style={{
