@@ -42,10 +42,6 @@ const Profile = () => {
   return (
     <ImageBackground source={homeB} style={{ flex: 1 }}>
       <ScrollView
-      // className="bg-gray-600"
-      // style={{
-      //   flex: 1,
-      // }}
       >
         <StatusBar translucent backgroundColor="rgba(255, 255, 255, 0.45)" />
         <View className="relative h-72">
@@ -95,7 +91,6 @@ const Profile = () => {
             </View>
           </TouchableOpacity>
         </View>
-        {/* Background for details  */}
         <View
           style={{
             borderWidth: 0,
@@ -154,7 +149,6 @@ const Profile = () => {
                         borderRadius: 20,
                         marginBottom: 30,
                       }}
-                      // className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-3"
                     >
                       <TouchableOpacity>
                         <Text className="text-lg p-8 font-semibold text-white">
@@ -176,7 +170,6 @@ const Profile = () => {
                         <ShareBtn />
                       </TouchableOpacity>
                     </View>
-                    {/* <Image source={{ uri: image }} style={{ height: 100, width: 100 }} /> */}
                   </View>
                 </ScrollView>
               </BlurView>

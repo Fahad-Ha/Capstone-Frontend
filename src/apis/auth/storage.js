@@ -1,5 +1,4 @@
 import * as SecureStore from "expo-secure-store";
-import jwt_decode from "jwt-decode";
 
 const saveToken = async (token) => {
   try {

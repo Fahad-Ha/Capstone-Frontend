@@ -134,7 +134,7 @@ export default function TabNavigation() {
         name={ROUTES.APPROUTES.PROFILE}
         component={user ? Profile : AuthNavigation}
         options={{
-          headerShown: user ? true : false,
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <FontAwesome
               name="user-circle-o"

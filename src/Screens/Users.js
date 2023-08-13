@@ -13,7 +13,6 @@ import { getAllUsers } from "../apis/auth";
 import { removeToken } from "../apis/auth/storage";
 import UserContext from "../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
-import ROUTES from "../Navigation";
 
 const Users = () => {
   const { data } = useQuery(["users"], getAllUsers);
@@ -54,7 +53,6 @@ const Users = () => {
     </ScrollView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -94,7 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
 
     color: "#fff",
-    fontFamily: "System", // Replace with the actual custom font
+    fontFamily: "System", 
   },
 });
 
