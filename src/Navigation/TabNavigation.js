@@ -14,7 +14,7 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import LocationNavigation from "./LocationNavigator";
-
+import AuthNavigation from "./AuthNavigator";
 import { View, StyleSheet, Pressable, TouchableOpacity } from "react-native";
 import Users from "../Screens/Users";
 import Chat1 from "../Screens/Chat1";
@@ -24,7 +24,9 @@ import MyEvents from "../Screens/MyEvents";
 import Profile from "../Screens/Profile";
 
 import DMButton from "../Components/DMButton";
+import UserContext from "../context/UserContext";
 import { BlurView } from "expo-blur";
+import CreateEventNavigation from "./CreateEventNavigation";
 
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
 // import ExploreStack from "./ExploreStack";
@@ -35,6 +37,7 @@ const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
   //   const theme = useTheme(); // Get the currently active theme
+  const { user, setUser } = useContext(UserContext);
   const TabBar = (props) => (
     <View>
       <BlurView
@@ -99,7 +102,7 @@ export default function TabNavigation() {
       />
       <Tab.Screen
         name={ROUTES.APPROUTES.MY_EVENTS}
-        component={MyEvents}
+        component={user ? MyEvents : AuthNavigation}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
@@ -109,12 +112,14 @@ export default function TabNavigation() {
               style={{ height: 54 }}
             />
           ),
+          headerShown: user ? true : false,
         }}
       />
       <Tab.Screen
-        name={ROUTES.APPROUTES.ADD_EVENT}
-        component={CreateEvent}
+        name="Create event navigation"
+        component={user ? CreateEventNavigation : AuthNavigation}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Feather
               name="plus-square"
@@ -127,7 +132,7 @@ export default function TabNavigation() {
       />
       <Tab.Screen
         name={ROUTES.APPROUTES.PROFILE}
-        component={Profile}
+        component={user ? Profile : AuthNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (

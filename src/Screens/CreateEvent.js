@@ -13,7 +13,6 @@ import { createEvent } from "../apis/event/index";
 import Create from "../Components/Events/Create";
 import ROUTES from "../Navigation/index";
 import { getLocationAddress } from "../apis/location";
-import { getProfileData } from "../apis/auth";
 
 const CreateEvent = ({ navigation, route }) => {
   const queryClient = useQueryClient();
@@ -168,7 +167,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 16,
+    marginBottom: 60,
   },
   buttonText: {
     color: "white",

@@ -41,6 +41,7 @@ const Profile = () => {
   }
   return (
     <ImageBackground source={homeB} style={{ flex: 1 }}>
+
       <BlurView
         intensity={90}
         tint="dark"
@@ -49,6 +50,9 @@ const Profile = () => {
           borderColor: "rgba(100, 0, 0, 0.3)",
         }}
         className=" overflow-hidden"
+
+      <ScrollView
+
       >
         <ScrollView
         // className="bg-gray-600"
@@ -86,6 +90,7 @@ const Profile = () => {
                 @{profile?.username}
               </Text>
             </View>
+
             <TouchableOpacity
               onPress={() => navigation.goBack()}
               className="absolute  top-10 left-1 rounded-full shadow p-2"
@@ -106,6 +111,21 @@ const Profile = () => {
           </View>
           {/* Background for details  */}
           <View
+
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            borderWidth: 0,
+            elevation: 115,
+            backgroundColor: "transparent",
+            transform: [{ perspective: 1000 }, { translateY: -30 }],
+          }}
+        >
+          <BlurView
+            intensity={50}
+            tint="dark"
+
             style={{
               borderWidth: 0,
               elevation: 115,
@@ -157,6 +177,7 @@ const Profile = () => {
                         Created Events: {profile?.createdEvents}
                       </Text>
 
+
                       <View
                         style={{
                           backgroundColor: "rgba(0, 0, 0, 0.3)",
@@ -194,6 +215,8 @@ const Profile = () => {
           </View>
         </ScrollView>
       </BlurView>
+
+               
     </ImageBackground>
   );
 };

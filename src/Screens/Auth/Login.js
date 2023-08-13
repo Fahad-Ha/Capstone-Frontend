@@ -1,12 +1,20 @@
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useContext, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { login } from "../apis/auth";
-import UserContext from "../context/UserContext";
+import { login } from "../../apis/auth";
+import UserContext from "../../context/UserContext";
 import { useNavigation } from "@react-navigation/native";
-import { saveToken } from "../apis/auth/storage";
+import { saveToken } from "../../apis/auth/storage";
 import jwt_decode from "jwt-decode";
-import useNotifications from "../hooks/useNotifications";
+import ROUTES from "../../Navigation";
+import useNotifications from "../../hooks/useNotifications";
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -29,6 +37,11 @@ const Login = () => {
   const handleSubmit = () => {
     loginFunc();
   };
+
+  const handleSignup = () => {
+    navigation.navigate(ROUTES.AUTHROUTES.REGISTER.USERNAME_EMAIL_PASSWORD);
+  };
+
   return (
     <View className="flex-1 justify-center item-center mx-6">
       <TextInput
@@ -42,6 +55,11 @@ const Login = () => {
         onChangeText={(v) => setUserInfo({ ...userInfo, password: v })}
       />
       <Button title="Login" onPress={handleSubmit} />
+      <View>
+        <TouchableOpacity onPress={handleSignup}>
+          <Text>You arent registered? Please Signup here</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

@@ -38,40 +38,18 @@ const SelectLocationMap = ({ navigation }) => {
       >
         {selectedLocation && <Marker coordinate={selectedLocation} />}
       </MapView>
-      {selectedLocation && (
-        <TouchableOpacity onPress={() => handleConfirmLocation()}>
-          <View className="z-10 bottom-20 mb-5 p-5 rounded-2xl self-center bg-blue-900">
-            <Text style={styles.buttonText}>Confirm Location</Text>
-          </View>
-        </TouchableOpacity>
-      )}
+      <TouchableOpacity
+        onPressOut={() => handleConfirmLocation()}
+        style={{
+          opacity: selectedLocation ? 100 : 0,
+        }}
+      >
+        <View className="z-10 bottom-20 mb-5 p-5 rounded-2xl self-center bg-blue-900">
+          <Text className="text-white text-base">Confirm Location</Text>
+        </View>
+      </TouchableOpacity>
     </>
   );
 };
 
 export default SelectLocationMap;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  map: {
-    width: "100%",
-    height: "97%",
-  },
-  button: {
-    backgroundColor: "darkblue",
-    padding: 10,
-    position: "absolute",
-    bottom: 20,
-    alignSelf: "center",
-    borderRadius: 5,
-    alignItems: "center",
-    width: "66%",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 15,
-  },
-});
