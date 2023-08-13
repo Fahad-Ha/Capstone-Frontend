@@ -20,6 +20,7 @@ import AuthNavigation from "./src/Navigation/AuthNavigator";
 import UserContext from "./src/context/UserContext";
 import jwt_decode from "jwt-decode";
 import { StatusBar } from "expo-status-bar";
+import * as Calendar from "expo-calendar"; // Import from expo-calendar
 
 export default function App() {
   // const [isConnected, setIsConnected] = useState(socket.connected);
@@ -46,6 +47,19 @@ export default function App() {
   //     socket.off("disconnect", onDisconnect);
   //     socket.off("foo", onFooEvent);
   //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await Calendar.requestCalendarPermissionsAsync();
+  //     if (status === "granted") {
+  //       const calendars = await Calendar.getCalendarsAsync(
+  //         Calendar.EntityTypes.EVENT
+  //       );
+  //       console.log("Here are all your calendars:");
+  //       console.log({ calendars });
+  //     }
+  //   })();
   // }, []);
 
   const [user, setUser] = useState(false);
