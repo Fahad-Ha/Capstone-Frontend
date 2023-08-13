@@ -20,7 +20,10 @@ import { deleteEvent, getEventById } from "../apis/event";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import moment from "moment";
 import { BlurView } from "expo-blur";
+<<<<<<< HEAD
+=======
 import useCalendar from "@atiladev/usecalendar";
+>>>>>>> origin
 
 const EventDetails = ({ navigation, route }) => {
   const [showBox, setShowBox] = useState(true);
@@ -42,7 +45,33 @@ const EventDetails = ({ navigation, route }) => {
     isLoading,
     isError,
   } = useQuery(["event", _id], () => getEventById(_id));
+  console.log(
+    `
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+`,
+    event
+  );
   const eventDateParts = event?.date ? event.date.split("T") : [];
   const eventDate = eventDateParts[0];
 
@@ -80,8 +109,11 @@ const EventDetails = ({ navigation, route }) => {
   const { data: location } = useQuery({
     queryKey: ["location"],
     queryFn: () =>
-      getLocationAddress(event.location.longitude, event.location.latitude),
-    enabled: !!event?.location.longitude,
+      getLocationAddress(
+        event?.location?.coordinates[0],
+        event?.location?.coordinates[1]
+      ),
+    enabled: !!event?.location?.coordinates[0],
   });
   if (isLoading) return <Text>Loading...</Text>;
   if (isError || !event) return <Text>Error fetching event details.</Text>;
@@ -191,8 +223,8 @@ const EventDetails = ({ navigation, route }) => {
           <TouchableOpacity
             onPress={() =>
               navigation.navigate(ROUTES.APPROUTES.MAP, {
-                latitude: event.location.latitude,
-                longitude: event.location.longitude,
+                latitude: event?.location.coordinates[1],
+                longitude: event?.location.coordinates[0],
                 title: event.name,
               })
             }
@@ -220,9 +252,6 @@ const EventDetails = ({ navigation, route }) => {
               {moment(event.to).format("h:mm A")}
             </Text>
           </View>
-          {/* <Text className="pb-2 text-lg">Duration {event.duration} hours</Text> */}
-          {/* <Text className="pb-2 text-lg">{event.tags}</Text> */}
-          {/* <Text className="pb-2 text-lg">{event.attendees}</Text> */}
           <View className="flex-row justify-end mt-10 ">
             {event?.organizer?._id === user?._id && (
               <TouchableOpacity className="mx-4" onPress={handleDelete}>

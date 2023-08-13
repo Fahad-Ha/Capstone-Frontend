@@ -1,18 +1,21 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Platform,
+  Button,
+} from "react-native";
+import DateTimePicker, {
+  DateTimePickerAndroid,
+} from "@react-native-community/datetimepicker";
 import moment from "moment";
 
-const Create = ({ data, setData, setErrorText }) => {
-  const handleTitleFocus = () => {
-    setErrorText("");
-  };
-
-  const handleDescriptionFocus = () => {
-    setErrorText("");
-  };
-
-  const [showDatePicker, setShowDatePicker] = useState(true);
+const Create = ({ data, setData }) => {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0, 0);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedFromTime, setSelectedFromTime] = useState(new Date());
   const [selectedToTime, setSelectedToTime] = useState(new Date());
@@ -47,6 +50,37 @@ const Create = ({ data, setData, setErrorText }) => {
     });
   };
 
+  const openDatePickHandler = () => {
+    DateTimePickerAndroid.open({
+      mode: "date",
+      value: selectedDate,
+      minimumDate: tomorrow,
+      onChange: (event, newDate) => {
+        setSelectedDate(newDate);
+      },
+    });
+  };
+  const openFromPickHandler = () => {
+    DateTimePickerAndroid.open({
+      mode: "time",
+      value: selectedDate,
+      is24Hour: false,
+      onChange: (event, from) => {
+        setSelectedFromTime(from);
+      },
+    });
+  };
+  const openToPickHandler = () => {
+    DateTimePickerAndroid.open({
+      mode: "time",
+      value: selectedDate,
+      is24Hour: false,
+      onChange: (event, to) => {
+        setSelectedToTime(to);
+      },
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Event name</Text>
@@ -56,7 +90,6 @@ const Create = ({ data, setData, setErrorText }) => {
         placeholderTextColor="#A9A9A9"
         value={data.name}
         onChangeText={(value) => setData({ ...data, name: value })}
-        onFocus={handleTitleFocus}
       />
       <Text style={styles.label}>Price</Text>
       <TextInput
@@ -65,38 +98,53 @@ const Create = ({ data, setData, setErrorText }) => {
         placeholderTextColor="#A9A9A9"
         value={data.price}
         onChangeText={(value) => setData({ ...data, price: value })}
-        onFocus={handleTitleFocus}
       />
       <Text style={styles.label}>Date</Text>
-      {showDatePicker && (
+      {Platform.OS === "ios" ? (
         <DateTimePicker
           value={selectedDate}
           mode="date"
           is24Hour={true}
+          minimumDate={tomorrow}
           display="default"
           onChange={handleDateChange}
         />
+      ) : (
+        <>
+          <Text>{selectedDate}</Text>
+          <Button title="Select Date" onPress={openDatePickHandler} />
+        </>
       )}
-      <Text style={styles.label}>From Time</Text>
-      <DateTimePicker
-        value={selectedFromTime}
-        mode="time"
-        is24Hour={false} // Set to 12-hour format
-        display="default"
-        onChange={handleFromTimeChange}
-      />
+      <Text style={styles.label}>From</Text>
       <Text>{moment(selectedFromTime).format("h:mm A")}</Text>
-
-      <Text style={styles.label}>To Time</Text>
-      <DateTimePicker
-        value={selectedToTime}
-        mode="time"
-        is24Hour={false} // Set to 12-hour format
-        display="default"
-        onChange={handleToTimeChange}
-      />
-      <Text>{moment(selectedToTime).format("h:mm A")}</Text>
-
+      {Platform.OS === "ios" ? (
+        <DateTimePicker
+          value={selectedDate}
+          mode="time"
+          is24Hour={true}
+          display="default"
+          onChange={handleFromTimeChange}
+        />
+      ) : (
+        <>
+          <Button title="Select From" onPress={openFromPickHandler} />
+        </>
+      )}
+      <Text style={styles.label}>From</Text>
+      <Text>{moment(selectedFromTime).format("h:mm A")}</Text>
+      {Platform.OS === "ios" ? (
+        <DateTimePicker
+          value={selectedDate}
+          mode="time"
+          is24Hour={true}
+          display="default"
+          onChange={handleToTimeChange}
+        />
+      ) : (
+        <>
+          <Button title="Select To" onPress={openToPickHandler} />
+        </>
+      )}
       <Text style={styles.label}>Description</Text>
       <TextInput
         style={[styles.input, styles.textArea]}
@@ -105,7 +153,6 @@ const Create = ({ data, setData, setErrorText }) => {
         value={data.description}
         onChangeText={(value) => setData({ ...data, description: value })}
         multiline
-        onFocus={handleDescriptionFocus}
       />
     </View>
   );
