@@ -14,9 +14,9 @@ import { useNavigation } from "@react-navigation/native";
 import { saveToken } from "../../apis/auth/storage";
 import jwt_decode from "jwt-decode";
 import ROUTES from "../../Navigation";
-import useNotifications from "../hooks/useNotifications";
+import useNotifications from "../../hooks/useNotifications";
 
-const Login = ({ navigation }) => {
+const Login = () => {
   const [userInfo, setUserInfo] = useState({});
   const { setUser } = useContext(UserContext);
   const navigation = useNavigation();
