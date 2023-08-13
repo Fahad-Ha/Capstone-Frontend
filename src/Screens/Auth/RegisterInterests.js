@@ -19,6 +19,8 @@ import ROUTES from "../../Navigation";
 
 const RegisterInterests = ({ route, navigation }) => {
   const { data } = route.params;
+  // data = {{.}}
+  // console.log("JSON.parse(data.dateOfBirth)", JSON.parse(data.dateOfBirth));
   const [selectedIntres, setSelectedIntres] = useState([]);
   const { setUser } = useContext(UserContext);
   const { data: tags } = useQuery({
@@ -31,7 +33,11 @@ const RegisterInterests = ({ route, navigation }) => {
     isLoading,
   } = useMutation({
     mutationFn: () => {
-      return register({ ...data, interests: selectedIntres });
+      return register({
+        ...JSON.parse(data),
+        // dateOfBirth: JSON.parse(data.dateOfBirth),
+        interests: selectedIntres,
+      });
     },
     onSuccess: (data) => {
       saveToken(data.token);
@@ -44,7 +50,7 @@ const RegisterInterests = ({ route, navigation }) => {
   });
   const handleRegister = () => {
     console.log({ ...data, interests: selectedIntres });
-    RegisterFn({ data, interests: selectedIntres });
+    RegisterFn();
   };
   return (
     <View style={styles.container}>
@@ -86,6 +92,8 @@ const RegisterInterests = ({ route, navigation }) => {
                           Haptics.NotificationFeedbackType.Success
                         );
                       })();
+
+                  console.log({ ...data, interests: selectedIntres });
                 }}
                 style={{
                   flex: 1,

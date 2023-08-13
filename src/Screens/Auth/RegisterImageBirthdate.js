@@ -16,12 +16,14 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
     username: username,
     email: email,
     password: password,
-    image: null,
+    image: image,
   });
-
+  console.log(data);
   const theme = useTheme();
   const handleNext = () => {
-    navigation.navigate(ROUTES.AUTHROUTES.REGISTER.INTERESTS, { data: data });
+    navigation.navigate(ROUTES.AUTHROUTES.REGISTER.INTERESTS, {
+      data: JSON.stringify(data),
+    });
   };
   const handleDate = (date) => {
     setStartDate(date);

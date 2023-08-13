@@ -9,7 +9,7 @@ const login = async (userInfo, expoPushToken) => {
 
 const register = async (userInfo) => {
   const formData = new FormData();
-  console.log("here from auth", userInfo);
+  console.log("here from auth =====>", userInfo);
 
   for (const key in userInfo) {
     if (key != "image") {
@@ -35,6 +35,7 @@ const register = async (userInfo) => {
       "Content-Type": "multipart/form-data",
     },
   });
+  res.data = { here: "here" };
 
   return res.data;
 };
