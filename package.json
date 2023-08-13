@@ -9,7 +9,9 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@atiladev/usecalendar": "^0.3.3",
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-async-storage/async-storage": "^1.19.1",
     "@react-native-community/datetimepicker": "7.2.0",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.7",
@@ -19,9 +21,11 @@
     "axios": "^1.4.0",
     "expo": "~49.0.5",
     "expo-blur": "~12.4.1",
+    "expo-calendar": "~11.3.0",
     "expo-constants": "^14.4.2",
     "expo-device": "^5.4.0",
     "expo-image-picker": "^14.3.2",
+    "expo-localization": "^14.3.0",
     "expo-notifications": "^0.20.1",
     "expo-secure-store": "~12.3.1",
     "expo-status-bar": "~1.6.0",
@@ -35,6 +39,7 @@
     "react-native-maps": "^1.7.1",
     "react-native-paper": "^5.10.0",
     "react-native-popup-menu": "^0.16.1",
+    "react-native-reanimated": "^3.3.0",
     "socket.io-client": "^4.7.2",
     "tailwindcss": "^3.3.2"
   },
