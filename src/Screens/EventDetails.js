@@ -20,10 +20,7 @@ import { deleteEvent, getEventById } from "../apis/event";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import moment from "moment";
 import { BlurView } from "expo-blur";
-<<<<<<< HEAD
-=======
 import useCalendar from "@atiladev/usecalendar";
->>>>>>> origin
 
 const EventDetails = ({ navigation, route }) => {
   const [showBox, setShowBox] = useState(true);
