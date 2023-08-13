@@ -2,11 +2,19 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { BASE_URL } from "../../apis/index";
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../Navigation/index";
+import { BlurView } from "expo-blur";
+import fuel from "../../../assets/pxfuel.jpg";
+import Rectangle from "../../../assets/Rectangle.png";
 
 const EventCard = ({ event = {} }) => {
   const navigation = useNavigation();
   return (
-    <View style={styles.cardContainer}>
+    <View
+      // intensity={80}
+      // // tint="dark"
+      // className="rounded-3xl overflow-hidden"
+      style={styles.cardContainer}
+    >
       <TouchableOpacity
         onPress={() => {
           navigation.navigate(ROUTES.APPROUTES.OTHERPROFILE, {
@@ -26,14 +34,30 @@ const EventCard = ({ event = {} }) => {
           });
         }}
       >
-        <View style={styles.card}>
+        <View>
           <Image
-            source={{ uri: `${BASE_URL}/${event.image}` }}
+            // source={{ uri: `${BASE_URL}/${event.image}` }}
+            source={fuel}
             style={styles.image}
           />
-          <View style={{ flex: 1, backgroundColor: "red" }}>
+
+          <BlurView
+            intensity={65}
+            tint="default"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              overflow: "hidden",
+              height: "30%", // 1/3 of the card height
+              justifyContent: "flex-end",
+            }}
+          >
+            {/* <View style={{ flex: 1, backgroundColor: "red" }}> */}
             <Text style={styles.name}>{event.name}</Text>
-          </View>
+            {/* </View> */}
+          </BlurView>
         </View>
       </TouchableOpacity>
     </View>
@@ -42,15 +66,17 @@ const EventCard = ({ event = {} }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    marginLeft: 20,
-    marginRight: 20,
+    marginHorizontal: 20,
     marginBottom: 0,
     marginTop: 40,
-    height: 400,
+    height: 280,
+    borderRadius: 45,
+    overflow: "hidden",
     margin: 20,
+    backgroundColor: "rgba(156,163,175, 0.1)",
   },
   card: {
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
     borderRadius: 75,
     shadowColor: "white",
     height: 350,
@@ -65,6 +91,7 @@ const styles = StyleSheet.create({
     height: "100%",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    borderRadius: 40,
     position: "relative",
   },
   // name: {

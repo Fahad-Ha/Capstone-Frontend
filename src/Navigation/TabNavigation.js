@@ -67,7 +67,7 @@ export default function TabNavigation() {
       tabBar={TabBar}
       screenOptions={{
         tabBarInactiveTintColor: "#cbd5e0",
-        tabBarActiveTintColor: "#f56565",
+        tabBarActiveTintColor: "#FF006B",
         tabBarLabelStyle: {
           display: "none",
         },
