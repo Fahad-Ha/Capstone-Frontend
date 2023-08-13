@@ -6,17 +6,18 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import EventList from "../Components/Events/EventList";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFocusEffect } from "@react-navigation/native";
 import DMButton from "../Components/DMButton";
+import UserContext from "../context/UserContext";
 import HomeBB from "../../assets/Home1.png";
 import { BlurView } from "expo-blur";
 
 const Explore = () => {
   const queryClient = useQueryClient();
-
+  const { user, setUser } = useContext(UserContext);
   useFocusEffect(
     useCallback(() => {
       queryClient.invalidateQueries(["events"]);
