@@ -186,6 +186,11 @@ const EventDetails = ({ navigation, route }) => {
       createCalAndEvent();
     }
   };
+
+  const eventDateIsFuture = moment(event.from).isAfter(moment());
+  console.log("event.from:", event.from); // Check the value of event.from
+  console.log("eventDateIsFuture:", eventDateIsFuture); // Check the value of eventDateIsFuture
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -289,17 +294,19 @@ const EventDetails = ({ navigation, route }) => {
               )}
             </View>
             <TouchableOpacity onPress={toggleRSVP}>
-              <View
-                className={`bg-red-500 rounded-full w-72 shadow-lg shadow-gray-900 z-50 ${
-                  userHasRSVPd ? "bg-red-700" : ""
-                }`}
-              >
-                <Text className="text-center p-5 text-lg text-white font-semibold">
-                  {userHasRSVPd
-                    ? "I'm no longer Interested"
-                    : "I'm Interested!"}
-                </Text>
-              </View>
+              {eventDateIsFuture && (
+                <View
+                  className={`bg-red-500 rounded-full w-72 shadow-lg shadow-gray-900 z-50 ${
+                    userHasRSVPd ? "bg-red-700" : ""
+                  }`}
+                >
+                  <Text className="text-center p-5 text-lg text-white font-semibold">
+                    {userHasRSVPd
+                      ? "I'm no longer Interested"
+                      : "I'm Interested!"}
+                  </Text>
+                </View>
+              )}
             </TouchableOpacity>
           </View>
         </BlurView>
