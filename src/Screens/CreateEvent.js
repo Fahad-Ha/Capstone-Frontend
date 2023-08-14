@@ -8,11 +8,13 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import ImagePickerC from "../Components/Shared/ImagePickerC";
+import * as Haptics from "expo-haptics";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createEvent } from "../apis/event/index";
 import Create from "../Components/Events/Create";
 import ROUTES from "../Navigation/index";
 import { getLocationAddress } from "../apis/location";
+import { getAllTags } from "../apis/tags";
 
 const CreateEvent = ({ navigation, route }) => {
   const queryClient = useQueryClient();
@@ -20,7 +22,12 @@ const CreateEvent = ({ navigation, route }) => {
   const [image, setImage] = useState(null);
   const [location, setLocation] = useState(route.params?.location || null);
   const [errorText, setErrorText] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
 
+  const { data: tags } = useQuery({
+    queryKey: ["tags"],
+    queryFn: () => getAllTags(),
+  });
   const { data: locationDetails } = useQuery({
     queryKey: [
       "location",
@@ -43,12 +50,14 @@ const CreateEvent = ({ navigation, route }) => {
           latitude: location?.location?.latitude,
           longitude: location?.location?.longitude,
         },
+        tags: selectedTags,
       });
     },
     onSuccess: () => {
       setData({});
       setImage(null);
       setLocation(null);
+      setSelectedTags([]);
       queryClient.invalidateQueries(["events"]);
       navigation.navigate(ROUTES.APPROUTES.EXPLORE);
     },
@@ -66,6 +75,7 @@ const CreateEvent = ({ navigation, route }) => {
 
   const handleSubmit = () => {
     createEventFun();
+    console.log(selectedTags);
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -105,6 +115,54 @@ const CreateEvent = ({ navigation, route }) => {
 
         <Create data={data} setData={setData} setErrorText={setErrorText} />
         {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
+        <View style={{ flex: 0.7 }}>
+          <ScrollView
+            contentContainerStyle={{ flexDirection: "row", flexWrap: "wrap" }}
+          >
+            {tags?.map((item) => (
+              <TouchableOpacity
+                key={item._id}
+                onPress={() => {
+                  if (selectedTags.includes(item._id)) {
+                    setSelectedTags(
+                      selectedTags.filter((id) => id !== item._id)
+                    );
+                    Haptics.notificationAsync(
+                      Haptics.NotificationFeedbackType.Error
+                    );
+                  } else {
+                    setSelectedTags([...selectedTags, item._id]);
+                    Haptics.notificationAsync(
+                      Haptics.NotificationFeedbackType.Success
+                    );
+                  }
+                }}
+                style={{
+                  width: "50%", // Two columns
+                  marginBottom: 5,
+                  paddingHorizontal: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 12,
+                    backgroundColor: selectedTags.includes(item._id)
+                      ? "green"
+                      : "gray",
+                    height: 40,
+                  }}
+                >
+                  <Text>{item.name}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
 
         <TouchableOpacity
           style={styles.buttonContainer}

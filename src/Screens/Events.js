@@ -12,8 +12,7 @@ import EventList from "../Components/Events/EventList";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFocusEffect } from "@react-navigation/native";
 import DMButton from "../Components/DMButton";
-import HomeBB from "../../assets/home4.jpg";
-import { BlurView } from "expo-blur";
+import HomeBB from "../../assets/Home1.png";
 import UserContext from "../context/UserContext";
 
 const Explore = () => {
@@ -37,19 +36,22 @@ const Explore = () => {
         className=" overflow-hidden"
       >
         <ScrollView>
-          <SafeAreaView className="flex-1 p-20">
+          <SafeAreaView className="flex-1 pt-10">
             <Text className="text-2xl pt-3 font-bold text-center mb-5 mt-14 text-white">
               Explore The Events Around Us!
             </Text>
 
             <TextInput
+              placeholderTextColor={"white"}
               // className="bg-white py-2 px-2 ml-4 mr-4 rounded-lg mb-2"
               style={{
                 flex: 1,
                 backgroundColor: "rgba(232, 232, 232, 0.45)",
                 textAlign: "left",
-                height: 30,
+                height: 40,
+                color: "white",
                 borderRadius: 15,
+                paddingLeft: 20,
                 marginLeft: 20,
                 marginRight: 20,
               }}

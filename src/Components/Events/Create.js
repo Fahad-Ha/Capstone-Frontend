@@ -115,6 +115,8 @@ const Create = ({ data, setData }) => {
         />
       ) : (
         <>
+
+
           <Button title="Select Date" onPress={openDatePickHandler} />
         </>
       )}
@@ -135,8 +137,6 @@ const Create = ({ data, setData }) => {
         </>
       )}
 
-      <Text className="text-lg font-bold mb-5">To</Text>
-      <Text>{moment(selectedToTime).format("h:mm A")}</Text>
       {Platform.OS === "ios" ? (
         <DateTimePicker
           value={selectedToTime}

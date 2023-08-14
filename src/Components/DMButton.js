@@ -17,7 +17,7 @@ const DMButton = () => {
           name="md-chatbubble-ellipses-outline"
           size={35}
           color="white"
-          style={{ paddingTop: 20 }}
+          style={{ paddingTop: 40 }}
         />
         {/* <Ionicons
           name="md-chatbubble-ellipses"
