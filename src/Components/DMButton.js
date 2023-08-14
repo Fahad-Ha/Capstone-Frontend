@@ -1,6 +1,6 @@
 import { View, Text, Pressable, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
-
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../Navigation";
@@ -13,7 +13,18 @@ const DMButton = () => {
       <Pressable
         onPress={() => navigation.navigate(ROUTES.APPROUTES.DIRECT_MSGLIST)}
       >
-        <Feather name="mail" color={"white"} size={36} />
+        <Ionicons
+          name="md-chatbubble-ellipses-outline"
+          size={35}
+          color="white"
+          style={{ paddingTop: 40 }}
+        />
+        {/* <Ionicons
+          name="md-chatbubble-ellipses"
+          size={34}
+          color="white"
+          style={{ paddingTop: 20 }}
+        /> */}
       </Pressable>
     </View>
   );
