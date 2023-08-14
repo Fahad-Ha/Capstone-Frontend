@@ -61,8 +61,8 @@ const Explore = () => {
             <View className="flex right-0 top-10 items-end py-2 px-4 absolute ">
               {user ? <DMButton /> : null}
             </View>
-            <EventList />
           </SafeAreaView>
+            <EventList />
         </ScrollView>
       </BlurView>
     </ImageBackground>
