@@ -16,18 +16,18 @@ import { useTheme } from "@react-navigation/native";
 import { checkUsername, checkEmail } from "../../apis/auth";
 import ROUTES from "../../Navigation";
 
-const UsernameSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, "Username must be at least 3 characters long.")
-    .matches(
-      /^[a-zA-Z0-9._]*$/,
-      "can only contain letters numbers and underscores"
-    )
-    .required("Username is required."),
-  email: Yup.string().email("Invalid email.").required("Email is required."),
-  password: Yup.string()
-    .min(8, "Password must be at least 8 characters long.")
-    .required("Password is required."),
+const schema = Yup.object().shape({
+  // username: Yup.string()
+  //   .min(3, "Username must be at least 3 characters long.")
+  //   .matches(
+  //     /^[a-zA-Z0-9._]*$/,
+  //     "can only contain letters numbers and underscores"
+  //   )
+  //   .required("Username is required."),
+  // email: Yup.string().email("Invalid email.").required("Email is required."),
+  // password: Yup.string()
+  //   .min(8, "Password must be at least 8 characters long.")
+  //   .required("Password is required."),
 });
 const RegisterUsernameEmailPassword = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -77,7 +77,7 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
-          validationSchema={UsernameSchema}
+          validationSchema={schema}
           onSubmit={(values) => {
             //to be removed, for testing only
             // navigation.navigate(ROUTES.AUTHROUTES.REGISTER.IMAGE_BIRTHDATE, {
@@ -139,6 +139,7 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
                 onChangeText={handleChange("username")}
                 onChange={(e) => {
                   if (e.nativeEvent.text.length > 2) {
+                    console.log(e.nativeEvent.text);
                     userNameChecker(e.nativeEvent.text.toLowerCase());
                     setUsername(values.username.toLowerCase());
                   } else {
@@ -190,6 +191,7 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
                 onChangeText={handleChange("email")}
                 onChange={(e) => {
                   if (!errors.email) {
+                    console.log(e.nativeEvent.text);
                     emailChecker(e.nativeEvent.text.toLowerCase());
                     setEmail(values.email.toLowerCase());
                   } else {
@@ -244,6 +246,9 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
                   onChangeText={handleChange("password")}
                   value={values.password}
                   placeholderTextColor={theme.colors.inputPlaceholder}
+                  onChange={(e) => {
+                    console.log(e.nativeEvent.text);
+                  }}
                 />
                 <Pressable
                   className="absolute p-2  mt-1 right-2"

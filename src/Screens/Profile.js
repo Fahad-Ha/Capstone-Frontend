@@ -22,6 +22,7 @@ import ShareBtn from "../Components/Events/ShareBtn";
 import homeB from "../../assets/home4.jpg";
 import pfp from "../../assets/LOGO.png";
 import EventCard from "../Components/Events/EventCard";
+import { BASE_URL } from "../apis";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -71,7 +72,6 @@ const Profile = () => {
                 className="h-full w-full"
                 style={{
                   borderRadius: 100,
-
                   width: 120,
                   height: 120,
                 }}
@@ -83,7 +83,6 @@ const Profile = () => {
                   color: "white",
                 }}
               >
-                {" "}
                 @{profile?.username}
               </Text>
             </View>
@@ -93,7 +92,6 @@ const Profile = () => {
             >
               <View className="flex-row items-center ">
                 <Feather name="arrow-left" size={32} color={"white"} />
-                <Text className="text-white text-xl mx-2 ">Profile</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -123,6 +121,7 @@ const Profile = () => {
                 borderTopRightRadius: 40,
                 backgroundColor: "rgba(0, 0, 0)",
                 borderColor: "rgba(100, 0, 0, 0.3)",
+
                 // borderWidth: 1.5,
               }}
               className=" overflow-hidden"
@@ -134,15 +133,17 @@ const Profile = () => {
                   style={{
                     backgroundColor: "rgba(0, 0, 0)",
                     borderColor: "rgba(100, 0, 0, 0.3)",
+                    paddingHorizontal: 16,
                   }}
                   className=" overflow-hidden"
                 >
                   <ScrollView>
-                    <View className="pb-50 items-center">
+                    <View className="pb-36 items-center">
                       <Image
+                        className=" rounded-full overflow-hidden"
                         width={100}
                         height={100}
-                        source={{ uri: `${profile?.image}` }}
+                        source={{ uri: `${BASE_URL}/${profile?.image}` }}
                       />
 
                       <View
@@ -153,40 +154,53 @@ const Profile = () => {
                           Interests: {profile?.interests}
                         </Text>
                       </View>
-
-                      <Text className="pb-5 text-white text-lg font-bold">
-                        Created Events: {profile?.createdEvents}
-                      </Text>
+                      <View>
+                        <Text className="text-white font-semibold mb-2 text-lg">
+                          Created Events:
+                        </Text>
+                      </View>
 
                       <View
                         style={{
-                          backgroundColor: "rgba(0, 0, 0, 0.3)",
-                          borderRadius: 20,
-                          marginBottom: 30,
+                          overflow: "hidden",
+                          borderRadius: 30,
                         }}
-                        // className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-3"
+                        className=" items-center   shadow-gray-600 mb-5"
                       >
                         <TouchableOpacity>
-                          <Text className="text-lg p-8 font-semibold text-white">
-                            Workshop for design
-                          </Text>
+                          {profile?.createdEvents?.map((createdEvents) => (
+                            <View key={createdEvents?._id}>
+                              <Image
+                                resizeMode="contain"
+                                height={140}
+                                width={350}
+                                source={{
+                                  uri: `${BASE_URL}/${createdEvents?.image}`,
+                                }}
+                                style={{ borderRadius: 30, overflow: "hidden" }}
+                              />
+                              <BlurView
+                                intensity={65}
+                                tint="default"
+                                style={{
+                                  position: "absolute",
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  overflow: "hidden",
+                                  height: "30%", // 1/3 of the card height
+                                  justifyContent: "center",
+                                  alignItems: "flex-start",
+                                }}
+                              >
+                                <Text className="text-lg p-10 font-semibold text-white text-center absolute">
+                                  {createdEvents?.name}
+                                </Text>
+                              </BlurView>
+                            </View>
+                          ))}
                         </TouchableOpacity>
                       </View>
-                      <View
-                        style={{
-                          backgroundColor: "rgba(0, 0, 0, 0.3)",
-                          borderRadius: 20,
-                          marginBottom: 30,
-                        }}
-                      >
-                        <TouchableOpacity>
-                          <Text className="text-lg p-8 font-semibold text-white">
-                            Music Event
-                          </Text>
-                          <ShareBtn />
-                        </TouchableOpacity>
-                      </View>
-                      {/* <Image source={{ uri: image }} style={{ height: 100, width: 100 }} /> */}
                     </View>
                   </ScrollView>
                 </BlurView>

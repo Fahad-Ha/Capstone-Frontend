@@ -7,9 +7,9 @@ const login = async (userInfo, expoPushToken) => {
 
 //in the register tags(from mulitselect) should be an array of strings and send to the backend
 
-const register = async (userInfo) => {
+const register = async (userInfo, expoPushToken) => {
   const formData = new FormData();
-  console.log("here from auth", userInfo);
+  console.log("here from auth =====>", userInfo);
 
   for (const key in userInfo) {
     if (key != "image") {
@@ -29,12 +29,15 @@ const register = async (userInfo) => {
     }
   }
 
+  formData.append("expoPushToken", expoPushToken);
+
   const res = await instance.post("/auth/register", formData, {
     headers: {
       Accept: "application/json, text/plain, /",
       "Content-Type": "multipart/form-data",
     },
   });
+  res.data = { here: "here" };
 
   return res.data;
 };
