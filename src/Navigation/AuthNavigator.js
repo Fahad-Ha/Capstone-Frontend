@@ -20,14 +20,23 @@ const AuthNavigation = () => {
       <Stack.Screen
         component={RegisterUsernameEmailPassword}
         name={ROUTES.AUTHROUTES.REGISTER.USERNAME_EMAIL_PASSWORD}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         component={RegisterImageBirthdate}
         name={ROUTES.AUTHROUTES.REGISTER.IMAGE_BIRTHDATE}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         component={RegisterInterests}
         name={ROUTES.AUTHROUTES.REGISTER.INTERESTS}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );
