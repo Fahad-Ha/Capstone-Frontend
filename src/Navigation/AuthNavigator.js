@@ -10,7 +10,13 @@ const Stack = createStackNavigator();
 const AuthNavigation = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen component={Login} name={ROUTES.AUTHROUTES.LOGIN} />
+      <Stack.Screen
+        component={Login}
+        name={ROUTES.AUTHROUTES.LOGIN}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         component={RegisterUsernameEmailPassword}
         name={ROUTES.AUTHROUTES.REGISTER.USERNAME_EMAIL_PASSWORD}
