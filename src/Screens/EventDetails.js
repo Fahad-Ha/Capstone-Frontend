@@ -174,16 +174,40 @@ const EventDetails = ({ navigation, route }) => {
       ],
       { cancelable: false }
     );
+  const removeAlert = () =>
+    Alert.alert(
+      "Event Removed",
+      "The event has been removed to your calendar.",
+      [
+        {
+          text: "OK",
+          onPress: () => {
+            RemoveCalendar(), navigation.goBack();
+          },
+          style: "default",
+        },
+      ],
+      { cancelable: false }
+    );
   const toggleRSVP = () => {
+    if (!user) {
+      // User is not logged in, show an alert message
+      Alert.alert("Login Required", "Please log in to RSVP for this event.", [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate(ROUTES.AUTHROUTES.LOGIN),
+        },
+      ]);
+      return;
+    }
     if (userHasRSVPd) {
       // User has RSVP'd, so remove RSVP and calendar event
       unRSVPToEvent();
-      RemoveCalendar();
+      removeAlert();
     } else {
       // User hasn't RSVP'd, so add RSVP and calendar event
       addAlert();
       rsvpToEvent();
-      createCalAndEvent();
     }
   };
   return (
