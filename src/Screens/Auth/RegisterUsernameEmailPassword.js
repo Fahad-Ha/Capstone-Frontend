@@ -16,7 +16,7 @@ import { useTheme } from "@react-navigation/native";
 import { checkUsername, checkEmail } from "../../apis/auth";
 import ROUTES from "../../Navigation";
 
-const UsernameSchema = Yup.object().shape({
+const schema = Yup.object().shape({
   // username: Yup.string()
   //   .min(3, "Username must be at least 3 characters long.")
   //   .matches(
@@ -77,7 +77,7 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
-          validationSchema={UsernameSchema}
+          validationSchema={schema}
           onSubmit={(values) => {
             //to be removed, for testing only
             // navigation.navigate(ROUTES.AUTHROUTES.REGISTER.IMAGE_BIRTHDATE, {
