@@ -23,6 +23,7 @@ import {
   TextInput,
   View,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import MsgBubble from "../Components/MsgBubble";
 
@@ -31,7 +32,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
-import HomeB from "../../assets/HomeBB.png";
+import HomeB from "../../assets/BGL2.png";
 import ROUTES from "../Navigation";
 import UserContext from "../context/UserContext";
 
@@ -144,7 +145,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
     <KeyboardAvoidingView
       enabled
       behavior={Platform.OS == "ios" ? "padding" : null}
-      style={styles.container}
+      style={{ flex: 1 }}
     >
       <View style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
         <ImageBackground source={HomeB} style={{ flex: 1 }}>

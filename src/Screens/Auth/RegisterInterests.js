@@ -65,12 +65,12 @@ const RegisterInterests = ({ route, navigation }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
-  const sortedTags = tags.sort((a, b) => a.name.localeCompare(b.name));
+  const sortedTags = tags?.sort((a, b) => a.name.localeCompare(b.name));
 
-  const paginatedTags = sortedTags.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+  const paginatedTags = sortedTags?.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
   const handleNextPage = () => {
-    if (currentPage < Math.ceil(tags.length / ITEMS_PER_PAGE)) {
+    if (currentPage < Math.ceil(tags?.length / ITEMS_PER_PAGE)) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -186,7 +186,7 @@ const RegisterInterests = ({ route, navigation }) => {
             </TouchableOpacity>
           )}
 
-          {currentPage < Math.ceil(tags.length / ITEMS_PER_PAGE) && (
+          {currentPage < Math.ceil(tags?.length / ITEMS_PER_PAGE) && (
             <TouchableOpacity
               onPress={handleNextPage}
               style={[styles.paginationButton, { backgroundColor: "#FF005C" }]}

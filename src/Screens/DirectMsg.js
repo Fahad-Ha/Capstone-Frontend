@@ -13,7 +13,7 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import ROUTES from "../Navigation/index";
-import ProfileB from "../../assets/banner2.png";
+import ProfileB from "../../assets/BGL2.png";
 import { ActivityIndicator } from "react-native-paper";
 import { BASE_URL } from "../apis";
 import { useTheme } from "@react-navigation/native";
@@ -135,7 +135,7 @@ export default DM;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1E1E1E",
+    // backgroundColor: "#1E1E1E",
     paddingHorizontal: 15,
     paddingTop: 20,
   },
@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 15,
-    // backgroundColor: "rgba(0, 0,0, 0.3)",
-    backgroundColor: "#222",
+    backgroundColor: "rgba(0, 0,0, 0.8)",
+    // backgroundColor: "#222",
     borderRadius: 10,
     marginBottom: 4,
     elevation: 3,
