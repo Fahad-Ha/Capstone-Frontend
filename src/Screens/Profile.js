@@ -99,6 +99,7 @@ const Profile = () => {
             />
             <View className="relative h-72">
               <View
+
                 style={{
                   justifyContent: "center",
                   alignItems: "center",

@@ -12,7 +12,7 @@ import EventList from "../Components/Events/EventList";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFocusEffect } from "@react-navigation/native";
 import DMButton from "../Components/DMButton";
-import HomeBB from "../../assets/Home1.png";
+import HomeBB from "../../assets/BGL1.png";
 import UserContext from "../context/UserContext";
 import { BlurView } from "expo-blur";
 
@@ -61,8 +61,8 @@ const Explore = () => {
             <View className="flex right-0 top-10 items-end py-2 px-4 absolute ">
               {user ? <DMButton /> : null}
             </View>
-            <EventList />
           </SafeAreaView>
+          <EventList />
         </ScrollView>
       </BlurView>
     </ImageBackground>
