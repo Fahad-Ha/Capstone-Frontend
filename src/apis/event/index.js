@@ -26,10 +26,7 @@ const createEvent = async (data) => {
   const formData = new FormData();
 
   for (const key in data) {
-    if (key === "location") {
-      formData.append("latitude", data.location.latitude);
-      formData.append("longitude", data.location.longitude);
-    } else if (key === "image") {
+    if (key === "image") {
       formData.append("image", {
         name: data.image,
         type: "image/jpeg",

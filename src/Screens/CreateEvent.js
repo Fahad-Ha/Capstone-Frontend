@@ -77,6 +77,7 @@ const CreateEvent = ({ navigation, route }) => {
     createEventFun();
     console.log(selectedTags);
   };
+  console.log(data);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
@@ -114,7 +115,6 @@ const CreateEvent = ({ navigation, route }) => {
         </ImagePickerC>
 
         <Create data={data} setData={setData} setErrorText={setErrorText} />
-        {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
         <View style={{ flex: 0.7 }}>
           <ScrollView
             contentContainerStyle={{ flexDirection: "row", flexWrap: "wrap" }}

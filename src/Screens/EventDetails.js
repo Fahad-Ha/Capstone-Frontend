@@ -10,7 +10,6 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useContext, useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { getLocationAddress } from "../apis/location";
 import Rectangle from "../../assets/Rectangle.png";
@@ -242,7 +241,6 @@ const EventDetails = ({ navigation, route }) => {
             </View>
           </TouchableOpacity>
         </View>
-        {/* blurred Background */}
         <BlurView
           intensity={30}
           tint="dark"
@@ -277,10 +275,17 @@ const EventDetails = ({ navigation, route }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={openGoogleMaps}>
-              <Text>
-                {location === "No location provided" && location}
-                {location?.countryName} {location?.city}
-              </Text>
+              <View className="flex-row items-center">
+                <MaterialCommunityIcons
+                  name="google-maps"
+                  size={24}
+                  color="white"
+                />
+                <Text style={{ marginLeft: 8 }}>
+                  {location === "No location provided" && location}
+                  {location?.countryName} {location?.city}
+                </Text>
+              </View>
             </TouchableOpacity>
             <Text className="pb-2 text-lg text-center mx-2 justify-center">
               {event.description}
