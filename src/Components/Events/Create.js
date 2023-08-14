@@ -6,11 +6,14 @@ import {
   View,
   Platform,
   Button,
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
 import DateTimePicker, {
   DateTimePickerAndroid,
 } from "@react-native-community/datetimepicker";
 import moment from "moment";
+import * as Haptics from "expo-haptics";
 
 const Create = ({ data, setData }) => {
   const tomorrow = new Date();
@@ -82,24 +85,25 @@ const Create = ({ data, setData }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Event name</Text>
+    <View className="p-15">
+      <Text className="text-lg font-bold mb-5">Event name</Text>
       <TextInput
-        style={styles.input}
+        className="h-12 w-72 border border-gray-300 rounded-md mb-3 px-4 text-lg text-gray-700 bg-gray-100"
         placeholder="Title"
         placeholderTextColor="#A9A9A9"
         value={data.name}
         onChangeText={(value) => setData({ ...data, name: value })}
       />
-      <Text style={styles.label}>Price</Text>
+      <Text className="text-lg font-bold mb-5">Price</Text>
       <TextInput
-        style={styles.input}
+        className="h-12 w-72 border border-gray-300 rounded-md mb-3 px-4 text-lg text-gray-700 bg-gray-100"
         placeholder="Price"
         placeholderTextColor="#A9A9A9"
         value={data.price}
         onChangeText={(value) => setData({ ...data, price: value })}
       />
-      <Text style={styles.label}>Date</Text>
+      <Text className="text-lg font-bold mb-5">Date</Text>
+      <Text>{moment(selectedDate).format("YYYY-MM-DD")}</Text>
       {Platform.OS === "ios" ? (
         <DateTimePicker
           value={selectedDate}
@@ -111,15 +115,15 @@ const Create = ({ data, setData }) => {
         />
       ) : (
         <>
-          <Text>{selectedDate}</Text>
           <Button title="Select Date" onPress={openDatePickHandler} />
         </>
       )}
-      <Text style={styles.label}>From</Text>
+
+      <Text className="text-lg font-bold mb-5">From</Text>
       <Text>{moment(selectedFromTime).format("h:mm A")}</Text>
       {Platform.OS === "ios" ? (
         <DateTimePicker
-          value={selectedDate}
+          value={selectedFromTime}
           mode="time"
           is24Hour={true}
           display="default"
@@ -130,11 +134,12 @@ const Create = ({ data, setData }) => {
           <Button title="Select From" onPress={openFromPickHandler} />
         </>
       )}
-      <Text style={styles.label}>From</Text>
-      <Text>{moment(selectedFromTime).format("h:mm A")}</Text>
+
+      <Text className="text-lg font-bold mb-5">To</Text>
+      <Text>{moment(selectedToTime).format("h:mm A")}</Text>
       {Platform.OS === "ios" ? (
         <DateTimePicker
-          value={selectedDate}
+          value={selectedToTime}
           mode="time"
           is24Hour={true}
           display="default"
@@ -145,9 +150,10 @@ const Create = ({ data, setData }) => {
           <Button title="Select To" onPress={openToPickHandler} />
         </>
       )}
-      <Text style={styles.label}>Description</Text>
+
+      <Text className="text-lg font-bold mb-5">Description</Text>
       <TextInput
-        style={[styles.input, styles.textArea]}
+        className="h-48 w-72 border border-gray-300 rounded-md mb-3 px-4 text-lg text-gray-700 bg-gray-100"
         placeholder="Description"
         placeholderTextColor="#A9A9A9"
         value={data.description}
@@ -157,32 +163,5 @@ const Create = ({ data, setData }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 15,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  input: {
-    height: 45,
-    width: 360,
-    borderColor: "#D3D3D3",
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 15,
-    padding: 10,
-    fontSize: 18,
-    color: "#333",
-    backgroundColor: "#F8F8F8",
-  },
-  textArea: {
-    height: 100,
-    textAlignVertical: "top",
-  },
-});
 
 export default Create;

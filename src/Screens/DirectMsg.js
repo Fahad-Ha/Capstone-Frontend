@@ -7,12 +7,13 @@ import {
   Text,
   View,
   SafeAreaView,
+  ImageBackground,
 } from "react-native";
 import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import ROUTES from "../Navigation/index";
-
+import ProfileB from "../../assets/banner2.png";
 import { ActivityIndicator } from "react-native-paper";
 import { BASE_URL } from "../apis";
 import { useTheme } from "@react-navigation/native";
@@ -51,9 +52,10 @@ const DM = ({ navigation }) => {
     return 0; // Both chats have no last message
   });
   return (
-    <SafeAreaView
-      style={{ flex: 1, paddingBottom: 88, backgroundColor: "#1E1E1E" }}
-    >
+    // <SafeAreaView
+    //   style={{ flex: 1, paddingBottom: 88, backgroundColor: "#1E1E1E" }}
+    // >
+    <ImageBackground source={ProfileB} style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
         <Text style={styles.header}>Direct Messages</Text>
         <View style={styles.usersContainer}>
@@ -123,7 +125,8 @@ const DM = ({ navigation }) => {
           })}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </ImageBackground>
+    // </SafeAreaView>
   );
 };
 
@@ -153,6 +156,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 15,
+    // backgroundColor: "rgba(0, 0,0, 0.3)",
     backgroundColor: "#222",
     borderRadius: 10,
     marginBottom: 4,

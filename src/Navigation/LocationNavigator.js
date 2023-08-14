@@ -3,8 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ROUTES from ".";
 import Events from "../Screens/Events";
 import EventDetails from "../Screens/EventDetails";
-import Map from "../Screens/Map";
-import SelectLocationMap from "../Screens/SelectLocationMap";
 import DirectMsg from "../Screens/DirectMsg";
 
 const Stack = createStackNavigator();
@@ -17,21 +15,12 @@ export default function LocationNavigation() {
         component={EventDetails}
       />
       <Stack.Screen
-        name={ROUTES.APPROUTES.MAP}
-        component={Map}
-        options={{ tabBarVisible: false, headerShown: true }}
-      />
-      <Stack.Screen
         component={DirectMsg}
         name={ROUTES.APPROUTES.DIRECT_MSGLIST}
         options={{
           headerShown: false,
         }}
       />
-      {/* <Stack.Screen
-        name={ROUTES.APPROUTES.OTHERPROFILE}
-        component={OtherProfiles}
-      /> */}
     </Stack.Navigator>
   );
 }

@@ -1,5 +1,7 @@
 import {
   Button,
+  ImageBackground,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -15,7 +17,13 @@ import { saveToken } from "../../apis/auth/storage";
 import jwt_decode from "jwt-decode";
 import ROUTES from "../../Navigation";
 import useNotifications from "../../hooks/useNotifications";
+
 import * as Haptics from "expo-haptics";
+
+import bgLogin from "../../../assets/bbg.png";
+import { BlurView } from "expo-blur";
+import { MaterialIcons } from "@expo/vector-icons";
+
 const Login = () => {
   const [userInfo, setUserInfo] = useState({});
   const { setUser } = useContext(UserContext);
@@ -43,32 +51,127 @@ const Login = () => {
   };
 
   return (
-    <View className="flex-1 justify-center item-center mx-6">
-      <TextInput
-        className="bg-gray-200 rounded-lg p-2 mb-2"
-        placeholder="Email"
-        onChangeText={(v) => {
-          setUserInfo({ ...userInfo, email: v });
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+
+    <ImageBackground source={bgLogin} style={{ flex: 1 }}>
+      {/* <BlurView
+        intensity={90}
+        tint="dark"
+        style={{
+          backgroundColor: "rgba(0, 0, 0)",
+          borderColor: "rgba(100, 0, 0, 0.3)",
+          flex: 1,
         }}
-      />
-      <TextInput
-        className="bg-gray-200 rounded-lg p-2 mb-2"
-        placeholder="Password"
-        onChangeText={(v) => {
-          setUserInfo({ ...userInfo, password: v });
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+        className=" overflow-hidden"
+      > */}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 90,
         }}
-      />
-      <Button title="Login" onPress={handleSubmit} />
-      <View>
-        <TouchableOpacity onPress={handleSignup}>
-          <Text style={{ textAlign: "center" }}>
-            You don’t have an account? click here to Sign-up
-          </Text>
-        </TouchableOpacity>
+      >
+        <BlurView
+          intensity={80}
+          tint="dark"
+          style={{
+            backgroundColor: "rgba(0, 0, 0)",
+            borderColor: "rgba(100, 0, 0, 0.3)",
+            flex: 0.3,
+            borderRadius: 30,
+            marginTop: 50,
+            paddingBottom: 120,
+          }}
+          className=" overflow-hidden"
+        >
+          <View style={{ flex: 1, width: 400, hight: 500, margin: "auto" }}>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "white",
+                marginTop: 20,
+                marginBottom: 0,
+                fontWeight: "bold",
+                fontSize: 30,
+              }}
+            >
+              LOGIN
+            </Text>
+            <TextInput
+              placeholderTextColor={"white"}
+              style={{
+                backgroundColor: "rgba(232, 232, 232, 0.40)",
+                textAlign: "left",
+                height: 45,
+                borderRadius: 10,
+                marginTop: 30,
+                marginLeft: 20,
+                marginRight: 20,
+                paddingHorizontal: 10,
+                color: "white",
+              }}
+              placeholder="Email"
+              onChangeText={(v) => {setUserInfo({ ...userInfo, email: v }); 
+                                    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);;}}
+            />
+            <TextInput
+              placeholderTextColor={"white"}
+              style={{
+                backgroundColor: "rgba(232, 232, 232, 0.40)",
+                textAlign: "left",
+                height: 45,
+                borderRadius: 10,
+                marginLeft: 20,
+                marginRight: 20,
+                paddingHorizontal: 10,
+                marginTop: 15,
+                color: "white",
+              }}
+              placeholder="Password"
+              onChangeText={(v) => {setUserInfo({ ...userInfo, password: v });
+                                    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);}}
+            />
+            <Pressable onPress={handleSubmit}>
+              <View
+                style={{
+                  backgroundColor: "#FF005C",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  marginTop: 30,
+                  width: 200,
+                  height: 50,
+                  borderRadius: 10,
+
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>
+                  LOGIN
+                </Text>
+              </View>
+            </Pressable>
+          </View>
+        </BlurView>
+        <View style={{ marginTop: 20, flexDirection: "row" }}>
+          <Text style={{ color: "white" }}>You arent registered?</Text>
+          <TouchableOpacity onPress={handleSignup}>
+            <Text
+              style={{
+                color: "#00C2FF",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            >
+              {" "}
+              Please Signup here
+            </Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
-    </View>
+      {/* </BlurView> */}
+    </ImageBackground>
   );
 };
 

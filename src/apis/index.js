@@ -5,10 +5,13 @@ import { getToken } from "./auth/storage";
 // const BASE_URL = "http://192.168.8.104:8000";
 // const BASE_URL = "http://192.168.2.109:8000";
 
-// const BASE_URL = "http://192.168.8.177:8080";
+const BASE_URL = "http://192.168.8.177:8080";
 
 // const BASE_URL = "http://192.168.8.192:8000";
+
 const BASE_URL = "http://192.168.2.114:8000";
+// const BASE_URL = "http://localhost:8000";
+
 
 // const BASE_URL = "http://192.168.8.104:8000";
 // const BASE_URL = "http://192.168.8.114:8000";
