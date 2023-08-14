@@ -8,17 +8,19 @@ import {
   ScrollView,
   ImageBackground,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { FontAwesome } from "@expo/vector-icons";
 import { useMutation } from "@tanstack/react-query";
-import { useTheme } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { checkUsername, checkEmail } from "../../apis/auth";
 import ROUTES from "../../Navigation";
 import bgLogin from "../../../assets/bbg.png";
 import { BlurView } from "expo-blur";
+import { Feather } from "@expo/vector-icons";
 
 const schema = Yup.object().shape({
   // username: Yup.string()
@@ -33,12 +35,14 @@ const schema = Yup.object().shape({
   //   .min(8, "Password must be at least 8 characters long.")
   //   .required("Password is required."),
 });
-const RegisterUsernameEmailPassword = ({ navigation }) => {
+const RegisterUsernameEmailPassword = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigation = useNavigation();
 
   const toggleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -86,16 +90,27 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
       <ImageBackground source={bgLogin} style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
           <ScrollView contentContainerStyle={styles.scrollContent}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              className="absolute  top-10 left-1 rounded-full shadow p-2"
+            >
+              <View className="flex-row items-center ">
+                <Feather name="arrow-left" size={32} color={"white"} />
+              </View>
+            </TouchableOpacity>
             <Formik
               initialValues={{ username: "", email: "", password: "" }}
               validationSchema={schema}
               onSubmit={(values) => {
                 //to be removed, for testing only
-                // navigation.navigate(ROUTES.AUTHROUTES.REGISTER.IMAGE_BIRTHDATE, {
-                //   username: username.toLowerCase(),
-                //   email: email.toLowerCase(),
-                //   password: values.password,
-                // });
+                navigation.navigate(
+                  ROUTES.AUTHROUTES.REGISTER.IMAGE_BIRTHDATE,
+                  {
+                    username: username.toLowerCase(),
+                    email: email.toLowerCase(),
+                    password: values.password,
+                  }
+                );
                 if (
                   usernameError.includes("available") &&
                   !emailError.includes("in use") &&
@@ -220,6 +235,7 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
                         <Text style={{ color: "#00C2FF" }}> *</Text>
                       </Text>
                     </View>
+
                     <TextInput
                       placeholderTextColor={"white"}
                       style={{
@@ -259,6 +275,7 @@ const RegisterUsernameEmailPassword = ({ navigation }) => {
                         {emailError}
                       </Text>
                     )}
+
                     <View className="   w-4/5">
                       <Text className=" text-xl  text-left font-bold mb-4"></Text>
 
