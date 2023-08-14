@@ -1,9 +1,27 @@
-import { View, Text, Button, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  ScrollView,
+  ImageBackground,
+  Picker,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
 import ImageHandler from "../../Components/Shared/ImagePickerC";
-import { useTheme } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import CalendarPicker from "react-native-calendar-picker";
 import ROUTES from "../../Navigation";
+import bgLogin from "../../../assets/BGL1.png";
+import DateTimePicker, {
+  DateTimePickerAndroid,
+} from "@react-native-community/datetimepicker";
+import { Feather } from "@expo/vector-icons";
+import moment from "moment";
+import DatePicker from "react-native-modal-datetime-picker";
+import { BlurView } from "expo-blur";
 
 const RegisterImageBirthdate = ({ route, navigation }) => {
   const { username, email, password } = route.params;
@@ -11,13 +29,18 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
   const [image, setImage] = useState(
     "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
   );
-  const [startDate, setStartDate] = useState(new Date());
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0, 0);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [data, setData] = useState({
     username: username,
     email: email,
     password: password,
     image: image,
   });
+  const navigate = useNavigation();
   console.log(data);
   const theme = useTheme();
   const handleNext = () => {
@@ -29,8 +52,27 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
     setStartDate(date);
     setData({ ...data, dateOfBirth: date });
   };
+  const handleDateChange = (event, selected) => {
+    const currentDate = selected || selectedDate;
+    setSelectedDate(currentDate);
+    setData({ ...data, date: currentDate });
+  };
+
+  /////////////////////////
+  ////////////////////////
+
   return (
-    <View style={styles.container}>
+    <ImageBackground source={bgLogin} style={{ flex: 1 }}>
+      <TouchableOpacity className="absolute  top-10 left-1 rounded-full shadow p-2">
+        <View className="flex-row items-center ">
+          <Feather
+            name="arrow-left"
+            size={32}
+            color={"white"}
+            onPress={() => navigation.goBack()}
+          />
+        </View>
+      </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Text style={styles.headerText2}>Step 2 out of 3</Text>
         <View style={styles.headerContainer}>
@@ -54,18 +96,68 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
           </View>
 
           <View style={styles.calendarContainer}>
-            <CalendarPicker
+            {/* <CalendarPicker
               onDateChange={handleDate}
               width={250}
               height={250}
-            />
+            /> */}
+            {/* <Text style={{ color: "white" }}>
+              {moment(selectedDate).format("YYYY-MM-DD")}
+            </Text> */}
+            <BlurView
+              intensity={70}
+              tint="light"
+              style={{
+                backgroundColor: "rgba(0, 0, 0)",
+                borderColor: "rgba(100, 0, 0, 0.3)",
+                flex: 1,
+                width: 300,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 10,
+              }}
+              className=" overflow-hidden"
+            >
+              {Platform.OS === "ios" ? (
+                <DateTimePicker
+                  value={selectedDate}
+                  mode="date"
+                  is24Hour={true}
+                  color={"white"}
+                  maximumDate={new Date()}
+                  onChange={handleDateChange}
+                  textAlign={"center"}
+                />
+              ) : (
+                <>
+                  <Button title="Select Date" onPress={showDatePicker} />
+                </>
+              )}
+            </BlurView>
           </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button title="Next" onPress={handleNext} />
-        </View>
+
+        <Pressable onPress={handleNext}>
+          <View
+            style={{
+              backgroundColor: "#FF005C",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: 10,
+              width: 200,
+              height: 50,
+              borderRadius: 10,
+
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>NEXT</Text>
+          </View>
+        </Pressable>
       </ScrollView>
-    </View>
+    </ImageBackground>
   );
 };
 export default RegisterImageBirthdate;
@@ -89,20 +181,23 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 22,
     fontWeight: "bold",
-    color: "#FAFAFA",
+
     marginBottom: 8,
+    marginTop: 15,
+    color: "white",
   },
   headerText2: {
-    fontSize: 22,
+    fontSize: 16,
     fontWeight: "bold",
-    color: "#FAFAFA",
+    color: "white",
     marginBottom: 8,
     textAlign: "left",
+    marginTop: 80,
   },
   subHeaderText: {
     fontSize: 14,
     textAlign: "center",
-    color: "#FAFAFA",
+    color: "white",
     marginBottom: 15,
   },
   contentContainer: {
@@ -113,17 +208,18 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: 130,
     height: 130,
-    borderRadius: 18,
+    borderRadius: 100,
     overflow: "hidden",
     marginBottom: 40,
   },
   calendarContainer: {
-    width: "85%",
+    width: 300,
+    color: "white",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
-    borderWidth: 2,
-    borderColor: "#FAFAFA",
+
+    borderColor: "white",
     borderRadius: 8,
     padding: 5,
   },
