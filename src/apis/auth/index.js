@@ -37,7 +37,7 @@ const register = async (userInfo) => {
       "Content-Type": "multipart/form-data",
     },
   });
-  res.data = { here: "here" };
+  // res.data = { here: "here" };
 
   return res.data;
 };

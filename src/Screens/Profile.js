@@ -68,7 +68,7 @@ const Profile = () => {
                 marginTop: 67,
               }}
             >
-              <Image
+              {/* <Image
                 className="h-full w-full"
                 style={{
                   borderRadius: 100,
@@ -76,6 +76,12 @@ const Profile = () => {
                   height: 120,
                 }}
                 source={pfp}
+              /> */}
+              <Image
+                className=" rounded-full overflow-hidden"
+                width={100}
+                height={100}
+                source={{ uri: `${BASE_URL}/${profile?.image}` }}
               />
               <Text
                 style={{
@@ -126,7 +132,10 @@ const Profile = () => {
               }}
               className=" overflow-hidden"
             >
-              <ImageBackground source={ProfileB} style={{ flex: 1 }}>
+              <ImageBackground
+                source={ProfileB}
+                style={{ flex: 1, height: 700 }}
+              >
                 <BlurView
                   intensity={80}
                   tint="dark"
@@ -134,18 +143,12 @@ const Profile = () => {
                     backgroundColor: "rgba(0, 0, 0)",
                     borderColor: "rgba(100, 0, 0, 0.3)",
                     paddingHorizontal: 16,
+                    height: 700,
                   }}
                   className=" overflow-hidden"
                 >
                   <ScrollView>
                     <View className="pb-36 items-center">
-                      <Image
-                        className=" rounded-full overflow-hidden"
-                        width={100}
-                        height={100}
-                        source={{ uri: `${BASE_URL}/${profile?.image}` }}
-                      />
-
                       <View
                         style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
                         className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-5 "
