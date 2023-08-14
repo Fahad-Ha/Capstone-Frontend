@@ -14,6 +14,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import DMButton from "../Components/DMButton";
 import HomeBB from "../../assets/Home1.png";
 import UserContext from "../context/UserContext";
+import { BlurView } from "expo-blur";
 
 const Explore = () => {
   const { user, setUser } = useContext(UserContext);

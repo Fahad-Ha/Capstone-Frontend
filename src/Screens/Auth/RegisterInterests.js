@@ -16,10 +16,14 @@ import { register } from "../../apis/auth";
 import { saveToken } from "../../apis/auth/storage";
 import UserContext from "../../context/UserContext";
 import ROUTES from "../../Navigation";
+import useNotifications from "../../hooks/useNotifications";
 
 const RegisterInterests = ({ route, navigation }) => {
   const { data } = route.params;
   const [selectedIntres, setSelectedIntres] = useState([]);
+
+  const expoToken = useNotifications();
+
   const { setUser } = useContext(UserContext);
   const { data: tags } = useQuery({
     queryKey: ["tags"],
@@ -31,7 +35,11 @@ const RegisterInterests = ({ route, navigation }) => {
     isLoading,
   } = useMutation({
     mutationFn: () => {
-      return register({ ...data, interests: selectedIntres });
+      return register({
+        ...data,
+        interests: selectedIntres,
+        expoPushToken: expoToken,
+      });
     },
     onSuccess: (data) => {
       saveToken(data.token);
