@@ -19,7 +19,6 @@ const Create = ({ data, setData }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedFromTime, setSelectedFromTime] = useState(new Date());
   const [selectedToTime, setSelectedToTime] = useState(new Date());
-
   const handleDateChange = (event, selected) => {
     const currentDate = selected || selectedDate;
     setSelectedDate(currentDate);
@@ -49,7 +48,6 @@ const Create = ({ data, setData }) => {
       to: isoFormattedTime,
     });
   };
-
   const openDatePickHandler = () => {
     DateTimePickerAndroid.open({
       mode: "date",
@@ -111,7 +109,7 @@ const Create = ({ data, setData }) => {
         />
       ) : (
         <>
-          <Text>{selectedDate}</Text>
+          <Text>{moment(selectedDate).format("YYYY-MM-DD")}</Text>
           <Button title="Select Date" onPress={openDatePickHandler} />
         </>
       )}
@@ -130,7 +128,7 @@ const Create = ({ data, setData }) => {
           <Button title="Select From" onPress={openFromPickHandler} />
         </>
       )}
-      <Text style={styles.label}>From</Text>
+      <Text style={styles.label}>To</Text>
       <Text>{moment(selectedFromTime).format("h:mm A")}</Text>
       {Platform.OS === "ios" ? (
         <DateTimePicker
