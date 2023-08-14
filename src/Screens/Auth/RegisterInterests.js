@@ -40,9 +40,7 @@ const RegisterInterests = ({ route, navigation }) => {
       return register({
         ...JSON.parse(data),
         // dateOfBirth: JSON.parse(data.dateOfBirth),
-        interests: selectedIntres, 
-        expoPushToken: expoToken,
-
+        interests: selectedIntres,
       });
     },
     onSuccess: (data) => {
