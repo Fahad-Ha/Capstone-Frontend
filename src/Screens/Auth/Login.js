@@ -10,6 +10,8 @@ import {
   Dimensions,
   Platform,
   View,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
@@ -87,6 +89,7 @@ const Login = () => {
         }}
         className=" overflow-hidden"
       > */}
+
         <View
           style={{
             flex: 1,
@@ -104,6 +107,7 @@ const Login = () => {
               flex: 0.3,
               borderRadius: 30,
               marginTop: 50,
+
               paddingBottom: 210,
             }}
             className=" overflow-hidden"
@@ -256,6 +260,7 @@ const Login = () => {
                 </View>
               )}
             </Formik>
+
           </BlurView>
           <View style={{ marginTop: 20, flexDirection: "row" }}>
             <Text style={{ color: "white" }}>You arent registered?</Text>
@@ -272,9 +277,7 @@ const Login = () => {
             </TouchableOpacity>
           </View>
         </View>
-        {/* </BlurView> */}
-      </ImageBackground>
-    </KeyboardAvoidingView>
+
   );
 };
 

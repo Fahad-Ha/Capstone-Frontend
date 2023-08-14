@@ -15,7 +15,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import LocationNavigation from "./LocationNavigator";
 import AuthNavigation from "./AuthNavigator";
-import { View, StyleSheet, Pressable, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import Users from "../Screens/Users";
 import Chat1 from "../Screens/Chat1";
 import Explore from "../Screens/Events";
@@ -50,7 +57,7 @@ export default function TabNavigation() {
           bottom: 5,
           left: 0,
           right: 0,
-          height: 78,
+          height: 70,
           borderRadius: 16,
           marginHorizontal: 4,
           overflow: "hidden", // Hide the overflow from the border
@@ -78,9 +85,9 @@ export default function TabNavigation() {
           justifyContent: "center",
           elevation: 1,
           backgroundColor: "transparent",
-          height: 84,
+          height: 82,
           marginHorizontal: 2,
-          bottom: -4,
+          bottom: -6,
           // ...styles.shadow,
         },
       }}
@@ -94,8 +101,8 @@ export default function TabNavigation() {
             <AntDesign
               name="find"
               color={color}
-              size={40}
-              style={{ height: 40 }}
+              size={35}
+              style={{ height: 36 }}
             />
           ),
         }}
@@ -107,12 +114,12 @@ export default function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="ticket-confirmation-outline"
-              size={55}
+              size={47}
               color={color}
-              style={{ height: 54 }}
+              style={{ height: 48 }}
             />
           ),
-          headerShown: user ? true : false,
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -123,9 +130,9 @@ export default function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <Feather
               name="plus-square"
-              size={45}
+              size={40}
               color={color}
-              style={{ height: 44 }}
+              style={{ height: 40 }}
             />
           ),
         }}
@@ -138,9 +145,9 @@ export default function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome
               name="user-circle-o"
-              size={40}
+              size={35}
               color={color}
-              style={{ height: 40 }}
+              style={{ height: 36 }}
             />
           ),
         }}
