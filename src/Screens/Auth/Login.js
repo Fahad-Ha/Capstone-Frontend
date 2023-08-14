@@ -17,6 +17,9 @@ import { saveToken } from "../../apis/auth/storage";
 import jwt_decode from "jwt-decode";
 import ROUTES from "../../Navigation";
 import useNotifications from "../../hooks/useNotifications";
+
+import * as Haptics from "expo-haptics";
+
 import bgLogin from "../../../assets/bbg.png";
 import { BlurView } from "expo-blur";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -48,6 +51,7 @@ const Login = () => {
   };
 
   return (
+
     <ImageBackground source={bgLogin} style={{ flex: 1 }}>
       {/* <BlurView
         intensity={90}
@@ -107,7 +111,8 @@ const Login = () => {
                 color: "white",
               }}
               placeholder="Email"
-              onChangeText={(v) => setUserInfo({ ...userInfo, email: v })}
+              onChangeText={(v) => {setUserInfo({ ...userInfo, email: v }); 
+                                    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);;}}
             />
             <TextInput
               placeholderTextColor={"white"}
@@ -123,7 +128,8 @@ const Login = () => {
                 color: "white",
               }}
               placeholder="Password"
-              onChangeText={(v) => setUserInfo({ ...userInfo, password: v })}
+              onChangeText={(v) => {setUserInfo({ ...userInfo, password: v });
+                                    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);}}
             />
             <Pressable onPress={handleSubmit}>
               <View
@@ -162,6 +168,7 @@ const Login = () => {
             </Text>
           </TouchableOpacity>
         </View>
+
       </View>
       {/* </BlurView> */}
     </ImageBackground>
