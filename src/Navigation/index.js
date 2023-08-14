@@ -2,7 +2,11 @@ const ROUTES = {
   APPROUTES: {
     LOCATION_NAVIGATION: "Location-N",
     EXPLORE: "Explore",
-    ADD_EVENT: "Add-Event",
+    ADD_EVENT: {
+      EVENT_INFO1: "Add Event 1",
+      EVENT_INFO2: "Add Event 2",
+      EVENT_INFO3: "Add Event 3",
+    },
     PROFILE: "Profile",
     OTHERPROFILE: "user-profile",
     DIRECT_MSG: "DM",

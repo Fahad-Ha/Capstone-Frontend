@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import ROUTES from "../Navigation/index";
 
 const SelectLocationMap = ({ navigation }) => {
@@ -16,7 +16,7 @@ const SelectLocationMap = ({ navigation }) => {
 
   const handleConfirmLocation = () => {
     if (selectedLocation) {
-      navigation.navigate(ROUTES.APPROUTES.ADD_EVENT, {
+      navigation.navigate(ROUTES.APPROUTES.ADD_EVENT.EVENT_INFO2, {
         location: {
           location: selectedLocation,
         },
@@ -41,7 +41,7 @@ const SelectLocationMap = ({ navigation }) => {
       <TouchableOpacity
         onPressOut={() => handleConfirmLocation()}
         style={{
-          opacity: selectedLocation ? 100 : 0,
+          opacity: selectedLocation ? 1 : 0, // Change opacity to 1
         }}
       >
         <View className="z-10 bottom-20 mb-5 p-5 rounded-2xl self-center bg-blue-900">
