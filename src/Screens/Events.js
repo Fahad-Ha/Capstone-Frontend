@@ -12,7 +12,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useFocusEffect } from "@react-navigation/native";
 import DMButton from "../Components/DMButton";
 import HomeBB from "../../assets/Home1.png";
-import { BlurView } from "expo-blur";
 import UserContext from "../context/UserContext";
 
 const Explore = () => {
