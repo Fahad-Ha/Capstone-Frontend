@@ -36,7 +36,7 @@ const Explore = () => {
         className=" overflow-hidden"
       >
         <ScrollView>
-          <SafeAreaView className="flex-1 pt-10">
+          <SafeAreaView className="flex-1 pt-11">
             <Text className="text-2xl pt-3 font-bold text-center mb-5 mt-14 text-white">
               Explore The Events Around Us!
             </Text>
@@ -55,7 +55,7 @@ const Explore = () => {
                 marginLeft: 20,
                 marginRight: 20,
               }}
-              placeholder="Filter..."
+              placeholder="Search by Event name..."
             ></TextInput>
             <View className="flex right-0 top-10 items-end py-2 px-4 absolute ">
               {user ? <DMButton /> : null}
