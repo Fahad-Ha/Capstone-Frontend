@@ -141,112 +141,119 @@ const Chat1 = ({ route, profileData, navigation }) => {
     lastTimestamp = currentTimestamp;
   });
   return (
-    <View style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
-      <ImageBackground source={HomeB} style={{ flex: 1 }}>
-        <SafeAreaView
-          style={{
-            flex: 1,
-            paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-          }}
-        >
-          <StatusBar backgroundColor="#1E1E1E" barStyle="dark-content" />
-          <View style={{ flex: 1 }}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                padding: 10,
-              }}
-            >
-              <AntDesign
-                name="left"
-                size={24}
-                color="white"
-                style={{ width: 35 }}
-                onPress={() => navigation.goBack()}
-              />
+    <KeyboardAvoidingView
+      enabled
+      behavior={Platform.OS == "ios" ? "padding" : null}
+      style={styles.container}
+    >
+      <View style={{ flex: 1, backgroundColor: "#1E1E1E" }}>
+        <ImageBackground source={HomeB} style={{ flex: 1 }}>
+          <SafeAreaView
+            style={{
+              flex: 1,
+              paddingTop:
+                Platform.OS === "android" ? StatusBar.currentHeight : 0,
+            }}
+          >
+            <StatusBar backgroundColor="#1E1E1E" barStyle="dark-content" />
+            <View style={{ flex: 1 }}>
               <View
                 style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 20,
-                  backgroundColor: "black",
-                  marginRight: 10,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  padding: 10,
                 }}
               >
-                <Image
-                  className="w-full h-full"
-                  style={{
-                    borderRadius: 100,
-                  }}
-                  source={{
-                    uri: `${BASE_URL}/${user?.image}`,
-                  }}
+                <AntDesign
+                  name="left"
+                  size={24}
+                  color="white"
+                  style={{ width: 35 }}
+                  onPress={() => navigation.goBack()}
                 />
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 20,
+                    backgroundColor: "black",
+                    marginRight: 10,
+                  }}
+                >
+                  <Image
+                    className="w-full h-full"
+                    style={{
+                      borderRadius: 100,
+                    }}
+                    source={{
+                      uri: `${BASE_URL}/${user?.image}`,
+                    }}
+                  />
+                </View>
+                <Text
+                  style={{ fontSize: 16, fontWeight: "bold", color: "white" }}
+                >
+                  {user?.username}
+                </Text>
               </View>
-              <Text
-                style={{ fontSize: 16, fontWeight: "bold", color: "white" }}
-              >
-                {user?.username}
-              </Text>
-            </View>
 
-            <View
-              style={{
-                height: 0,
-                backgroundColor: "#1E1E1E",
-                padding: 0,
-              }}
-            ></View>
-            <ScrollView
-              ref={scrollViewRef}
-              style={{
-                flex: 1,
-                padding: 10,
-                color: "white",
-              }}
-              onContentSizeChange={scrollToBottom}
-            >
-              {dayElements}
-            </ScrollView>
-            {/* <View
+              <View
+                style={{
+                  height: 0,
+                  backgroundColor: "#1E1E1E",
+                  padding: 0,
+                }}
+              ></View>
+              <ScrollView
+                ref={scrollViewRef}
+                style={{
+                  flex: 1,
+                  padding: 10,
+                  color: "white",
+                }}
+                onContentSizeChange={scrollToBottom}
+              >
+                {dayElements}
+              </ScrollView>
+              {/* <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 padding: 10,
               }}
             ></View> */}
-            {/* Footer with background color */}
-          </View>
-        </SafeAreaView>
-        <View
-          style={{
-            backgroundColor: "#1E1E1E",
-            padding: 15,
-            flexDirection: "row",
-          }}
-        >
-          <TextInput
-            value={msg}
-            onChangeText={(v) => setMsg(v)}
-            placeholder="Type a message..."
+              {/* Footer with background color */}
+            </View>
+          </SafeAreaView>
+          <View
             style={{
-              flex: 1,
-              backgroundColor: "#F5F5F5",
-              borderRadius: 20,
-              paddingHorizontal: 10,
-              paddingVertical: 8,
+              backgroundColor: "#1E1E1E",
+              padding: 15,
+              flexDirection: "row",
             }}
-          />
-          <MaterialCommunityIcons
-            name="send-circle"
-            size={50}
-            color="#7581E7"
-            onPress={handleSend}
-          />
-        </View>
-      </ImageBackground>
-    </View>
+          >
+            <TextInput
+              value={msg}
+              onChangeText={(v) => setMsg(v)}
+              placeholder="Type a message..."
+              style={{
+                flex: 1,
+                backgroundColor: "#F5F5F5",
+                borderRadius: 20,
+                paddingHorizontal: 10,
+                paddingVertical: 8,
+              }}
+            />
+            <MaterialCommunityIcons
+              name="send-circle"
+              size={50}
+              color="#7581E7"
+              onPress={handleSend}
+            />
+          </View>
+        </ImageBackground>
+      </View>
+    </KeyboardAvoidingView>
     // </LinearGradient>
   );
 };
