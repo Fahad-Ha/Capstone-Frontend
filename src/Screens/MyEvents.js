@@ -13,6 +13,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import EventCard from "../Components/Events/EventCard";
 import UserContext from "../context/UserContext";
 import homeB from "../../assets/BGL1.png";
+import HomeB from "../../assets/BGL2.png";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
@@ -51,14 +52,13 @@ const MyEvents = () => {
   );
 
   return (
-    <ImageBackground source={homeB} style={{ flex: 1 }}>
+    <ImageBackground source={showUpcoming ? homeB : HomeB} style={{ flex: 1 }}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         className="absolute  top-8 left-0 rounded-full shadow p-2"
       >
         <View className="flex-row items-center">
           <Feather name="arrow-left" size={32} color={"white"} />
-          <Text className="text-xl mx-2 text-white">Profile</Text>
         </View>
       </TouchableOpacity>
       <BlurView style={styles.toggleContainer}>
@@ -105,7 +105,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   selectedToggle: {
-    backgroundColor: "rgba(255, 255, 255, 0.2)", // Change to your selected color
+    // backgroundColor: "rgba(255, 255, 255, 0.2)", // Change to your selected color
+    backgroundColor: "#FF005C",
   },
   toggleText: {
     fontSize: 18,

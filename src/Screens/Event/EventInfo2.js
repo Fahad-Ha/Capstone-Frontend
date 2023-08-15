@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Platform, Button, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Platform,
+  Button,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import DateTimePicker, {
   DateTimePickerAndroid,
 } from "@react-native-community/datetimepicker";
 import moment from "moment";
 import { getLocationAddress } from "../../apis/location";
 import { useQuery } from "@tanstack/react-query";
+import HomeB from "../../../assets/BGL1.png";
+import homeB from "../../../assets/BGL.png";
+import { Blur } from "@shopify/react-native-skia";
+import { BlurView } from "expo-blur";
+import { Entypo, Feather } from "@expo/vector-icons";
 
 const EventInfo2 = ({ route, navigation }) => {
   const { data: data1 } = route.params;
@@ -107,8 +119,30 @@ const EventInfo2 = ({ route, navigation }) => {
   };
   console.log(data);
   return (
-    <View className="p-15">
-      <View className="border border-gray-300 p-8 rounded-8 mb-16">
+    <ImageBackground source={homeB} style={{ flex: 1 }}>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        className="absolute  top-10 left-1 rounded-full shadow p-2"
+      >
+        <View className="flex-row items-center ">
+          <Feather name="arrow-left" size={32} color={"white"} />
+        </View>
+      </TouchableOpacity>
+      <View
+        style={{
+          flex: 0.5,
+
+          marginLeft: 50,
+          marginRight: 50,
+          marginTop: 120,
+          borderRadius: 30,
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+
+          backgroundColor: "rgba(232, 232, 232, 0.30)",
+        }}
+      >
         <TouchableOpacity onPress={handleSelectLocation}>
           {location ? (
             <>
@@ -120,62 +154,140 @@ const EventInfo2 = ({ route, navigation }) => {
               </Text>
             </>
           ) : (
-            <Text className="text-blue-500 text-base">Select Location</Text>
+            <Entypo name="location" size={44} color="#FF005C" />
           )}
         </TouchableOpacity>
       </View>
-      <Text className="text-lg font-bold mb-5">Date</Text>
-      <Text>{moment(selectedDate).format("YYYY-MM-DD")}</Text>
-      {Platform.OS === "ios" ? (
-        <DateTimePicker
-          value={selectedDate}
-          mode="date"
-          is24Hour={true}
-          minimumDate={tomorrow}
-          display="default"
-          onChange={handleDateChange}
-        />
-      ) : (
-        <>
-          <Button title="Select Date" onPress={openDatePickHandler} />
-        </>
-      )}
-
-      <Text className="text-lg font-bold mb-5">From</Text>
-      <Text>{moment(selectedFromTime).format("h:mm A")}</Text>
-      {Platform.OS === "ios" ? (
-        <DateTimePicker
-          value={selectedFromTime}
-          mode="time"
-          is24Hour={true}
-          display="default"
-          onChange={handleFromTimeChange}
-        />
-      ) : (
-        <>
-          <Button title="Select From" onPress={openFromPickHandler} />
-        </>
-      )}
-
-      <Text className="text-lg font-bold mb-5">To</Text>
-      <Text>{moment(selectedToTime).format("h:mm A")}</Text>
-      {Platform.OS === "ios" ? (
-        <DateTimePicker
-          value={selectedToTime}
-          mode="time"
-          is24Hour={true}
-          display="default"
-          onChange={handleToTimeChange}
-        />
-      ) : (
-        <>
-          <Button title="Select To" onPress={openToPickHandler} />
-        </>
-      )}
-      <View className="p-15">
-        <Button title="Next" onPress={handleNextPage} />
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Text
+          style={{
+            color: "white",
+            marginTop: 30,
+            marginBottom: 20,
+            fontSize: 20,
+          }}
+        >
+          Date
+        </Text>
+        <Text style={{ color: "white", marginTop: 0, marginBottom: 20 }}>
+          {moment(selectedDate).format("YYYY-MM-DD")}
+        </Text>
+        <BlurView
+          intensity={100}
+          tint="default"
+          style={{
+            backgroundColor: "rgba(0, 0, 0)",
+            borderColor: "rgba(100, 0, 0, 0.3)",
+            marginBottom: 20,
+            width: 300,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 10,
+          }}
+          className=" overflow-hidden"
+        >
+          {Platform.OS === "ios" ? (
+            <DateTimePicker
+              value={selectedDate}
+              mode="date"
+              is24Hour={true}
+              textColor="white"
+              minimumDate={tomorrow}
+              display="default"
+              onChange={handleDateChange}
+            />
+          ) : (
+            <>
+              <Button title="Select Date" onPress={openDatePickHandler} />
+            </>
+          )}
+        </BlurView>
+        <Text style={{ color: "white", fontSize: 20 }}>From</Text>
+        <Text style={{ color: "white", fontSize: 15 }}>
+          {moment(selectedFromTime).format("h:mm A")}
+        </Text>
+        <BlurView
+          intensity={50}
+          tint="default"
+          style={{
+            backgroundColor: "rgba(0, 0, 0)",
+            borderColor: "rgba(100, 0, 0, 0.3)",
+            marginBottom: 20,
+            width: 300,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 10,
+          }}
+          className=" overflow-hidden"
+        >
+          {Platform.OS === "ios" ? (
+            <DateTimePicker
+              value={selectedFromTime}
+              mode="time"
+              is24Hour={true}
+              display="default"
+              onChange={handleFromTimeChange}
+            />
+          ) : (
+            <>
+              <Button title="Select From" onPress={openFromPickHandler} />
+            </>
+          )}
+        </BlurView>
+        <Text style={{ color: "white", fontSize: 20 }}>To</Text>
+        <Text style={{ color: "white", fontSize: 15 }}>
+          {moment(selectedToTime).format("h:mm A")}
+        </Text>
+        <BlurView
+          intensity={100}
+          tint="default"
+          style={{
+            backgroundColor: "rgba(0, 0, 0)",
+            borderColor: "rgba(100, 0, 0, 0.3)",
+            marginBottom: 20,
+            width: 300,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 10,
+          }}
+          className=" overflow-hidden"
+        >
+          {Platform.OS === "ios" ? (
+            <DateTimePicker
+              value={selectedToTime}
+              mode="time"
+              is24Hour={true}
+              display="default"
+              onChange={handleToTimeChange}
+            />
+          ) : (
+            <>
+              <Button title="Select To" onPress={openToPickHandler} />
+            </>
+          )}
+        </BlurView>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#FF005C",
+            marginLeft: "auto",
+            marginRight: "auto",
+            width: 200,
+            height: 50,
+            marginTop: 80,
+            borderRadius: 10,
+            bottom: 80,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onPress={handleNextPage}
+        >
+          <Text style={{ color: "white", fontWeight: "bold" }}>Next</Text>
+        </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

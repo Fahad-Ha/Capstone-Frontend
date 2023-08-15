@@ -5,8 +5,12 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import ImagePickerC from "../../Components/Shared/ImagePickerC";
+import HomeB from "../../../assets/BGL1.png";
+import homeB from "../../../assets/BGL.png";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const EventInfo1 = ({ navigation }) => {
   const [data, setData] = useState({});
@@ -18,97 +22,186 @@ const EventInfo1 = ({ navigation }) => {
   };
   console.log(data);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <ImagePickerC
-        image={image}
-        setImage={setImage}
-        height={100}
-        width={100}
+    <ImageBackground source={homeB} style={{ flex: 1 }}>
+      <View
         style={{
-          maxWidth: "100%",
-          height: 100,
-          borderRadius: 8,
-          overflow: "hidden",
-          marginBottom: 16,
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        onImagePicked={(imageUri) => setData({ ...data, image: imageUri })}
+      >
+        <ImagePickerC
+          image={image}
+          setImage={setImage}
+          height={100}
+          width={100}
+          style={{
+            width: 300,
+            height: 210,
+            borderRadius: 20,
+            overflow: "hidden",
+            marginTop: 100,
+            marginBottom: 30,
+          }}
+          onImagePicked={(imageUri) => setData({ ...data, image: imageUri })}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              // backgroundColor: "rgba(0, 0,0, 0.5)",
+              backgroundColor: "rgba(232, 232, 232, 0.30)",
+            }}
+          >
+            {/* <MaterialIcons
+              name="add-a-photo"
+              size={40}
+              color="rgba(255, 255, 255, 0.70)"
+            /> */}
+            <MaterialIcons
+              name="insert-photo"
+              size={40}
+              color="rgba(255, 255, 255, 0.80)"
+            />
+            {/* <Text style={{ color: "white" }}>Tap to select an event image</Text> */}
+          </View>
+        </ImagePickerC>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          // backgroundColor: "green",
+        }}
       >
         <View
           style={{
-            flex: 1,
-            justifyContent: "center",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            gap: 10,
             alignItems: "center",
-            backgroundColor: "gray",
-            height: "100%",
           }}
         >
-          <Text style={{ color: "grey" }}>Tap to select an event image</Text>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 16,
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            Event name
+          </Text>
+          <TextInput
+            style={{
+              backgroundColor: "rgba(232, 232, 232, 0.30)",
+              height: 40,
+              width: 340,
+              borderRadius: 10,
+              textAlign: "left",
+              paddingLeft: 15,
+              marginTop: 5,
+            }}
+            placeholder="Title"
+            placeholderTextColor="#A9A9A9"
+            value={data?.name}
+            onChangeText={(value) => setData({ ...data, name: value })}
+          />
         </View>
-      </ImagePickerC>
-      <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
-        Event name
-      </Text>
-      <TextInput
+        <View
+          style={{
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginBottom: 10,
+              color: "white",
+            }}
+          >
+            Price
+          </Text>
+          <TextInput
+            style={{
+              backgroundColor: "rgba(232, 232, 232, 0.30)",
+              height: 40,
+              width: 55,
+              borderRadius: 10,
+              textAlign: "left",
+              paddingLeft: 10,
+              marginLeft: 10,
+            }}
+            placeholder="Price"
+            placeholderTextColor="#A9A9A9"
+            value={data?.price}
+            onChangeText={(value) => setData({ ...data, price: value })}
+          />
+        </View>
+      </View>
+      <View
         style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          borderRadius: 5,
-          paddingLeft: 10,
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        placeholder="Title"
-        placeholderTextColor="#A9A9A9"
-        value={data?.name}
-        onChangeText={(value) => setData({ ...data, name: value })}
-      />
-      <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 10 }}>
-        Price
-      </Text>
-      <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          borderRadius: 5,
-          paddingLeft: 10,
-        }}
-        placeholder="Price"
-        placeholderTextColor="#A9A9A9"
-        value={data?.price}
-        onChangeText={(value) => setData({ ...data, price: value })}
-      />
-      <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 10 }}>
-        Description
-      </Text>
-      <TextInput
-        style={{
-          height: 100,
-          borderColor: "gray",
-          borderWidth: 1,
-          borderRadius: 5,
-          paddingLeft: 10,
-          paddingTop: 5,
-        }}
-        placeholder="Description"
-        placeholderTextColor="#A9A9A9"
-        value={data?.description}
-        onChangeText={(value) => setData({ ...data, description: value })}
-        multiline
-      />
+      >
+        <Text
+          style={{
+            fontSize: 16,
+            marginBottom: 10,
+            textAlign: "left",
+            color: "white",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          Description
+        </Text>
+        <TextInput
+          style={{
+            backgroundColor: "rgba(232, 232, 232, 0.30)",
+            height: 100,
+            width: 400,
+            fontStyle: "italic",
+            borderRadius: 10,
+            textAlign: "left",
+            paddingLeft: 15,
+          }}
+          placeholder="Description..."
+          placeholderTextColor="#A9A9A9"
+          value={data?.description}
+          onChangeText={(value) => setData({ ...data, description: value })}
+          multiline
+        />
+      </View>
+
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <TouchableOpacity
           style={{
-            backgroundColor: "blue",
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            borderRadius: 5,
+            backgroundColor: "#FF005C",
+            marginLeft: "auto",
+            marginRight: "auto",
+            width: 200,
+            height: 50,
+            borderRadius: 10,
+            bottom: 80,
+            justifyContent: "center",
+            alignItems: "center",
           }}
           onPress={() => handleNextPage(data)}
         >
           <Text style={{ color: "white", fontWeight: "bold" }}>Next</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </ImageBackground>
   );
 };
 
