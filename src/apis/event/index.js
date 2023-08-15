@@ -17,7 +17,11 @@ const removeRSVP = async (id) => {
   return res.data;
 };
 //get suggested events
-
+const getSuggested = async () => {
+  const res = await instance.get("/events/suggested");
+  console.log("received", res.data);
+  return res.data.reverse();
+};
 const createEvent = async (data) => {
   data.date = `${data.date}`;
   data.from = `${data.from}`;
@@ -57,4 +61,12 @@ const deleteEvent = async (id) => {
   return res.data;
 };
 
-export { createEvent, getEvents, getEventById, deleteEvent, rsvp, removeRSVP };
+export {
+  createEvent,
+  getEvents,
+  getEventById,
+  deleteEvent,
+  rsvp,
+  removeRSVP,
+  getSuggested,
+};

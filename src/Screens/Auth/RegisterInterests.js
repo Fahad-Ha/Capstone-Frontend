@@ -14,14 +14,14 @@ import { getAllTags } from "../../apis/tags";
 import * as Haptics from "expo-haptics";
 import { register } from "../../apis/auth";
 import { saveToken } from "../../apis/auth/storage";
+import jwt_decode from "jwt-decode";
 import UserContext from "../../context/UserContext";
 import ROUTES from "../../Navigation";
 import useNotifications from "../../hooks/useNotifications";
 
 const RegisterInterests = ({ route, navigation }) => {
   const { data } = route.params;
-  // data = {{.}}
-  // console.log("JSON.parse(data.dateOfBirth)", JSON.parse(data.dateOfBirth));
+
   const [selectedIntres, setSelectedIntres] = useState([]);
 
   const expoToken = useNotifications();
@@ -39,18 +39,16 @@ const RegisterInterests = ({ route, navigation }) => {
     mutationFn: () => {
       return register({
         ...JSON.parse(data),
-        // dateOfBirth: JSON.parse(data.dateOfBirth),
+
         interests: selectedIntres,
       });
     },
     onSuccess: (data) => {
+      const user = jwt_decode(data.token);
       saveToken(data.token);
-      setUser(true);
-      navigation.navigate(ROUTES.APPROUTES.LOCATION_NAVIGATION);
+      setUser(user);
     },
-    onError: (err) => {
-      console.log("========>", err);
-    },
+    onError: (err) => {},
   });
   const handleRegister = () => {
     console.log({ ...data, interests: selectedIntres });
@@ -76,7 +74,6 @@ const RegisterInterests = ({ route, navigation }) => {
           data={tags}
           numColumns={2}
           renderItem={({ item }) => {
-            // console.log(item);
             return (
               <TouchableOpacity
                 onPress={() => {
