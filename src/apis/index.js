@@ -9,7 +9,7 @@ const BASE_URL = "http://192.168.2.193:8080";
 
 // const BASE_URL = "http://192.168.8.177:8080";
 
-// const BASE_URL = "http://192.168.8.192:8000";
+
 
 // const BASE_URL = "http://localhost:8000";
 
