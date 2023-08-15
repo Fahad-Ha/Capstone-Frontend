@@ -4,12 +4,19 @@ import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../Navigation/index";
 import { BlurView } from "expo-blur";
 import fuel from "../../../assets/pxfuel.jpg";
+import Rectangle from "../../../assets/Rectangle.png";
+import moment from "moment";
 import * as Location from "expo-location";
 
 
 const EventCard = ({ event = {} }) => {
   const navigation = useNavigation();
   const [userLocation, setUserLocation] = useState(null);
+  const formattedEventDate = `${moment(event.date).format(
+    "ddd, MMM D"
+  )}       ${moment(event.from).format("HH:mm")} - ${moment(event.to).format(
+    "HH:mm"
+  )}`;
 
   useEffect(() => {
     (async () => {
@@ -54,7 +61,6 @@ const EventCard = ({ event = {} }) => {
 
     return `${distance.toFixed(2)} km`;
   };
-
   return (
     <View style={styles.cardContainer}>
       <TouchableOpacity
@@ -91,8 +97,21 @@ const EventCard = ({ event = {} }) => {
               justifyContent: "flex-end",
             }}
           >
-            <Text style={styles.name}>{event.name}</Text>
-            <Text style={styles.distance}>{calculateDistance()}</Text>
+
+            {/* <View style={{ flex: 1, backgroundColor: "red" }}> */}
+            <View style={{ flex: 1, flexDirection: "column" }}>
+              <Text style={styles.name}>{event.name}</Text>
+              <Text style={styles.distance}>{calculateDistance()}</Text>
+              <Text style={styles.date}>
+                {/* {moment(event.date).format("YYYY-MM-DD")} */}
+                {formattedEventDate}
+                {/* {event.date} */}
+              </Text>
+              {/* <Text style={{ fontSize: 15, color: "white" }}>
+                {event.location}
+              </Text> */}
+            </View>
+            {/* </View> */}
           </BlurView>
         </View>
       </TouchableOpacity>
@@ -123,12 +142,28 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     padding: 10,
+    paddingLeft: 30,
+    // backgroundColor: "rgba(255, 255, 255, 0.7)", // optional, you can set the background of the name to be slightly transparent
     position: "absolute",
-    bottom: 0,
+    bottom: 45,
     color: "white",
     left: 0,
     right: 0,
-    textAlign: "center",
+    textAlign: "left",
+  },
+  date: {
+    fontSize: 17,
+    // fontWeight: "bold",
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    // backgroundColor: "rgba(255, 255, 255, 0.7)", // optional, you can set the background of the name to be slightly transparent
+    position: "absolute",
+    bottom: 20,
+    color: "#ffff",
+    left: 0,
+    right: 0,
+    textAlign: "right",
   },
   distance: {
     fontSize: 16,
