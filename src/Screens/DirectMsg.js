@@ -8,6 +8,7 @@ import {
   View,
   SafeAreaView,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -19,7 +20,7 @@ import { BASE_URL } from "../apis";
 import { useTheme } from "@react-navigation/native";
 import { getMyChats } from "../apis/chat";
 import UserContext from "../context/UserContext";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 import { getAllUsers } from "../apis/auth";
 import moment from "moment";
 
@@ -57,6 +58,14 @@ const DM = ({ navigation }) => {
     // >
     <ImageBackground source={ProfileB} style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          className="absolute  top-8 left-0 rounded-full shadow p-2"
+        >
+          <View className="flex-row items-center">
+            <Feather name="arrow-left" size={32} color={"white"} />
+          </View>
+        </TouchableOpacity>
         <Text style={styles.header}>Direct Messages</Text>
         <View style={styles.usersContainer}>
           {sortedChats?.map((chat) => {
