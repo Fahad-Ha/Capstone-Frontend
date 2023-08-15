@@ -47,7 +47,7 @@ const MyEvents = () => {
   const now = new Date();
   const userRSVPDEvents = events.filter(
     (event) =>
-      event.attendees.includes(user?._id) &&
+      event?.attendees.some((attendee) => attendee._id === user._id) &&
       (showUpcoming ? new Date(event.from) >= now : new Date(event.to) < now)
   );
 
