@@ -8,9 +8,10 @@ import Chat1 from "../Screens/Chat1";
 import EventDetails from "../Screens/EventDetails";
 import TabNavigation from "./TabNavigation";
 import { Feather } from "@expo/vector-icons";
-import Settings from "../Screens/Settings";
+import Settings from "../Screens/EditProfileScreen";
 import { BlurView } from "expo-blur";
 import useNotifications from "../hooks/useNotifications";
+import EditProfileScreen from "../Screens/EditProfileScreen";
 
 const Stack = createStackNavigator();
 const AppNavigation = () => {
@@ -45,8 +46,8 @@ const AppNavigation = () => {
         }}
       />
       <Stack.Screen
-        component={Settings}
-        name={ROUTES.APPROUTES.SETTINGS}
+        component={EditProfileScreen}
+        name={ROUTES.APPROUTES.EDITPROFILE}
         options={{
           headerShown: false,
         }}

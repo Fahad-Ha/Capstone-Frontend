@@ -9,6 +9,7 @@ const ROUTES = {
     DIRECT_MSGLIST: "DMList",
     MY_EVENTS: "My-Events",
     SETTINGS: "Settings",
+    EDITPROFILE: "EditProfile",
     EVENT_DETAILS: "Event-Details",
     MAP: "MAP",
     MAIN: "Main",
