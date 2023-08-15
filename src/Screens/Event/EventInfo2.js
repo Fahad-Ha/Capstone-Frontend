@@ -36,30 +36,6 @@ const EventInfo2 = ({ route, navigation }) => {
     if (route.params?.location?.location) {
       setLocation(route.params.location);
       setData({ ...data, ...route.params.location });
-      console.log(
-        "HERE WE ARE SETTING LOCATION",
-        `
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      `,
-        { ...route.params.location }
-      );
     }
   }, [route.params?.location]);
 
