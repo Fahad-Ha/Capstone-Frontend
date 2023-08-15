@@ -8,9 +8,10 @@ import {
   Platform,
   Linking,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import React, { useContext, useState } from "react";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { getLocationAddress } from "../apis/location";
 import Rectangle from "../../assets/Rectangle.png";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -22,8 +23,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import moment from "moment";
 import { BlurView } from "expo-blur";
 import useCalendar from "@atiladev/usecalendar";
+import { Fontisto } from "@expo/vector-icons";
 
 const EventDetails = ({ navigation, route }) => {
+  const windowHeight = Dimensions.get("window").height; // Get window height
+
   const [showBox, setShowBox] = useState(true);
   const { user } = useContext(UserContext);
   const _id = route.params._id;
@@ -211,9 +215,13 @@ const EventDetails = ({ navigation, route }) => {
   };
 
   const eventDateIsFuture = moment(event.from).isAfter(moment());
-  console.log("event.from:", event.from); // Check the value of event.from
-  console.log("eventDateIsFuture:", eventDateIsFuture); // Check the value of eventDateIsFuture
+  const formattedEventDate = `${moment(eventDate).format(
+    "ddd, MMM D"
+  )}  -  ${moment(event.from).format("HH:mm")} - ${moment(event.to).format(
+    "HH:mm"
+  )}`;
 
+  // console.log("this is tags", event.tags[0].name);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -254,78 +262,154 @@ const EventDetails = ({ navigation, route }) => {
           className="bg-gray-300 -mt-12 pt-6 overflow-hidden"
         >
           <View className="pb-72 items-center ">
-            <Text
-              style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-              className="pb-2 text-lg text-white font-bold p-2 rounded-full  shadow-2xl shadow-gray-600 mb-3"
-            >
-              {event.name}
+            <Text className=" text-2xl text-white font-bold rounded-full  shadow-2xl shadow-gray-600 mb-2">
+              {event?.name}
             </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.replace(ROUTES.APPROUTES.OTHERPROFILE, {
-                  _id: event.organizer,
-                });
-              }}
-            >
-              <Text
-                style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
-                className="pb-2 p-2 text-lg text-white rounded-full text-center mx-2 justify-center"
-              >
-                {event.organizer ? event.organizer.username : "Default User"}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={openGoogleMaps}>
-              <View className="flex-row items-center">
-                <MaterialCommunityIcons
-                  name="google-maps"
-                  size={24}
-                  color="white"
-                />
-                <Text style={{ marginLeft: 8 }}>
-                  {location === "No location provided" && location}
-                  {location?.countryName} {location?.city}
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <Text className="pb-2 text-lg text-center mx-2 justify-center">
-              {event.description}
-            </Text>
-            <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
-              <Text className="pb-2 text-lg text-center mx-2 justify-center">
-                {eventDate}
-              </Text>
-            </View>
-            <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
-              <Text className="pb-2 text-lg text-center mx-2 justify-center">
-                {moment(event.from).format("h:mm A")}
-              </Text>
-            </View>
-            <View className="bg-slate-100 rounded-lg  shadow-2xl shadow-gray-600 mb-3">
-              <Text className="pb-2 text-lg text-center mx-2 justify-center">
-                {moment(event.to).format("h:mm A")}
-              </Text>
-            </View>
-            <View className="flex-row justify-end mt-10 ">
+            <View className="flex-row justify-end mt-2 ">
               {event?.organizer?._id === user?._id && (
                 <TouchableOpacity className="mx-4" onPress={handleDelete}>
-                  <View className="flex-row items-center mb-10 ">
+                  <View
+                    style={{
+                      borderRadius: 15,
+                      backgroundColor: "rgba(0, 0, 0, 0.1)",
+                    }}
+                    className="flex-row p-2 items-center absolute top-[-65] left-20 "
+                  >
                     {showBox}
                     <MaterialCommunityIcons
                       name="delete-outline"
                       size={18}
-                      color="black"
+                      color="white"
                     />
-                    <Text className="text-black font-semibold text-base ml-1">
+                    <Text className="text-white font-semibold text-base ml-1">
                       Delete
                     </Text>
                   </View>
                 </TouchableOpacity>
               )}
             </View>
+            <View className="flex-row mb-6">
+              {event?.tags?.map((interest, index) => (
+                <View className="justify-start" key={index}>
+                  <Text
+                    style={{
+                      padding: 12,
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      marginHorizontal: 3,
+                      overflow: "hidden",
+                      borderRadius: 15,
+                      backgroundColor: "rgba(0, 0, 0, 0.1)",
+                    }}
+                  >
+                    {interest?.name}
+                  </Text>
+                </View>
+              ))}
+            </View>
+
+            <TouchableOpacity onPress={openGoogleMaps}>
+              <View
+                style={{
+                  backgroundColor: "rgba(0, 0, 0, 0.1)",
+                  borderRadius: 15,
+                }}
+                className="flex-row items-center p-2 my-2"
+              >
+                <MaterialCommunityIcons
+                  name="google-maps"
+                  size={24}
+                  color="#F2583E"
+                />
+                <Text className="text-white" style={{ marginLeft: 8 }}>
+                  {location === "No location provided" && location}
+                  {location?.countryName} {location?.city}
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            <View
+              style={{
+                backgroundColor: "rgba(0, 0, 0, 0.1)",
+                borderRadius: 15,
+              }}
+              className="flex-row p-2 items-center shadow-2xl shadow-gray-600 mb-3"
+            >
+              <MaterialIcons name="date-range" size={24} color="#F2583E" />
+              <Text className=" text-lg text-center mx-2 justify-center text-white ">
+                {formattedEventDate}
+              </Text>
+            </View>
+            <View
+              className="mb-2 relative"
+              style={{
+                backgroundColor: "rgba(0, 0, 0, 0.1)",
+                borderRadius: 15,
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.replace(ROUTES.APPROUTES.OTHERPROFILE, {
+                    _id: event?.organizer,
+                  });
+                }}
+              >
+                <Text className=" p-2  text-white rounded-full text-center mx-2 justify-center">
+                  Organizer:{" "}
+                  {event?.organizer
+                    ? event?.organizer?.username
+                    : "Default User"}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View className="flex-ro rounded-lg  shadow-2xl shadow-gray-600 mb-3">
+              <Text className="text-white text-lg text-center">Attendees</Text>
+
+              {event?.attendees?.length > 0 ? (
+                event?.attendees?.map((attendee, index) => (
+                  <View
+                    style={{
+                      backgroundColor: "rgba(0, 0, 0, 0.1)",
+                      borderRadius: 15,
+                    }}
+                    className="justify-center items-center my-2"
+                    key={index}
+                  >
+                    <Text className="p-2 text-lg text-center mx-2 justify-center text-white font-bold">
+                      {event?.attendees?.length}
+                    </Text>
+                  </View>
+                ))
+              ) : (
+                <View
+                  style={{
+                    backgroundColor: "rgba(0, 0, 0, 0.1)",
+                    borderRadius: 15,
+                  }}
+                  className="justify-center items-center my-2"
+                >
+                  <Text className="text-center mx-2 text-white p-2">
+                    No attendees yet!
+                  </Text>
+                </View>
+              )}
+            </View>
+
+            <Text className="text-white text-xl font-bold">
+              About the event
+            </Text>
+            <ScrollView style={{ maxHeight: "40%" }}>
+              <View>
+                <Text className="text-white text-center mt-2">
+                  {event?.description}
+                </Text>
+              </View>
+            </ScrollView>
             <TouchableOpacity onPress={toggleRSVP}>
               {eventDateIsFuture && (
                 <View
-                  className={`bg-red-500 rounded-full w-72 shadow-lg shadow-gray-900 z-50 ${
+                  className={`bg-red-500 rounded-full w-72 shadow-lg shadow-gray-900 z-50 mt-10 mb-10 ${
                     userHasRSVPd ? "bg-red-700" : ""
                   }`}
                 >

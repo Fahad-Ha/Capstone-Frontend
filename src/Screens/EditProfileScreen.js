@@ -50,7 +50,7 @@ const EditProfileScreen = ({ route, navigation }) => {
   const sortedTags = tags?.sort((a, b) => a.name.localeCompare(b.name));
 
   const paginatedTags = sortedTags?.slice(startIdx, startIdx + ITEMS_PER_PAGE);
-
+  console.log("t", image);
   return (
     <ImageBackground source={homeB} style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
@@ -65,7 +65,10 @@ const EditProfileScreen = ({ route, navigation }) => {
           />
           {/* Placeholder for another component */}
           <View />
-          <View style={styles.imageContainer}>
+          <View
+            style={styles.imageContainer}
+            className="rounded-3xl overflow-hidden"
+          >
             <ImageHandler
               image={`${BASE_URL}/${image}`}
               style={styles.imageStyle}

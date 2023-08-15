@@ -144,6 +144,7 @@ const Chat1 = ({ route, profileData, navigation }) => {
   return (
     <KeyboardAvoidingView
       enabled
+      scrollToBottom
       behavior={Platform.OS == "ios" ? "padding" : null}
       style={{ flex: 1 }}
     >
