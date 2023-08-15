@@ -8,6 +8,7 @@ import {
   Picker,
   Pressable,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import ImageHandler from "../../Components/Shared/ImagePickerC";
@@ -19,8 +20,6 @@ import DateTimePicker, {
   DateTimePickerAndroid,
 } from "@react-native-community/datetimepicker";
 import { Feather } from "@expo/vector-icons";
-import moment from "moment";
-import DatePicker from "react-native-modal-datetime-picker";
 import { BlurView } from "expo-blur";
 
 const RegisterImageBirthdate = ({ route, navigation }) => {
@@ -48,18 +47,30 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
       data: JSON.stringify(data),
     });
   };
-  const handleDate = (date) => {
-    setStartDate(date);
-    setData({ ...data, dateOfBirth: date });
-  };
   const handleDateChange = (event, selected) => {
     const currentDate = selected || selectedDate;
     setSelectedDate(currentDate);
-    setData({ ...data, date: currentDate });
-  };
+    setData({ ...data, dateOfBirth: currentDate });
 
-  /////////////////////////
-  ////////////////////////
+    if (Platform.OS === "android") {
+      setDatePickerVisibility(false); // Close the date picker
+    }
+  };
+  // const openDatePickHandler = () => {
+  //   DateTimePickerAndroid.open({
+  //     mode: "date",
+  //     value: selectedDate,
+  //     maximumDate: new Date(),
+  //     onChange: (event, newDate) => {
+  //       setSelectedDate(newDate);
+  //     },
+  //   });
+  // };
+  const openDatePickHandler = () => {
+    if (Platform.OS === "android") {
+      setDatePickerVisibility(true);
+    }
+  };
 
   return (
     <ImageBackground source={bgLogin} style={{ flex: 1 }}>
@@ -119,21 +130,15 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
               }}
               className=" overflow-hidden"
             >
-              {Platform.OS === "ios" ? (
-                <DateTimePicker
-                  value={selectedDate}
-                  mode="date"
-                  is24Hour={true}
-                  color={"white"}
-                  maximumDate={new Date()}
-                  onChange={handleDateChange}
-                  textAlign={"center"}
-                />
-              ) : (
-                <>
-                  <Button title="Select Date" onPress={showDatePicker} />
-                </>
-              )}
+              <DateTimePicker
+                value={selectedDate}
+                mode="date"
+                is24Hour={true}
+                color={"white"}
+                maximumDate={new Date()}
+                onChange={handleDateChange}
+                textAlign={"center"}
+              />
             </BlurView>
           </View>
         </View>
