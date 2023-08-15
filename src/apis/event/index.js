@@ -54,4 +54,17 @@ const deleteEvent = async (id) => {
   return res.data;
 };
 
-export { createEvent, getEvents, getEventById, deleteEvent, rsvp, removeRSVP };
+const getSuggestedEvents = async () => {
+  const res = await instance.get("/events/suggested");
+  return res.data;
+};
+
+export {
+  createEvent,
+  getEvents,
+  getEventById,
+  deleteEvent,
+  rsvp,
+  removeRSVP,
+  getSuggestedEvents,
+};
