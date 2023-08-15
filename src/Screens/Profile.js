@@ -22,13 +22,14 @@ import Rectangle from "../../assets/Rectangle.png";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
-import ProfileB from "../../assets/banner2.png";
+import ProfileB from "../../assets/BGL.png";
 import ROUTES from "../Navigation";
 import useNotifications from "../hooks/useNotifications";
 import bgImage from "../../assets/bg5.jpeg";
 import ShareBtn from "../Components/Events/ShareBtn";
-import homeB from "../../assets/BGL1.png";
-import pfp from "../../assets/LOGO.png";
+import homeB from "../../assets/BGL.png";
+import HomeB from "../../assets/BGL2.png";
+import pfp from "../../assets/Home1.png";
 import EventCard from "../Components/Events/EventCard";
 import { BASE_URL } from "../apis";
 import { AntDesign } from "@expo/vector-icons";
@@ -116,7 +117,7 @@ const Profile = () => {
   }
 
   return (
-    <ImageBackground source={homeB} style={{ flex: 1 }}>
+    <ImageBackground source={HomeB} style={{ flex: 1 }}>
       <SafeAreaView
         style={{
           flex: 1,
@@ -124,8 +125,8 @@ const Profile = () => {
         }}
       >
         <BlurView
-          intensity={90}
-          tint="dark"
+          intensity={0}
+          tint="default"
           style={{
             backgroundColor: "rgba(0, 0, 0)",
             borderColor: "rgba(100, 0, 0, 0.3)",
@@ -254,8 +255,8 @@ const Profile = () => {
               }}
             >
               <BlurView
-                intensity={50}
-                tint="dark"
+                intensity={0}
+                tint="default"
                 style={{
                   marginTop: 22,
                   borderTopLeftRadius: 40,
@@ -267,12 +268,12 @@ const Profile = () => {
                 }}
                 className=" overflow-hidden"
               >
-                <ImageBackground source={ProfileB} style={{ flex: 1 }}>
+                <ImageBackground source={pfp} style={{ flex: 1 }}>
                   <BlurView
-                    intensity={80}
-                    tint="dark"
+                    intensity={30}
+                    tint="default"
                     style={{
-                      backgroundColor: "rgba(0, 0, 0)",
+                      backgroundColor: "rgba(0, 0, 0,0.2)",
                       borderColor: "rgba(100, 0, 0, 0.3)",
                       paddingHorizontal: 16,
                     }}
