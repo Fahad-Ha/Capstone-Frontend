@@ -7,7 +7,7 @@ import fuel from "../../../assets/pxfuel.jpg";
 import Rectangle from "../../../assets/Rectangle.png";
 import moment from "moment";
 import * as Location from "expo-location";
-
+import { FontAwesome } from "@expo/vector-icons";
 
 const EventCard = ({ event = {} }) => {
   const navigation = useNavigation();
@@ -97,11 +97,18 @@ const EventCard = ({ event = {} }) => {
               justifyContent: "flex-end",
             }}
           >
-
             {/* <View style={{ flex: 1, backgroundColor: "red" }}> */}
             <View style={{ flex: 1, flexDirection: "column" }}>
               <Text style={styles.name}>{event.name}</Text>
-              <Text style={styles.distance}>{calculateDistance()}</Text>
+              <View className="flex-1 relative">
+                <FontAwesome
+                  style={styles.gps}
+                  name="map-marker"
+                  size={20}
+                  color="#FF1D61"
+                />
+                <Text style={styles.distance}>{calculateDistance()}</Text>
+              </View>
               <Text style={styles.date}>
                 {/* {moment(event.date).format("YYYY-MM-DD")} */}
                 {formattedEventDate}
@@ -171,9 +178,19 @@ const styles = StyleSheet.create({
     padding: 10,
     position: "absolute",
     bottom: 0,
-    left: 0,
+    paddingLeft: 30,
+    paddingRight: 30,
     right: 0,
-    textAlign: "center",
+    textAlign: "left",
+  },
+  gps: {
+    color: "#FF1D61",
+    padding: 10,
+    position: "absolute",
+    bottom: 0,
+    paddingLeft: 30,
+    paddingRight: 30,
+    right: 70,
   },
 });
 

@@ -88,7 +88,7 @@ const RegisterUsernameEmailPassword = () => {
       style={styles.container}
     >
       <ImageBackground source={bgLogin} style={{ flex: 1 }}>
-        <View style={{ flex: 0.8 }}>
+        <View style={{ flex: 0.9 }}>
           <ScrollView contentContainerStyle={styles.scrollContent}>
             <TouchableOpacity
               onPress={() => navigation.goBack()}
@@ -146,6 +146,7 @@ const RegisterUsernameEmailPassword = () => {
                       borderColor: "rgba(100, 0, 0, 0.3)",
                       // flex: 0.3,
                       borderRadius: 30,
+                      marginBottom: 50,
                       justifyContent: "center",
                       alignItems: "center",
                     }}

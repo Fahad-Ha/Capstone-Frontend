@@ -83,24 +83,24 @@ const RegisterInterests = ({ route, navigation }) => {
 
   return (
     <ImageBackground source={bgLogin} style={{ flex: 1 }}>
-      <TouchableOpacity className="absolute  top-10 left-1 rounded-full shadow p-2">
-        <View className="flex-row items-center ">
-          <Feather
-            name="arrow-left"
-            size={32}
-            color={"white"}
-            onPress={() => navigation.goBack()}
-          />
-        </View>
-      </TouchableOpacity>
       <View style={styles.container}>
+        <TouchableOpacity className="absolute  top-10 left-1 rounded-full shadow p-2">
+          <View className="flex-row items-center ">
+            <Feather
+              name="arrow-left"
+              size={32}
+              color={"white"}
+              onPress={() => navigation.goBack()}
+            />
+          </View>
+        </TouchableOpacity>
         <View
           style={{
             flex: 0.1,
             justifyContent: "center",
             alignItems: "center",
-            marginTop: 200,
-            marginBottom: 50,
+            marginTop: 90,
+            // marginBottom: 50,
           }}
         >
           <Text style={{ color: "white", fontSize: 17 }}>
@@ -109,7 +109,7 @@ const RegisterInterests = ({ route, navigation }) => {
         </View>
         <View
           style={{
-            flex: 0.5,
+            flex: 0.8,
           }}
         >
           <FlatList
@@ -161,7 +161,7 @@ const RegisterInterests = ({ route, navigation }) => {
                       backgroundColor: selectedIntres.includes(item._id)
                         ? "#FC6F99"
                         : "rgba(0, 0,0, 0.3)",
-                      height: 40,
+                      height: 70,
                     }}
                   >
                     <Text style={{ color: "white", fontWeight: "bold" }}>
@@ -202,11 +202,11 @@ const RegisterInterests = ({ route, navigation }) => {
               backgroundColor: "#FF005C",
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: 50,
+              marginTop: 0,
               width: 200,
               height: 50,
               borderRadius: 10,
-
+              marginBottom: 80,
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -228,14 +228,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-
     marginHorizontal: 100,
   },
   paginationButton: {
-    paddingVertical: 6,
+    paddingVertical: 10,
+    // marginTop: 30,
     paddingHorizontal: 12,
     borderRadius: 6,
     marginHorizontal: 4,
+    marginBottom: 30,
   },
   paginationButtonText: {
     color: "white",
