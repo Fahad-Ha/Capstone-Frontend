@@ -72,7 +72,9 @@ const MyEvents = () => {
           style={[styles.toggleButton, !showUpcoming && styles.selectedToggle]}
           onPress={() => setShowUpcoming(false)}
         >
-          <Text style={styles.toggleText}>Previous Events</Text>
+          <Text style={[styles.toggleText, , styles.centeredText]}>
+            Previous Events
+          </Text>
         </TouchableOpacity>
       </BlurView>
       <FlatList
@@ -103,13 +105,18 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: "transparent",
     borderRadius: 8,
+    alignItems: "center",
   },
   selectedToggle: {
     // backgroundColor: "rgba(255, 255, 255, 0.2)", // Change to your selected color
     backgroundColor: "#FF005C",
   },
+  centeredText: {
+    textAlign: "center", // Center the text horizontally
+  },
   toggleText: {
-    fontSize: 18,
+    fontSize: Platform.OS === "android" ? 18 : 14,
+
     color: "white",
   },
 });
