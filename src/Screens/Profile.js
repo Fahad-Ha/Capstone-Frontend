@@ -9,12 +9,17 @@ import {
   RefreshControl,
   SafeAreaView,
   Platform,
+  Modal,
+  TouchableWithoutFeedback,
+  FlatList,
+  StyleSheet,
+  TextInput,
 } from "react-native";
 import { useQuery, useQueryClient } from "@tanstack/react-query"; // Import the useQuery hook
 import { getProfileData } from "../apis/auth/index";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Rectangle from "../../assets/Rectangle.png";
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import ProfileB from "../../assets/banner2.png";
@@ -22,14 +27,20 @@ import ROUTES from "../Navigation";
 import useNotifications from "../hooks/useNotifications";
 import bgImage from "../../assets/bg5.jpeg";
 import ShareBtn from "../Components/Events/ShareBtn";
-import homeB from "../../assets/home4.jpg";
+import homeB from "../../assets/BGL1.png";
 import pfp from "../../assets/LOGO.png";
 import EventCard from "../Components/Events/EventCard";
 import { BASE_URL } from "../apis";
 import { AntDesign } from "@expo/vector-icons";
+import { removeToken } from "../apis/auth/storage";
+import UserContext from "../context/UserContext";
 
 const Profile = () => {
   const navigation = useNavigation();
+  const { user, setUser } = useContext(UserContext);
+  const [isEditProfileModalVisible, setIsEditProfileModalVisible] =
+    useState(false);
+  const [editedName, setEditedName] = useState(profile?.name || ""); // Initialize with the user's current name
 
   const queryClient = useQueryClient(); // Get the query client instance
   // Get profile data
@@ -64,6 +75,38 @@ const Profile = () => {
   const hasNextPage = endIdx < profile?.createdEvents?.length;
   const hasPrevPage = currentPage > 1;
 
+  const [isSettingsDropdownVisible, setIsSettingsDropdownVisible] =
+    useState(false);
+
+  const handleLogout = () => {
+    // Implement your logout logic here
+    setUser(false);
+    removeToken();
+  };
+
+  const handleEditProfile = () => {
+    navigation.navigate("EditProfile", {
+      currentName: profile?.username,
+      image: profile?.image,
+    });
+  };
+  const settingsOptions = [
+    {
+      id: "editProfile",
+      icon: "edit-2",
+      iconPack: "Feather", // Specify the icon pack
+      title: "Edit Profile",
+      action: handleEditProfile,
+    },
+    {
+      id: "logout",
+      icon: "logout",
+      iconPack: "MaterialCommunityIcons", // Specify the icon pack
+      title: "Logout",
+      action: handleLogout,
+    },
+  ];
+
   if (isError) {
     return (
       <View className="flex-1 justify-center items-center">
@@ -71,6 +114,7 @@ const Profile = () => {
       </View>
     );
   }
+
   return (
     <ImageBackground source={homeB} style={{ flex: 1 }}>
       <SafeAreaView
@@ -93,13 +137,68 @@ const Profile = () => {
               <RefreshControl refreshing={isFetching} onRefresh={refetch} />
             }
           >
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={isSettingsDropdownVisible}
+              onRequestClose={() => setIsSettingsDropdownVisible(false)}
+            >
+              <TouchableWithoutFeedback
+                onPress={() => setIsSettingsDropdownVisible(false)}
+              >
+                <View style={styles.modalBackground}>
+                  <BlurView
+                    tint={"light"}
+                    intensity={75}
+                    style={styles.dropdownContainer}
+                  >
+                    <FlatList
+                      data={settingsOptions}
+                      keyExtractor={(item) => item.id}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity
+                          style={styles.dropdownItem}
+                          onPress={() => {
+                            setIsSettingsDropdownVisible(false);
+                            item.action(); // Call the corresponding action
+                          }}
+                        >
+                          <View className="flex-row justify-between">
+                            <Text
+                              className="font-semibold"
+                              style={styles.dropdownItemText}
+                            >
+                              {item.title}
+                            </Text>
+                            {item.iconPack === "Feather" && (
+                              <Feather
+                                name={item.icon}
+                                size={24}
+                                color="black" // Customize the color of the icon
+                              />
+                            )}
+                            {item.iconPack === "MaterialCommunityIcons" && (
+                              <MaterialCommunityIcons
+                                name={item.icon}
+                                size={24}
+                                color="black" // Customize the color of the icon
+                              />
+                            )}
+                          </View>
+                        </TouchableOpacity>
+                      )}
+                    />
+                  </BlurView>
+                </View>
+              </TouchableWithoutFeedback>
+            </Modal>
+
             <StatusBar
               translucent
               backgroundColor="rgba(255, 255, 255, 0.45)"
             />
             <View className="relative h-72">
               <View
-
                 style={{
                   justifyContent: "center",
                   alignItems: "center",
@@ -135,7 +234,9 @@ const Profile = () => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate(ROUTES.APPROUTES.SETTINGS)}
+                onPress={() =>
+                  setIsSettingsDropdownVisible(!isSettingsDropdownVisible)
+                }
                 className="absolute  top-3 right-1 rounded-full shadow p-2"
               >
                 <View className="flex-row items-center">
@@ -178,14 +279,31 @@ const Profile = () => {
                     className=" overflow-hidden"
                   >
                     <ScrollView>
-                      <View className="pb-36 items-center">
-                        <View
-                          style={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
-                          className=" rounded-full p-2 shadow-2xl shadow-gray-600 mb-5 "
-                        >
-                          <Text className="pb-2 text-white  text-lg font-bold p-2 ">
-                            Interests: {profile?.interests}
-                          </Text>
+                      <View className="pb-36 items-center ">
+                        <Text className="text-white font-semibold text-lg mt-4">
+                          Interests:
+                        </Text>
+                        <View className="rounded-full shadow-2xl shadow-gray-600 my-5">
+                          <View className="flex-row flex-wrap ">
+                            {profile?.interests?.map((interest, index) => (
+                              <View key={index}>
+                                <Text
+                                  style={{
+                                    padding: 20,
+                                    color: "white",
+                                    fontSize: 16,
+                                    fontWeight: "bold",
+                                    marginHorizontal: 10,
+                                    overflow: "hidden",
+                                    borderRadius: 15,
+                                    backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                  }}
+                                >
+                                  {interest?.name}
+                                </Text>
+                              </View>
+                            ))}
+                          </View>
                         </View>
                         <View>
                           <Text className="text-white font-semibold mb-2 text-lg">
@@ -316,5 +434,32 @@ const Profile = () => {
     </ImageBackground>
   );
 };
+
+const styles = StyleSheet.create({
+  // ... existing styles
+
+  modalBackground: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  dropdownContainer: {
+    backgroundColor: "rgba(0, 0, 0,0.5)", // Change to your selected color
+    borderRadius: 15,
+    overflow: "hidden",
+    marginHorizontal: 10,
+    marginBottom: 20,
+  },
+  dropdownItem: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    borderBottomWidth: 1,
+    borderColor: "rgba(0, 0, 0, 0.2)",
+  },
+  dropdownItemText: {
+    fontSize: 16,
+    marginRight: 12,
+  },
+});
 
 export default Profile;
