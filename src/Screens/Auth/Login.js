@@ -134,14 +134,14 @@ const Login = () => {
                       marginTop: 20,
                       marginBottom: 0,
                       fontWeight: "bold",
-                      fontSize: 30,
+                      fontSize: 20,
                     }}
                   >
                     LOGIN
                   </Text>
 
                   <TextInput
-                    placeholderTextColor={"white"}
+                    placeholderTextColor={(color = "rgba(255, 255, 255, 0.61)")}
                     style={{
                       backgroundColor: "rgba(232, 232, 232, 0.40)",
                       textAlign: "left",
@@ -181,7 +181,9 @@ const Login = () => {
 
                   <View className="relative">
                     <TextInput
-                      placeholderTextColor={"white"}
+                      placeholderTextColor={
+                        (color = "rgba(255, 255, 255, 0.61)")
+                      }
                       style={{
                         backgroundColor: "rgba(232, 232, 232, 0.40)",
                         textAlign: "left",

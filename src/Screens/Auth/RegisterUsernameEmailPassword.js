@@ -181,7 +181,9 @@ const RegisterUsernameEmailPassword = () => {
                       </Text>
                     </View>
                     <TextInput
-                      placeholderTextColor={"white"}
+                      placeholderTextColor={
+                        (color = "rgba(255, 255, 255, 0.61)")
+                      }
                       style={{
                         backgroundColor: "rgba(232, 232, 232, 0.30)",
                         flex: 1,
@@ -238,7 +240,9 @@ const RegisterUsernameEmailPassword = () => {
                     </View>
 
                     <TextInput
-                      placeholderTextColor={"white"}
+                      placeholderTextColor={
+                        (color = "rgba(255, 255, 255, 0.61)")
+                      }
                       style={{
                         backgroundColor: "rgba(232, 232, 232, 0.30)",
                         flex: 1,
@@ -297,11 +301,14 @@ const RegisterUsernameEmailPassword = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         height: 65,
+                        color: "rgba(255, 255, 255, 0.51)",
                       }}
-                      className="w-4/5 h-12 mb-1 py-2 px-4 border-s border-gray-300 rounded-xl  relative"
+                      className="w-4/5 h-12 mb-1 py-2 px-4 border-s border-gray-300 rounded-xl  relative text-white"
                     >
                       <TextInput
-                        placeholderTextColor={"white"}
+                        placeholderTextColor={
+                          (color = "rgba(255, 255, 255, 0.61)")
+                        }
                         placeholder="Password"
                         secureTextEntry={!showPassword}
                         onBlur={handleBlur("password")}
@@ -314,6 +321,7 @@ const RegisterUsernameEmailPassword = () => {
                           backgroundColor: "rgba(232, 232, 232, 0.30)",
                           flex: 1,
                           width: 340,
+                          color: "rgba(255, 255, 255, 0.51)",
                           borderRadius: 10,
                           textAlign: "left",
                           paddingLeft: 15,

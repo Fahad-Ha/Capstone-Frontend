@@ -121,7 +121,7 @@ const Explore = () => {
                   Explore The Events Around Us!
                 </Text>
                 <TextInput
-                  placeholderTextColor={"white"}
+                  placeholderTextColor={(color = "rgba(255, 255, 255, 0.61)")}
                   // className="bg-white py-2 px-2 ml-4 mr-4 rounded-lg mb-2"
                   style={{
                     flex: 1,

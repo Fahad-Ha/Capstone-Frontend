@@ -113,13 +113,14 @@ const EventInfo1 = ({ navigation }) => {
             backgroundColor: "rgba(232, 232, 232, 0.30)",
             height: 40,
             width: 200,
+            color: "white",
             borderRadius: 10,
             textAlign: "left",
             paddingLeft: 15,
             // marginTop: 5,
           }}
           placeholder="Title"
-          placeholderTextColor="#A9A9A9"
+          placeholderTextColor={(color = "rgba(255, 255, 255, 0.61)")}
           value={data?.name}
           onChangeText={(value) => setData({ ...data, name: value })}
         />
@@ -159,11 +160,12 @@ const EventInfo1 = ({ navigation }) => {
             width: 270,
             fontStyle: "italic",
             borderRadius: 10,
+            color: "white",
             textAlign: "left",
             paddingLeft: 15,
           }}
           placeholder="Description..."
-          placeholderTextColor="#A9A9A9"
+          placeholderTextColor={(color = "rgba(255, 255, 255, 0.61)")}
           value={data?.description}
           onChangeText={(value) => setData({ ...data, description: value })}
           multiline
@@ -194,12 +196,12 @@ const EventInfo1 = ({ navigation }) => {
             height: 40,
             width: 55,
             borderRadius: 10,
-
+            color: "white",
             paddingLeft: 10,
             marginLeft: 10,
           }}
           placeholder="Price"
-          placeholderTextColor="#A9A9A9"
+          placeholderTextColor={(color = "rgba(255, 255, 255, 0.61)")}
           value={data?.price}
           onChangeText={(value) => setData({ ...data, price: value })}
         />
