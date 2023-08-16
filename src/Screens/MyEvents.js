@@ -66,7 +66,9 @@ const MyEvents = () => {
           style={[styles.toggleButton, showUpcoming && styles.selectedToggle]}
           onPress={() => setShowUpcoming(true)}
         >
-          <Text style={styles.toggleText}>Upcoming Events</Text>
+          <Text style={[styles.toggleText, styles.centeredText]}>
+            Upcoming Events
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.toggleButton, !showUpcoming && styles.selectedToggle]}
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 100,
     backgroundColor: "rgba(0, 0, 0,0.7)",
-    marginHorizontal: 20,
+    marginHorizontal: 70,
     borderRadius: 15,
     overflow: "hidden",
   },
@@ -110,13 +112,15 @@ const styles = StyleSheet.create({
   selectedToggle: {
     // backgroundColor: "rgba(255, 255, 255, 0.2)", // Change to your selected color
     backgroundColor: "#FF005C",
+    // width: "60%",
   },
   centeredText: {
     textAlign: "center", // Center the text horizontally
+    fontWeight: 600,
   },
   toggleText: {
     fontSize: Platform.OS === "android" ? 18 : 14,
-
+    fontWeight: 500,
     color: "white",
   },
 });
