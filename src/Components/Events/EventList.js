@@ -1,24 +1,22 @@
 import React from "react";
-import {
-  FlatList,
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  RefreshControl,
-  ScrollView,
-} from "react-native";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { FlatList } from "react-native";
 import EventCard from "./EventCard";
+import { useQueryClient } from "@tanstack/react-query";
 import { getEvents } from "../../apis/event/index";
 
 const EventList = ({ searchQuery, events }) => {
   const clientQuery = useQueryClient();
 
-  // Apply search filter
-  const filteredEvents = events?.filter((event) =>
-    event?.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // Get the current date
+  const now = new Date();
+
+  // Apply search filter and date filter
+  const filteredEvents = events?.filter(
+    (event) =>
+      event.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      new Date(event.to) >= now
   );
+
   return (
     <>
       <FlatList
@@ -26,14 +24,9 @@ const EventList = ({ searchQuery, events }) => {
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => <EventCard event={item} />}
-        // refreshControl={
-        //   <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-        // }
       />
     </>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default EventList;

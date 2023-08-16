@@ -59,7 +59,7 @@ const EventCard = ({ event = {} }) => {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c;
 
-    return `${distance.toFixed(2)} km`;
+    return `${distance.toFixed(1)} km`;
   };
   return (
     <View style={styles.cardContainer}>
