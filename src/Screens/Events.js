@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  RefreshControl,
 } from "react-native";
 import React, { useCallback, useContext, useState } from "react";
 import EventList from "../Components/Events/EventList";
@@ -38,13 +39,13 @@ const Explore = () => {
 
   const {
     data: events,
-    isLoading,
-    refetch,
+    isFetching,
+    refetch: eventRefecth,
   } = useQuery({
     queryKey: ["events"],
     queryFn: () => getEvents(),
   });
-  const { data: sugEvents } = useQuery({
+  const { data: sugEvents, refetch: sugRefecth } = useQuery({
     queryKey: ["suggestedEvents"],
     queryFn: () => getSuggestedEvents(),
   });
@@ -86,84 +87,98 @@ const Explore = () => {
           >
             Kuwait,Kuwait
           </Text>
-          <ScrollView>
-            <View style={{ flex: 1, marginBottom: 100 }}>
-              <View style={{ flex: 1, height: 265 }}>
-                <Text className="text-2xl font-bold text-center mb-5 mt-2 text-white">
-                  Suggested events!
-                </Text>
-                <ScrollView
-                  horizontal
-                  contentContainerStyle={{ paddingHorizontal: 10 }}
-                >
-                  {sugEvents?.map((item) => {
-                    // console.log(item);
-                    return (
-                      <View
-                        style={{
-                          height: 200,
 
-                          width: 250,
-                          borderRadius: 60,
-                          marginRight: 10,
-                          overflow: "hidden",
-                        }}
-                      >
-                        <TouchableOpacity
-                          onPress={() => {
-                            navigation.navigate(
-                              ROUTES.APPROUTES.EVENT_DETAILS,
-                              {
-                                _id: item._id,
-                                event: item,
-                              }
-                            );
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={isFetching}
+                onRefresh={() => {
+                  eventRefecth();
+                  sugRefecth();
+                }}
+              />
+            }
+          >
+            <View style={{ flex: 1, marginBottom: 100 }}>
+              {user ? (
+                <View style={{ flex: 1, height: 265 }}>
+                  <Text className="text-2xl font-bold text-center mb-5 mt-2 text-white">
+                    Suggested events!
+                  </Text>
+                  <ScrollView
+                    horizontal
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                  >
+                    {sugEvents?.map((item) => {
+                      // console.log(item);
+                      return (
+                        <View
+                          style={{
+                            height: 200,
+
+                            width: 250,
+                            borderRadius: 60,
+                            marginRight: 10,
+                            overflow: "hidden",
                           }}
                         >
-                          <BlurView
-                            intensity={65}
-                            tint="default"
-                            style={{
-                              height: "100%", // 1/3 of the card height
-                              width: "100%",
+                          <TouchableOpacity
+                            onPress={() => {
+                              navigation.navigate(
+                                ROUTES.APPROUTES.EVENT_DETAILS,
+                                {
+                                  _id: item._id,
+                                  event: item,
+                                }
+                              );
                             }}
                           >
-                            <Image
-                              source={{ uri: BASE_URL + "/" + item.image }}
-                              height={100}
-                              width={250}
-                            />
-                            <Text className="text-2xl font-bold text-left mb-5 px-4 mt-1 text-white">
-                              {item.name}
-                            </Text>
-                            <View
+                            <BlurView
+                              intensity={65}
+                              tint="default"
                               style={{
-                                flexDirection: "row",
-                                justifyContent: "center",
-                                gap: 20,
+                                height: "100%", // 1/3 of the card height
+                                width: "100%",
                               }}
                             >
-                              <Text
-                                style={{ color: "#FF005C" }}
-                                className="text-sm  text-center  font-semibold"
-                              >
-                                {moment(item.date).format("ddd, MMM D")}{" "}
+                              <Image
+                                source={{ uri: BASE_URL + "/" + item.image }}
+                                height={100}
+                                width={250}
+                              />
+                              <Text className="text-2xl font-bold text-left mb-5 px-4 mt-1 text-white">
+                                {item.name}
                               </Text>
-                              <Text
-                                style={{ color: "#fff" }}
-                                className="text-sm  text-center   font-semibold"
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  justifyContent: "center",
+                                  gap: 20,
+                                }}
                               >
-                                {moment(item.from).format("HH:mm")}-
-                                {moment(item.to).format("HH:mm")}
-                              </Text>
-                            </View>
-                          </BlurView>
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  })}
-                </ScrollView>
-              </View>
+                                <Text
+                                  style={{ color: "#FF005C" }}
+                                  className="text-sm  text-center  font-semibold"
+                                >
+                                  {moment(item.date).format("ddd, MMM D")}{" "}
+                                </Text>
+                                <Text
+                                  style={{ color: "#fff" }}
+                                  className="text-sm  text-center   font-semibold"
+                                >
+                                  {moment(item.from).format("HH:mm")}-
+                                  {moment(item.to).format("HH:mm")}
+                                </Text>
+                              </View>
+                            </BlurView>
+                          </TouchableOpacity>
+                        </View>
+                      );
+                    })}
+                  </ScrollView>
+                </View>
+              ) : null}
+
               <View style={{ flex: 1, position: "relative" }}>
                 <Text className="text-2xl pt-3 font-bold text-center mb-5  text-white">
                   Explore The Events Around Us!
