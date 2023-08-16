@@ -57,7 +57,7 @@ export default function TabNavigation() {
           bottom: 0,
           left: 0,
           right: 0,
-          height: 70,
+          height: 75,
           borderRadius: 16,
           // marginHorizontal: 16,
           overflow: "hidden", // Hide the overflow from the border
@@ -85,7 +85,7 @@ export default function TabNavigation() {
           justifyContent: "center",
           elevation: 1,
           backgroundColor: "transparent",
-          height: 82,
+          height: 87,
           marginHorizontal: 2,
           paddingTop: 30,
 
@@ -139,21 +139,23 @@ export default function TabNavigation() {
           ),
         }}
       />
-      <Tab.Screen
-        name={ROUTES.APPROUTES.DIRECT_MSGLIST}
-        component={user ? DirectMsg : AuthNavigation}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign
-              name="message1"
-              size={40}
-              color={color}
-              style={{ height: 40 }}
-            />
-          ),
-        }}
-      />
+      {user ? (
+        <Tab.Screen
+          name={ROUTES.APPROUTES.DIRECT_MSGLIST}
+          component={DirectMsg}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color, size }) => (
+              <AntDesign
+                name="message1"
+                size={40}
+                color={color}
+                style={{ height: 40 }}
+              />
+            ),
+          }}
+        />
+      ) : null}
       <Tab.Screen
         name={ROUTES.APPROUTES.PROFILE}
         component={user ? Profile : AuthNavigation}

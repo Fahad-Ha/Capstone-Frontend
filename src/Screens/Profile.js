@@ -19,7 +19,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"; // Import the 
 import { getProfileData } from "../apis/auth/index";
 import React, { useContext, useState } from "react";
 import Rectangle from "../../assets/Rectangle.png";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import ProfileB from "../../assets/BGL.png";
@@ -284,7 +288,50 @@ const Profile = () => {
                         <Text className="text-white font-semibold text-lg mt-4">
                           Interests:
                         </Text>
-                        <View className="rounded-full shadow-2xl shadow-gray-600 my-5">
+                        {/*  */}
+
+                        <ScrollView horizontal>
+                          {profile?.interests?.map((interest, index) => (
+                            <BlurView
+                              intensity={60}
+                              tint="light"
+                              style={{
+                                height: 44,
+                                marginHorizontal: 5,
+                                borderColor: "#FF1D61",
+                                flexDirection: "row",
+                                borderRadius: 30,
+                                justifyContent: "center",
+                                alignItems: "center",
+                                paddingHorizontal: 20,
+                                gap: 5,
+                              }}
+                              className="overflow-hidden "
+                            >
+                              <FontAwesome
+                                name="dot-circle-o"
+                                size={30}
+                                color="#5559BC"
+                              />
+                              <Text
+                                style={{
+                                  paddingHorizontal: 5,
+                                  color: "white",
+                                  fontSize: 16,
+                                  fontWeight: "bold",
+                                  marginHorizontal: 2,
+                                  overflow: "hidden",
+                                  textAlign: "center",
+                                  borderRadius: 15,
+                                }}
+                              >
+                                {interest.name}
+                              </Text>
+                            </BlurView>
+                          ))}
+                        </ScrollView>
+
+                        {/* <View className="rounded-full shadow-2xl shadow-gray-600 my-5">
                           <View className="flex-row flex-wrap ">
                             {profile?.interests?.map((interest, index) => (
                               <View key={index}>
@@ -305,7 +352,9 @@ const Profile = () => {
                               </View>
                             ))}
                           </View>
-                        </View>
+                        </View> */}
+
+                        {/*  */}
                         <View>
                           <Text className="text-white font-semibold mb-2 text-lg">
                             Created Events:
