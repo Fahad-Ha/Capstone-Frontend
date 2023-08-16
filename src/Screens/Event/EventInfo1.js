@@ -53,6 +53,7 @@ const EventInfo1 = ({ navigation }) => {
             overflow: "hidden",
             marginTop: 90,
             marginBottom: 20,
+            backgroundColor: "rgba(232, 232, 232, 0.40)",
           }}
           onImagePicked={(imageUri) => setData({ ...data, image: imageUri })}
         >
@@ -74,7 +75,7 @@ const EventInfo1 = ({ navigation }) => {
             <MaterialIcons
               name="insert-photo"
               size={40}
-              color="rgba(255, 255, 255, 0.80)"
+              color="rgba(255, 255, 255, 0.90)"
             />
             {/* <Text style={{ color: "white" }}>Tap to select an event image</Text> */}
           </View>
@@ -110,7 +111,7 @@ const EventInfo1 = ({ navigation }) => {
         </Text>
         <TextInput
           style={{
-            backgroundColor: "rgba(232, 232, 232, 0.30)",
+            backgroundColor: "rgba(232, 232, 232, 0.60)",
             height: 40,
             width: 200,
             color: "white",
@@ -155,7 +156,7 @@ const EventInfo1 = ({ navigation }) => {
         </Text>
         <TextInput
           style={{
-            backgroundColor: "rgba(232, 232, 232, 0.30)",
+            backgroundColor: "rgba(232, 232, 232, 0.60)",
             height: 100,
             width: 270,
             fontStyle: "italic",
@@ -192,7 +193,7 @@ const EventInfo1 = ({ navigation }) => {
         </Text>
         <TextInput
           style={{
-            backgroundColor: "rgba(232, 232, 232, 0.30)",
+            backgroundColor: "rgba(232, 232, 232, 0.60)",
             height: 40,
             width: 55,
             borderRadius: 10,

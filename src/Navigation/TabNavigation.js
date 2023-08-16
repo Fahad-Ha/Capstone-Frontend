@@ -34,7 +34,7 @@ import DMButton from "../Components/DMButton";
 import UserContext from "../context/UserContext";
 import { BlurView } from "expo-blur";
 import CreateEventNavigation from "./CreateEventNavigation";
-
+import DirectMsg from "../Screens/DirectMsg";
 // import UserProfile from "../screens/Auth/Profile/UserProfile";
 // import ExploreStack from "./ExploreStack";
 // import ProfileStack from "./ProfileStack";
@@ -130,6 +130,21 @@ export default function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <Feather
               name="plus-square"
+              size={40}
+              color={color}
+              style={{ height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={ROUTES.APPROUTES.DIRECT_MSGLIST}
+        component={user ? DirectMsg : AuthNavigation}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign
+              name="message1"
               size={40}
               color={color}
               style={{ height: 40 }}
