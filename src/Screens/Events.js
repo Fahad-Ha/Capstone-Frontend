@@ -6,12 +6,13 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React, { useCallback, useContext, useState } from "react";
 import EventList from "../Components/Events/EventList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import DMButton from "../Components/DMButton";
 import HomeBB from "../../assets/BGL1.png";
 import UserContext from "../context/UserContext";
@@ -19,8 +20,9 @@ import { BlurView } from "expo-blur";
 import { getEvents, getSuggestedEvents } from "../apis/event";
 import { BASE_URL } from "../apis";
 import moment from "moment";
-
+import ROUTES from "../Navigation";
 const Explore = () => {
+  const navigation = useNavigation();
   const { user, setUser } = useContext(UserContext);
   const [searchQuery, setSearchQuery] = useState("");
   const queryClient = useQueryClient();
@@ -44,6 +46,7 @@ const Explore = () => {
     queryFn: () => getSuggestedEvents(),
   });
   console.log(sugEvents);
+
   return (
     <ImageBackground source={HomeBB} style={{ flex: 1 }}>
       <BlurView
@@ -79,38 +82,50 @@ const Explore = () => {
                           overflow: "hidden",
                         }}
                       >
-                        <BlurView
-                          intensity={65}
-                          tint="default"
-                          style={{
-                            height: "100%", // 1/3 of the card height
-                            width: "100%",
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate(
+                              ROUTES.APPROUTES.EVENT_DETAILS,
+                              {
+                                _id: item._id,
+                                event: item,
+                              }
+                            );
                           }}
                         >
-                          <Image
-                            source={{ uri: BASE_URL + "/" + item.image }}
-                            height={100}
-                            width={250}
-                          />
-                          <Text className="text-2xl font-bold text-center mb-5  text-white">
-                            {item.name}
-                          </Text>
-                          <View
+                          <BlurView
+                            intensity={65}
+                            tint="default"
                             style={{
-                              flexDirection: "row",
-                              justifyContent: "center",
-                              gap: 20,
+                              height: "100%", // 1/3 of the card height
+                              width: "100%",
                             }}
                           >
-                            <Text className="text-sm font-bold text-center   text-red-500">
-                              {moment(item.date).format("ddd, MMM D")}{" "}
+                            <Image
+                              source={{ uri: BASE_URL + "/" + item.image }}
+                              height={100}
+                              width={250}
+                            />
+                            <Text className="text-2xl font-bold text-center mb-5  text-white">
+                              {item.name}
                             </Text>
-                            <Text className="text-sm font-bold text-center   text-red-500">
-                              {moment(item.from).format("HH:mm")}-
-                              {moment(item.to).format("HH:mm")}
-                            </Text>
-                          </View>
-                        </BlurView>
+                            <View
+                              style={{
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                gap: 20,
+                              }}
+                            >
+                              <Text className="text-sm font-bold text-center   text-red-500">
+                                {moment(item.date).format("ddd, MMM D")}{" "}
+                              </Text>
+                              <Text className="text-sm font-bold text-center   text-red-500">
+                                {moment(item.from).format("HH:mm")}-
+                                {moment(item.to).format("HH:mm")}
+                              </Text>
+                            </View>
+                          </BlurView>
+                        </TouchableOpacity>
                       </View>
                     );
                   })}

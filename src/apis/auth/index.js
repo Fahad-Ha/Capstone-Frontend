@@ -41,7 +41,40 @@ const register = async (userInfo) => {
 
   return res.data;
 };
+const editProfile = async (userInfo, userId) => {
+  const formData = new FormData();
+  console.log("here from auth =====>", userInfo);
 
+  for (const key in userInfo) {
+    if (key != "image") {
+      if (key === "interests") {
+        userInfo.interests.forEach((interest) => {
+          formData.append("interests", interest);
+        });
+      } else {
+        formData.append(key, userInfo[key]);
+      }
+    } else {
+      formData.append("image", {
+        name: userInfo.image,
+        type: "image/jpeg",
+        uri: userInfo.image,
+      });
+    }
+  }
+
+  // formData.append("expoPushToken", expoPushToken);
+
+  const res = await instance.put(`/auth/edit/${userId}`, formData, {
+    headers: {
+      Accept: "application/json, text/plain, /",
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  // res.data = { here: "here" };
+
+  return res.data;
+};
 const getAllUsers = async () => {
   const res = await instance.get("/auth/users");
   return res.data;
@@ -74,4 +107,5 @@ export {
   getProfileData,
   checkUsername,
   checkEmail,
+  editProfile,
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -14,23 +14,40 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
+import { editProfile } from "../apis/auth/index";
 import homeB from "../../assets/BGL1.png";
 import ImageHandler from "../Components/Shared/ImagePickerC";
 import { BASE_URL } from "../apis";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getAllTags } from "../apis/tags";
 import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
+import ROUTES from "../Navigation";
+import UserContext from "../context/UserContext";
 
 const EditProfileScreen = ({ route, navigation }) => {
   const [editedName, setEditedName] = useState(route.params.currentName);
-
+  const { user } = useContext(UserContext);
   // const [image, setImage] = useState(
   //   "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
   // );
   const { image } = route.params;
   const [selectedIntres, setSelectedIntres] = useState([]);
-
+  const [changeImg, setChangeImg] = useState(`${BASE_URL}/${image}`);
+  const [data, setData] = useState({
+    username: route.params.currentName,
+  });
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(tags?.length / ITEMS_PER_PAGE)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  console.log(changeImg);
   const handleSave = () => {
     // Implement logic to save the edited name (API call, storage, etc.)
     // For example:
@@ -50,7 +67,30 @@ const EditProfileScreen = ({ route, navigation }) => {
   const sortedTags = tags?.sort((a, b) => a.name.localeCompare(b.name));
 
   const paginatedTags = sortedTags?.slice(startIdx, startIdx + ITEMS_PER_PAGE);
-  console.log("t", image);
+
+  const {
+    mutate: editProfileFn,
+    error,
+    isLoading,
+  } = useMutation({
+    mutationFn: (data) => {
+      return editProfile(data, user?._id);
+    },
+    onSuccess: () => {
+      navigation.navigate(ROUTES.APPROUTES.PROFILE);
+      // navigation.goBack();
+    },
+    onError: (err) => {
+      console.log("========>", err);
+    },
+  });
+
+  const handleSumbit = () => {
+    setData({ ...data, interests: selectedIntres });
+    console.log(data);
+    // if (image)
+    editProfileFn(data);
+  };
   return (
     <ImageBackground source={homeB} style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
@@ -60,17 +100,24 @@ const EditProfileScreen = ({ route, navigation }) => {
             placeholderTextColor={"rgba(256,256,256, 0.5)"}
             style={styles.input}
             value={editedName}
-            onChangeText={setEditedName}
+            onChangeText={(name) => {
+              setEditedName(name);
+              console.log(editedName);
+              setData({ ...data, username: name });
+            }}
             placeholder={editedName}
           />
           {/* Placeholder for another component */}
           <View />
-          <View
-            style={styles.imageContainer}
-            className="rounded-3xl overflow-hidden"
-          >
+          <View style={styles.imageContainer}>
             <ImageHandler
-              image={`${BASE_URL}/${image}`}
+              image={changeImg}
+              setImage={setChangeImg}
+              onImagePicked={(imageUri) => {
+                setChangeImg(imageUri);
+                setData({ ...data, image: imageUri });
+                // console.log(imageUri);
+              }}
               style={styles.imageStyle}
             />
             <View style={styles.overlay}>
@@ -130,7 +177,7 @@ const EditProfileScreen = ({ route, navigation }) => {
                             );
                           })();
 
-                      console.log({ interests: selectedIntres });
+                      // console.log({ interests: selectedIntres });
                     }}
                     style={{
                       flex: 1,
@@ -166,7 +213,28 @@ const EditProfileScreen = ({ route, navigation }) => {
             />
           </View>
         </View>
-        <Pressable>
+        {/* Pagination Buttons */}
+        <View style={styles.paginationContainer}>
+          {currentPage > 1 && (
+            <TouchableOpacity
+              onPress={handlePrevPage}
+              style={[styles.paginationButton, { backgroundColor: "#FF005C" }]}
+            >
+              <Text style={styles.paginationButtonText}>Prev</Text>
+            </TouchableOpacity>
+          )}
+
+          {currentPage < Math.ceil(tags?.length / ITEMS_PER_PAGE) && (
+            <TouchableOpacity
+              onPress={handleNextPage}
+              style={[styles.paginationButton, { backgroundColor: "#FF005C" }]}
+            >
+              <Text style={styles.paginationButtonText}>Next</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+
+        <Pressable onPress={handleSumbit}>
           <View
             style={{
               backgroundColor: "#FF005C",
@@ -244,6 +312,24 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     borderRadius: 30,
     padding: 10,
+  },
+  paginationContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 100,
+  },
+  paginationButton: {
+    paddingVertical: 10,
+    // marginTop: 30,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    marginHorizontal: 4,
+    marginBottom: 15,
+  },
+  paginationButtonText: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
 
