@@ -54,16 +54,16 @@ export default function TabNavigation() {
           // borderColor: "rgba(255, 255, 255, 0.3)",
           // borderWidth: 1.5,
 
-          bottom: 5,
+          bottom: 0,
           left: 0,
           right: 0,
           height: 70,
           borderRadius: 16,
-          marginHorizontal: 4,
+          // marginHorizontal: 16,
           overflow: "hidden", // Hide the overflow from the border
         }}
         tint="dark"
-        intensity={60}
+        intensity={100}
       >
         <BottomTabBar {...props} />
       </BlurView>
@@ -87,6 +87,8 @@ export default function TabNavigation() {
           backgroundColor: "transparent",
           height: 82,
           marginHorizontal: 2,
+          paddingTop: 30,
+
           bottom: -6,
           // ...styles.shadow,
         },

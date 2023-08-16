@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import EventCard from "./EventCard";
 import { useQueryClient } from "@tanstack/react-query";
 import { getEvents } from "../../apis/event/index";
@@ -18,14 +18,14 @@ const EventList = ({ searchQuery, events }) => {
   );
 
   return (
-    <>
+    <View className="pb-20">
       <FlatList
         data={filteredEvents}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => <EventCard event={item} />}
       />
-    </>
+    </View>
   );
 };
 
