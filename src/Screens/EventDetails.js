@@ -261,7 +261,7 @@ const EventDetails = ({ navigation, route }) => {
     }
   };
 
-  const eventDateIsFuture = moment(event.from).isAfter(moment());
+  const eventDateIsFuture = moment(event?.date).isAfter(moment());
   const formattedEventDate = `${moment(eventDate).format(
     "ddd, MMM D"
   )}  -  ${moment(event.from).format("HH:mm")} - ${moment(event.to).format(
@@ -613,7 +613,7 @@ const EventDetails = ({ navigation, route }) => {
                   </View>
                 </ScrollView>
                 <TouchableOpacity onPress={toggleRSVP}>
-                  {eventDateIsFuture && (
+                  {user?._id != event?.organizer?._id && (
                     <View
                       style={{
                         backgroundColor: userHasRSVPd ? "#FC6F99" : "#FF1D61",

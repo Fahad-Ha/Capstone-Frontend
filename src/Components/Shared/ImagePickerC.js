@@ -15,7 +15,7 @@ const ImagePickerC = ({
   const getPremisstion = async () => {
     const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!granted) {
-      alert("not granted");
+      // alert("not granted");
     }
   };
 
