@@ -88,7 +88,7 @@ const RegisterUsernameEmailPassword = () => {
       style={styles.container}
     >
       <ImageBackground source={bgLogin} style={{ flex: 1 }}>
-        <View style={{ flex: 0.8 }}>
+        <View style={{ flex: 0.9 }}>
           <ScrollView contentContainerStyle={styles.scrollContent}>
             <TouchableOpacity
               onPress={() => navigation.goBack()}
@@ -146,6 +146,7 @@ const RegisterUsernameEmailPassword = () => {
                       borderColor: "rgba(100, 0, 0, 0.3)",
                       // flex: 0.3,
                       borderRadius: 30,
+                      marginBottom: 50,
                       justifyContent: "center",
                       alignItems: "center",
                     }}
@@ -180,7 +181,9 @@ const RegisterUsernameEmailPassword = () => {
                       </Text>
                     </View>
                     <TextInput
-                      placeholderTextColor={"white"}
+                      placeholderTextColor={
+                        (color = "rgba(255, 255, 255, 0.61)")
+                      }
                       style={{
                         backgroundColor: "rgba(232, 232, 232, 0.30)",
                         flex: 1,
@@ -237,7 +240,9 @@ const RegisterUsernameEmailPassword = () => {
                     </View>
 
                     <TextInput
-                      placeholderTextColor={"white"}
+                      placeholderTextColor={
+                        (color = "rgba(255, 255, 255, 0.61)")
+                      }
                       style={{
                         backgroundColor: "rgba(232, 232, 232, 0.30)",
                         flex: 1,
@@ -296,11 +301,14 @@ const RegisterUsernameEmailPassword = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         height: 65,
+                        color: "rgba(255, 255, 255, 0.51)",
                       }}
-                      className="w-4/5 h-12 mb-1 py-2 px-4 border-s border-gray-300 rounded-xl  relative"
+                      className="w-4/5 h-12 mb-1 py-2 px-4 border-s border-gray-300 rounded-xl  relative text-white"
                     >
                       <TextInput
-                        placeholderTextColor={"white"}
+                        placeholderTextColor={
+                          (color = "rgba(255, 255, 255, 0.61)")
+                        }
                         placeholder="Password"
                         secureTextEntry={!showPassword}
                         onBlur={handleBlur("password")}
@@ -313,6 +321,7 @@ const RegisterUsernameEmailPassword = () => {
                           backgroundColor: "rgba(232, 232, 232, 0.30)",
                           flex: 1,
                           width: 340,
+                          color: "rgba(255, 255, 255, 0.51)",
                           borderRadius: 10,
                           textAlign: "left",
                           paddingLeft: 15,

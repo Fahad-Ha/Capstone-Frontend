@@ -74,17 +74,17 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
 
   return (
     <ImageBackground source={bgLogin} style={{ flex: 1 }}>
-      <TouchableOpacity className="absolute  top-10 left-1 rounded-full shadow p-2">
-        <View className="flex-row items-center ">
-          <Feather
-            name="arrow-left"
-            size={32}
-            color={"white"}
-            onPress={() => navigation.goBack()}
-          />
-        </View>
-      </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.scrollContent}>
+        <TouchableOpacity className="absolute  top-10 left-1 rounded-full shadow p-2">
+          <View className="flex-row items-center ">
+            <Feather
+              name="arrow-left"
+              size={32}
+              color={"white"}
+              onPress={() => navigation.goBack()}
+            />
+          </View>
+        </TouchableOpacity>
         <Text style={styles.headerText2}>Step 2 out of 3</Text>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Pick an image</Text>

@@ -12,29 +12,23 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import EventCard from "./EventCard";
 import { getEvents } from "../../apis/event/index";
 
-const EventList = () => {
+const EventList = ({ searchQuery, events }) => {
   const clientQuery = useQueryClient();
-  const {
-    data: events,
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["events"],
-    queryFn: () => getEvents(),
-  });
 
-  if (isLoading) return <Text>Loading...</Text>;
-
+  // Apply search filter
+  const filteredEvents = events?.filter((event) =>
+    event?.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   return (
     <>
       <FlatList
-        data={events}
+        data={filteredEvents}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => <EventCard event={item} />}
-        refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-        }
+        // refreshControl={
+        //   <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        // }
       />
     </>
   );

@@ -146,10 +146,10 @@ const EventInfo2 = ({ route, navigation }) => {
         <TouchableOpacity onPress={handleSelectLocation}>
           {location ? (
             <>
-              <Text className="text-black text-lg">
+              <Text className="text-white text-lg">
                 Country: {locationDetails?.countryName}
               </Text>
-              <Text className="text-black text-lg">
+              <Text className="text-white text-lg">
                 City: {locationDetails?.city}
               </Text>
             </>
@@ -284,7 +284,9 @@ const EventInfo2 = ({ route, navigation }) => {
           }}
           onPress={handleNextPage}
         >
-          <Text style={{ color: "white", fontWeight: "bold" }}>Next</Text>
+          <Text style={{ color: "white", fontWeight: "bold", fontSize: 17 }}>
+            Next
+          </Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
