@@ -134,6 +134,7 @@ const Profile = () => {
           style={{
             backgroundColor: "rgba(0, 0, 0)",
             borderColor: "rgba(100, 0, 0, 0.3)",
+            height: "100%",
           }}
           className=" overflow-hidden"
         >
@@ -253,6 +254,7 @@ const Profile = () => {
             <View
               style={{
                 borderWidth: 0,
+                height: "100%",
                 elevation: 115,
                 backgroundColor: "transparent",
                 transform: [{ perspective: 1000 }, { translateY: -30 }],
@@ -267,7 +269,7 @@ const Profile = () => {
                   borderTopRightRadius: 40,
                   backgroundColor: "rgba(0, 0, 0)",
                   borderColor: "rgba(100, 0, 0, 0.3)",
-
+                  height: "100%",
                   // borderWidth: 1.5,
                 }}
                 className=" overflow-hidden"
@@ -280,6 +282,7 @@ const Profile = () => {
                       backgroundColor: "rgba(0, 0, 0,0.2)",
                       borderColor: "rgba(100, 0, 0, 0.3)",
                       paddingHorizontal: 16,
+                      height: "100%",
                     }}
                     className=" overflow-hidden"
                   >
@@ -383,7 +386,7 @@ const Profile = () => {
                               >
                                 <View key={createdEvents?._id} className="mb-5">
                                   <Image
-                                    resizeMode="contain"
+                                    resizeMode="stretch"
                                     height={140}
                                     width={350}
                                     source={{
@@ -498,7 +501,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: "hidden",
     marginHorizontal: 10,
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   dropdownItem: {
     paddingHorizontal: 20,

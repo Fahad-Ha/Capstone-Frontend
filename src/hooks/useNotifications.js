@@ -36,7 +36,7 @@ async function registerForPushNotificationsAsync() {
       }
     }
     if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
+      // alert("Failed to get push token for push notification!");
       return;
     }
     token = await Notifications.getExpoPushTokenAsync({
@@ -45,7 +45,7 @@ async function registerForPushNotificationsAsync() {
 
     console.log("Token:", token.data);
   } else {
-    alert("Must use physical device for Push Notifications");
+    // alert("Must use physical device for Push Notifications");
   }
 
   return token;
