@@ -529,34 +529,43 @@ const EventDetails = ({ navigation, route }) => {
                       Attendees
                     </Text>
                     {event?.attendees?.length > 0 ? (
-                      event?.attendees?.map((attendee, index) => (
-                        <TouchableOpacity
-                          onPress={() => {
-                            navigation.navigate(
-                              ROUTES.APPROUTES.USERS_EVENT_LIST,
-                              {
-                                attendees: event?.attendees,
-                              }
-                            );
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate(
+                            ROUTES.APPROUTES.USERS_EVENT_LIST,
+                            {
+                              attendees: event?.attendees,
+                            }
+                          );
+                        }}
+                      >
+                        <View
+                          style={{
+                            backgroundColor: "rgba(0, 0, 0, 0.1)",
+                            borderRadius: 15,
                           }}
+                          className="justify-center items-center my-2"
                         >
                           <View
-                            style={
-                              {
-                                // backgroundColor: "rgba(0, 0, 0, 0.1)",
-                                // borderRadius: 15,
-                              }
-                            }
-                            className="justify-center items-center  flex-row"
-                            key={index}
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                            }}
                           >
                             <Ionicons name="people" size={24} color="#FF1D61" />
-                            <Text className="p-2 text-lg text-center mx-2 justify-center text-white font-bold">
+                            <Text
+                              style={{
+                                marginLeft: 8,
+                                fontSize: 16,
+                                color: "white",
+                                fontWeight: "bold",
+                              }}
+                            >
                               {event?.attendees?.length}
                             </Text>
                           </View>
-                        </TouchableOpacity>
-                      ))
+                        </View>
+                      </TouchableOpacity>
                     ) : (
                       <View
                         style={

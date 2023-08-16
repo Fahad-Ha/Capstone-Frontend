@@ -72,7 +72,7 @@ const MyEvents = () => {
           style={[styles.toggleButton, !showUpcoming && styles.selectedToggle]}
           onPress={() => setShowUpcoming(false)}
         >
-          <Text style={[styles.toggleText, , styles.centeredText]}>
+          <Text style={[styles.toggleText, styles.centeredText]}>
             Previous Events
           </Text>
         </TouchableOpacity>
