@@ -36,7 +36,7 @@ const DM = ({ navigation }) => {
   if (isLoading)
     return (
       <View className="flex-1 justify-center items-center">
-        <ActivityIndicator color="black"></ActivityIndicator>;
+        <ActivityIndicator color="white"></ActivityIndicator>
       </View>
     );
 
