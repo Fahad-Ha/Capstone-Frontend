@@ -462,7 +462,7 @@ const EventDetails = ({ navigation, route }) => {
                     backgroundColor: "rgba(0, 0, 0, 0.1)",
                     borderRadius: 15,
                   }}
-                  className="flex-row p-2 items-center shadow-2xl shadow-gray-600  mt-4"
+                  className="flex-row p-2 items-center shadow-2xl mt-4"
                 >
                   <MaterialIcons name="date-range" size={24} color="#FF1D61" />
                   <Text className=" text-lg text-center mx-2 justify-center text-white ">
@@ -471,10 +471,12 @@ const EventDetails = ({ navigation, route }) => {
                 </View>
                 <TouchableOpacity onPress={openGoogleMaps}>
                   <View
-                    style={{
-                      backgroundColor: "rgba(0, 0, 0, 0.1)",
-                      borderRadius: 15,
-                    }}
+                    style={
+                      {
+                        // backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        // borderRadius: 15,
+                      }
+                    }
                     className="flex-row items-center p-2 my-1"
                   >
                     <MaterialCommunityIcons
@@ -490,10 +492,12 @@ const EventDetails = ({ navigation, route }) => {
                 </TouchableOpacity>
                 <View
                   className="mb-2 relative"
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.1)",
-                    borderRadius: 15,
-                  }}
+                  style={
+                    {
+                      // backgroundColor: "rgba(0, 0, 0, 0.1)",
+                      // borderRadius: 15,
+                    }
+                  }
                 ></View>
 
                 <Text className="text-white text-xl font-bold mt-3">
@@ -520,7 +524,7 @@ const EventDetails = ({ navigation, route }) => {
                       </Text>
                     </BlurView>
                   </View>
-                  <View className="flex-ro rounded-lg  shadow-2xl shadow-gray-600 mt-3 ">
+                  <View className="flex-ro rounded-lg  shadow-2xl mt-3 ">
                     <Text className="text-white text-lg text-center">
                       Attendees
                     </Text>
@@ -537,10 +541,12 @@ const EventDetails = ({ navigation, route }) => {
                           }}
                         >
                           <View
-                            style={{
-                              backgroundColor: "rgba(0, 0, 0, 0.1)",
-                              borderRadius: 15,
-                            }}
+                            style={
+                              {
+                                // backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                // borderRadius: 15,
+                              }
+                            }
                             className="justify-center items-center  flex-row"
                             key={index}
                           >
@@ -553,10 +559,12 @@ const EventDetails = ({ navigation, route }) => {
                       ))
                     ) : (
                       <View
-                        style={{
-                          backgroundColor: "rgba(0, 0, 0, 0.1)",
-                          borderRadius: 15,
-                        }}
+                        style={
+                          {
+                            // backgroundColor: "rgba(0, 0, 0, 0.1)",
+                            // borderRadius: 15,
+                          }
+                        }
                         className="justify-center items-center my-2"
                       >
                         <Text className="text-center mx-2 text-white p-2">
