@@ -33,6 +33,11 @@ const AppNavigation = () => {
       />
 
       <Stack.Screen
+        component={Users}
+        name={ROUTES.APPROUTES.USERS_EVENT_LIST}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         component={DirectMsg}
         name={ROUTES.APPROUTES.DIRECT_MSGLIST}
         options={{ headerShown: false }}

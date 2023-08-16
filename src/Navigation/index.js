@@ -17,6 +17,7 @@ const ROUTES = {
     EVENT_DETAILS: "Event-Details",
     MAP: "MAP",
     MAIN: "Main",
+    USERS_EVENT_LIST: "UsersEventList",
   },
   AUTHROUTES: {
     LOGIN: "Login",
