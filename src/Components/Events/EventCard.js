@@ -188,9 +188,10 @@ const styles = StyleSheet.create({
     padding: 10,
     position: "absolute",
     bottom: 0,
-    paddingLeft: 30,
-    paddingRight: 30,
-    right: 70,
+    paddingLeft: 50,
+    paddingRight: 50,
+    right: 80,
+    textAlign: "right",
   },
 });
 

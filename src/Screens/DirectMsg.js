@@ -33,7 +33,12 @@ const DM = ({ navigation }) => {
   const theme = useTheme(); // Get the currently active theme
   const { data: usersData } = useQuery(["users"], getAllUsers);
 
-  if (isLoading) return <ActivityIndicator color="black"></ActivityIndicator>;
+  if (isLoading)
+    return (
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator color="white"></ActivityIndicator>
+      </View>
+    );
 
   // Sort chats based on the last message date
   const sortedChats = data?.slice().sort((chatA, chatB) => {
