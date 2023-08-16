@@ -8,13 +8,14 @@ import Rectangle from "../../../assets/Rectangle.png";
 import moment from "moment";
 import * as Location from "expo-location";
 import { FontAwesome } from "@expo/vector-icons";
+import { BASE_URL } from "../../apis";
 
 const EventCard = ({ event = {} }) => {
   const navigation = useNavigation();
   const [userLocation, setUserLocation] = useState(null);
   const formattedEventDate = `${moment(event.date).format(
     "ddd, MMM D"
-  )}       ${moment(event.from).format("HH:mm")} - ${moment(event.to).format(
+  )}   -   ${moment(event.from).format("HH:mm")} - ${moment(event.to).format(
     "HH:mm"
   )}`;
 
@@ -83,7 +84,10 @@ const EventCard = ({ event = {} }) => {
         }}
       >
         <View>
-          <Image source={fuel} style={styles.image} />
+          <Image
+            source={{ uri: BASE_URL + "/" + event?.image }}
+            style={styles.image}
+          />
           <BlurView
             intensity={65}
             tint="default"
@@ -109,7 +113,7 @@ const EventCard = ({ event = {} }) => {
                 />
                 <Text style={styles.distance}>{calculateDistance()}</Text>
               </View>
-              <Text style={styles.date}>
+              <Text className="font-semibold" style={styles.date}>
                 {/* {moment(event.date).format("YYYY-MM-DD")} */}
                 {formattedEventDate}
                 {/* {event.date} */}

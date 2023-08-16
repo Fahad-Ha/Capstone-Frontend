@@ -21,6 +21,9 @@ import { getEvents, getSuggestedEvents } from "../apis/event";
 import { BASE_URL } from "../apis";
 import moment from "moment";
 import ROUTES from "../Navigation";
+import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 const Explore = () => {
   const navigation = useNavigation();
   const { user, setUser } = useContext(UserContext);
@@ -59,11 +62,35 @@ const Explore = () => {
         className=" overflow-hidden"
       >
         <SafeAreaView>
+          <View
+            style={{
+              width: "100%",
+
+              // backgroundColor: "grey",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <MaterialIcons name="arrow-drop-down" size={28} color="#FF005C" />
+            <Text style={{ color: "white", fontSize: 17 }}>
+              current location
+            </Text>
+          </View>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 13,
+              textAlign: "center",
+              marginLeft: 20,
+            }}
+          >
+            Kuwait,Kuwait
+          </Text>
           <ScrollView>
-            <View style={{ flex: 1, marginBottom: 50 }}>
+            <View style={{ flex: 1, marginBottom: 100 }}>
               <View style={{ flex: 1, height: 265 }}>
-                <Text className="text-2xl font-bold text-center mb-5  text-white">
-                  Suggested envents!
+                <Text className="text-2xl font-bold text-center mb-5 mt-2 text-white">
+                  Suggested events!
                 </Text>
                 <ScrollView
                   horizontal
@@ -106,7 +133,7 @@ const Explore = () => {
                               height={100}
                               width={250}
                             />
-                            <Text className="text-2xl font-bold text-center mb-5  text-white">
+                            <Text className="text-2xl font-bold text-left mb-5 px-4 mt-1 text-white">
                               {item.name}
                             </Text>
                             <View
@@ -116,10 +143,16 @@ const Explore = () => {
                                 gap: 20,
                               }}
                             >
-                              <Text className="text-sm font-bold text-center   text-red-500">
+                              <Text
+                                style={{ color: "#FF005C" }}
+                                className="text-sm  text-center  font-semibold"
+                              >
                                 {moment(item.date).format("ddd, MMM D")}{" "}
                               </Text>
-                              <Text className="text-sm font-bold text-center   text-red-500">
+                              <Text
+                                style={{ color: "#fff" }}
+                                className="text-sm  text-center   font-semibold"
+                              >
                                 {moment(item.from).format("HH:mm")}-
                                 {moment(item.to).format("HH:mm")}
                               </Text>
@@ -131,7 +164,7 @@ const Explore = () => {
                   })}
                 </ScrollView>
               </View>
-              <View style={{ flex: 1 }}>
+              <View style={{ flex: 1, position: "relative" }}>
                 <Text className="text-2xl pt-3 font-bold text-center mb-5  text-white">
                   Explore The Events Around Us!
                 </Text>
@@ -153,8 +186,9 @@ const Explore = () => {
                   onChangeText={(text) => setSearchQuery(text)}
                   placeholder="Search by Event name..."
                 ></TextInput>
+
                 <View className="flex right-0 items-end py-2 px-4 absolute ">
-                  {user ? <DMButton /> : null}
+                  {/* {user ? <DMButton /> : null} */}
                 </View>
                 <EventList events={events} searchQuery={searchQuery} />
               </View>

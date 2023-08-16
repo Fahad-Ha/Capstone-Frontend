@@ -389,7 +389,13 @@ const EventDetails = ({ navigation, route }) => {
                       : "Default User"}
                   </Text>
                 </TouchableOpacity>
-                <View className="flex-row justify-end mt-2 ">
+                <View
+                  className="flex-row justify-end mt-2 "
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                  }}
+                >
                   {event?.organizer?._id === user?._id && (
                     <TouchableOpacity className="mx-4" onPress={handleDelete}>
                       <View
@@ -413,30 +419,52 @@ const EventDetails = ({ navigation, route }) => {
                     </TouchableOpacity>
                   )}
                 </View>
-                <BlurView
-                  intensity={60}
-                  tint="light"
-                  style={{
-                    height: 44,
-                    marginHorizontal: 5,
-                    flex: 0.1,
-                    // backgroundColor: "rgba(0, 0, 0, 0.8)",
-                    borderColor: "#FF1D61",
+                <ScrollView horizontal>
+                  {event?.tags?.map((interest, index) => (
+                    <BlurView
+                      intensity={60}
+                      tint="light"
+                      style={{
+                        height: 44,
+                        marginHorizontal: 5,
+                        borderColor: "#FF1D61",
+                        flexDirection: "row",
+                        borderRadius: 30,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        paddingHorizontal: 20,
+                        gap: 5,
+                      }}
+                      className="overflow-hidden "
+                    >
+                      <FontAwesome
+                        name="dot-circle-o"
+                        size={30}
+                        color="#FF1D61"
+                      />
+                      <Text
+                        style={{
+                          paddingHorizontal: 5,
+                          color: "white",
+                          fontSize: 16,
+                          fontWeight: "bold",
+                          marginHorizontal: 2,
+                          overflow: "hidden",
+                          textAlign: "center",
+                          borderRadius: 15,
+                        }}
+                      >
+                        {interest.name}
+                      </Text>
+                      {/* <View className="flex-row justify-center align-baseline">
+                      <FontAwesome
+                        name="dot-circle-o"
+                        size={30}
+                        color="#FF1D61"
+                        style={{ marginTop: 8 }}
+                      />
 
-                    borderRadius: 30,
-                    paddingVertical: "auto",
-                  }}
-                  className="overflow-hidden "
-                >
-                  <View className="flex-row justify-center align-baseline">
-                    <FontAwesome
-                      name="dot-circle-o"
-                      size={30}
-                      color="#FF1D61"
-                      style={{ marginTop: 8, marginLeft: 10 }}
-                    />
-                    {event?.tags?.map((interest, index) => (
-                      <View key={index}>
+                      <View key={index} style={{ marginLeft: 10 }}>
                         <Text
                           style={{
                             padding: 12,
@@ -453,9 +481,10 @@ const EventDetails = ({ navigation, route }) => {
                           {interest?.name}
                         </Text>
                       </View>
-                    ))}
-                  </View>
-                </BlurView>
+                    </View> */}
+                    </BlurView>
+                  ))}
+                </ScrollView>
 
                 <View
                   style={{
