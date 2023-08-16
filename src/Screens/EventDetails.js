@@ -25,13 +25,15 @@ import moment from "moment";
 import { BlurView } from "expo-blur";
 import useCalendar from "@atiladev/usecalendar";
 import { Fontisto } from "@expo/vector-icons";
-import HomeB from "../../assets/BGL2.png";
+import HomeB from "../../assets/BGL1.png";
+import HomeBB from "../../assets/BGL2.png";
 import Toast, {
   BaseToast,
   ErrorToast,
   InfoToast,
 } from "react-native-toast-message";
 import { ActivityIndicator } from "react-native-paper";
+import { FontAwesome } from "@expo/vector-icons";
 
 const EventDetails = ({ navigation, route }) => {
   const [showBox, setShowBox] = useState(true);
@@ -326,7 +328,7 @@ const EventDetails = ({ navigation, route }) => {
   };
 
   return (
-    <ImageBackground source={HomeB} style={{ flex: 1 }}>
+    <ImageBackground source={HomeBB} style={{ flex: 1 }}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -336,7 +338,7 @@ const EventDetails = ({ navigation, route }) => {
           <StatusBar translucent backgroundColor="rgba(255, 255, 255, 0.45)" />
           <View style={{ flex: 1 }}>
             <Image
-              style={{ height: 200, width: "100%" }}
+              style={{ height: 250, width: "100%" }}
               source={{ uri: `${BASE_URL}/${event?.image}` }}
             />
             <TouchableOpacity
@@ -353,105 +355,26 @@ const EventDetails = ({ navigation, route }) => {
               </View>
             </TouchableOpacity>
           </View>
-          <BlurView
-            intensity={60}
-            tint="default"
-            style={{
-              backgroundColor: "rgba(0, 0, 0, 0.8)",
-              borderColor: "rgba(100, 0, 0, 0.3)",
-              borderTopLeftRadius: 40,
-              borderTopRightRadius: 40,
-            }}
-            className="bg-gray-300 -mt-12 pt-6 overflow-hidden "
-          >
-            <View className="pb-72 items-center ">
-              <Text className=" text-2xl text-white font-bold rounded-full  shadow-2xl shadow-gray-600 mb-2">
-                {event?.name} (
-                {event?.price === 0 ? "Free" : `${event?.price} KD`})
-              </Text>
-              <View className="flex-row justify-end mt-2 ">
-                {event?.organizer?._id === user?._id && (
-                  <TouchableOpacity className="mx-4" onPress={handleDelete}>
-                    <View
-                      style={{
-                        borderRadius: 15,
-                        backgroundColor: "rgba(0, 0, 0, 0.1)",
-                      }}
-                      className="flex-row p-2 items-center absolute top-[-52] left-24 "
-                    >
-                      {showBox}
-                      <MaterialCommunityIcons
-                        name="delete-outline"
-                        size={18}
-                        color="white"
-                      />
-                      <Text className="text-white font-semibold text-base ml-1">
-                        Delete
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                )}
-              </View>
-              <View className="flex-row mb-6">
-                {event?.tags?.map((interest, index) => (
-                  <View className="justify-start" key={index}>
-                    <Text
-                      style={{
-                        padding: 12,
-                        color: "white",
-                        fontSize: 16,
-                        fontWeight: "bold",
-                        marginHorizontal: 3,
-                        overflow: "hidden",
-                        borderRadius: 15,
-                        backgroundColor: "rgba(0, 0, 0, 0.1)",
-                      }}
-                    >
-                      {interest?.name}
-                    </Text>
-                  </View>
-                ))}
-              </View>
+          <ImageBackground source={HomeB} style={{ flex: 1 }}>
+            <BlurView
+              intensity={70}
+              tint="dark"
+              style={{
+                // backgroundColor: "rgba(0, 0, 0, 0.8)",
 
-              <TouchableOpacity onPress={openGoogleMaps}>
-                <View
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.1)",
-                    borderRadius: 15,
-                  }}
-                  className="flex-row items-center p-2 my-3"
-                >
-                  <MaterialCommunityIcons
-                    name="google-maps"
-                    size={24}
-                    color="#F2583E"
-                  />
-                  <Text className="text-white" style={{ marginLeft: 8 }}>
-                    {location === "No location provided" && location}
-                    {location?.countryName} {location?.city}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+                borderRadius: 40,
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
 
-              <View
-                style={{
-                  backgroundColor: "rgba(0, 0, 0, 0.1)",
-                  borderRadius: 15,
-                }}
-                className="flex-row p-2 items-center shadow-2xl shadow-gray-600 mb-3"
-              >
-                <MaterialIcons name="date-range" size={24} color="#F2583E" />
-                <Text className=" text-lg text-center mx-2 justify-center text-white ">
-                  {formattedEventDate}
+                overflow: "hidden",
+              }}
+              className="-mt-4 pt-6 overflow-hidden "
+            >
+              <View className="pb-72 items-center ">
+                <Text className=" text-2xl text-white font-bold rounded-full  shadow-2xl shadow-gray-600 mb-2">
+                  {event?.name} (
+                  {event?.price === 0 ? "Free" : `${event?.price} KD`})
                 </Text>
-              </View>
-              <View
-                className="mb-2 relative"
-                style={{
-                  backgroundColor: "rgba(0, 0, 0, 0.1)",
-                  borderRadius: 15,
-                }}
-              >
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate(ROUTES.APPROUTES.DIRECT_MSG, {
@@ -459,84 +382,211 @@ const EventDetails = ({ navigation, route }) => {
                     });
                   }}
                 >
-                  <Text className=" p-2  text-white rounded-full text-center mx-2 justify-center">
+                  <Text className="   text-white rounded-full text-center mx-2 justify-center mb-4">
                     Organizer:{" "}
                     {event?.organizer
                       ? event?.organizer?.username
                       : "Default User"}
                   </Text>
                 </TouchableOpacity>
-              </View>
-              <View className="flex-ro rounded-lg  shadow-2xl shadow-gray-600 mb-3">
-                <Text className="text-white text-lg text-center">
-                  Attendees
-                </Text>
-                {event?.attendees?.length > 0 ? (
-                  event?.attendees?.map((attendee, index) => (
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate(ROUTES.APPROUTES.USERS_EVENT_LIST, {
-                          attendees: event?.attendees,
-                        });
-                      }}
-                    >
+                <View className="flex-row justify-end mt-2 ">
+                  {event?.organizer?._id === user?._id && (
+                    <TouchableOpacity className="mx-4" onPress={handleDelete}>
                       <View
                         style={{
-                          backgroundColor: "rgba(0, 0, 0, 0.1)",
                           borderRadius: 15,
+                          backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          marginLeft: 330,
                         }}
-                        className="justify-center items-center my-2 flex-row"
-                        key={index}
+                        // className="flex-row p-2 items-center absolute top-[-52] left-24 "
                       >
-                        <Ionicons name="people" size={24} color="white" />
-                        <Text className="p-2 text-lg text-center mx-2 justify-center text-white font-bold">
-                          {event?.attendees?.length}
-                        </Text>
+                        {showBox}
+                        <MaterialCommunityIcons
+                          name="delete-outline"
+                          size={26}
+                          color="white"
+                        />
+                        {/* <Text className="text-white font-semibold text-base ml-1">
+                          Delete
+                        </Text> */}
                       </View>
                     </TouchableOpacity>
-                  ))
-                ) : (
+                  )}
+                </View>
+                <BlurView
+                  intensity={60}
+                  tint="light"
+                  style={{
+                    height: 44,
+                    marginHorizontal: 5,
+                    flex: 0.1,
+                    // backgroundColor: "rgba(0, 0, 0, 0.8)",
+                    borderColor: "#FF1D61",
+
+                    borderRadius: 30,
+                    paddingVertical: "auto",
+                  }}
+                  className="overflow-hidden "
+                >
+                  <View className="flex-row justify-center align-baseline">
+                    <FontAwesome
+                      name="dot-circle-o"
+                      size={30}
+                      color="#FF1D61"
+                      style={{ marginTop: 8, marginLeft: 10 }}
+                    />
+                    {event?.tags?.map((interest, index) => (
+                      <View key={index}>
+                        <Text
+                          style={{
+                            padding: 12,
+                            color: "white",
+                            fontSize: 16,
+                            fontWeight: "bold",
+                            marginHorizontal: 2,
+                            overflow: "hidden",
+                            textAlign: "center",
+                            borderRadius: 15,
+                            // backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          }}
+                        >
+                          {interest?.name}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                </BlurView>
+
+                <View
+                  style={{
+                    backgroundColor: "rgba(0, 0, 0, 0.1)",
+                    borderRadius: 15,
+                  }}
+                  className="flex-row p-2 items-center shadow-2xl shadow-gray-600  mt-4"
+                >
+                  <MaterialIcons name="date-range" size={24} color="#FF1D61" />
+                  <Text className=" text-lg text-center mx-2 justify-center text-white ">
+                    {formattedEventDate}
+                  </Text>
+                </View>
+                <TouchableOpacity onPress={openGoogleMaps}>
                   <View
                     style={{
                       backgroundColor: "rgba(0, 0, 0, 0.1)",
                       borderRadius: 15,
                     }}
-                    className="justify-center items-center my-2"
+                    className="flex-row items-center p-2 my-1"
                   >
-                    <Text className="text-center mx-2 text-white p-2">
-                      No attendees yet!
+                    <MaterialCommunityIcons
+                      name="google-maps"
+                      size={24}
+                      color="#FF1D61"
+                    />
+                    <Text className="text-white" style={{ marginLeft: 8 }}>
+                      {location === "No location provided" && location}
+                      {location?.countryName} {location?.city}
                     </Text>
                   </View>
-                )}
-              </View>
+                </TouchableOpacity>
+                <View
+                  className="mb-2 relative"
+                  style={{
+                    backgroundColor: "rgba(0, 0, 0, 0.1)",
+                    borderRadius: 15,
+                  }}
+                ></View>
 
-              <Text className="text-white text-xl font-bold">
-                About the event
-              </Text>
-              <ScrollView style={{ maxHeight: "40%" }}>
-                <View>
-                  <Text className="text-white text-center mt-2">
-                    {event?.description}
-                  </Text>
-                </View>
-              </ScrollView>
-              <TouchableOpacity onPress={toggleRSVP}>
-                {eventDateIsFuture && (
-                  <View
-                    className={`bg-red-500 rounded-full w-72 shadow-lg shadow-gray-900 z-50 mt-10 mb-10 ${
-                      userHasRSVPd ? "bg-red-700" : ""
-                    }`}
-                  >
-                    <Text className="text-center p-5 text-lg text-white font-semibold">
-                      {userHasRSVPd
-                        ? "I'm no longer Interested"
-                        : "I'm Interested!"}
-                    </Text>
+                <Text className="text-white text-xl font-bold mt-3">
+                  ABOUT THE EVENT
+                </Text>
+                <ScrollView style={{ maxHeight: "40%" }}>
+                  <View>
+                    <BlurView
+                      intensity={70}
+                      tint="default"
+                      style={{
+                        // backgroundColor: "rgba(0, 0, 0, 0.8)",
+
+                        borderRadius: 30,
+                        width: 350,
+                        height: 100,
+                        marginTop: 5,
+                        overflow: "hidden",
+                      }}
+                      // className="-mt-4 pt-6 overflow-hidden "
+                    >
+                      <Text className="text-white text-left px-4 mt-2">
+                        {event?.description}
+                      </Text>
+                    </BlurView>
                   </View>
-                )}
-              </TouchableOpacity>
-            </View>
-          </BlurView>
+                  <View className="flex-ro rounded-lg  shadow-2xl shadow-gray-600 mt-3 ">
+                    <Text className="text-white text-lg text-center">
+                      Attendees
+                    </Text>
+                    {event?.attendees?.length > 0 ? (
+                      event?.attendees?.map((attendee, index) => (
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate(
+                              ROUTES.APPROUTES.USERS_EVENT_LIST,
+                              {
+                                attendees: event?.attendees,
+                              }
+                            );
+                          }}
+                        >
+                          <View
+                            style={{
+                              backgroundColor: "rgba(0, 0, 0, 0.1)",
+                              borderRadius: 15,
+                            }}
+                            className="justify-center items-center  flex-row"
+                            key={index}
+                          >
+                            <Ionicons name="people" size={24} color="#FF1D61" />
+                            <Text className="p-2 text-lg text-center mx-2 justify-center text-white font-bold">
+                              {event?.attendees?.length}
+                            </Text>
+                          </View>
+                        </TouchableOpacity>
+                      ))
+                    ) : (
+                      <View
+                        style={{
+                          backgroundColor: "rgba(0, 0, 0, 0.1)",
+                          borderRadius: 15,
+                        }}
+                        className="justify-center items-center my-2"
+                      >
+                        <Text className="text-center mx-2 text-white p-2">
+                          No attendees yet!
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                </ScrollView>
+                <TouchableOpacity onPress={toggleRSVP}>
+                  {eventDateIsFuture && (
+                    <View
+                      style={{
+                        backgroundColor: userHasRSVPd ? "#FC6F99" : "#FF1D61",
+                      }}
+                      className={` rounded-full w-72 shadow-lg shadow-gray-900 z-50  mb-10 ${
+                        userHasRSVPd ? "bg-red-700" : ""
+                      }`}
+                    >
+                      <Text className="text-center p-5 text-lg text-white font-semibold">
+                        {userHasRSVPd
+                          ? "I'm no longer Interested"
+                          : "I'm Interested!"}
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </BlurView>
+          </ImageBackground>
         </View>
         <Toast config={toastConfig} />
       </ScrollView>
