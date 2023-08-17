@@ -386,7 +386,7 @@ const Profile = () => {
                               >
                                 <View key={createdEvents?._id} className="mb-5">
                                   <Image
-                                    resizeMode="stretch"
+                                    resizeMode="cover"
                                     height={140}
                                     width={350}
                                     source={{
