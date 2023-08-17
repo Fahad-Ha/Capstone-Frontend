@@ -91,7 +91,7 @@ const EventInfo2 = ({ route, navigation }) => {
     DateTimePickerAndroid.open({
       mode: "date",
       value: selectedDate,
-      minimumDate: tomorrow,
+      minimumDate: new Date(),
       onChange: (event, newDate) => {
         setSelectedDate(newDate);
       },
