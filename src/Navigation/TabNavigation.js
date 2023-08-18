@@ -35,11 +35,10 @@ import UserContext from "../context/UserContext";
 import { BlurView } from "expo-blur";
 import CreateEventNavigation from "./CreateEventNavigation";
 import DirectMsg from "../Screens/DirectMsg";
-// import UserProfile from "../screens/Auth/Profile/UserProfile";
-// import ExploreStack from "./ExploreStack";
-// import ProfileStack from "./ProfileStack";
-// import { useTheme } from "@react-navigation/native";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
@@ -49,15 +48,17 @@ export default function TabNavigation() {
     <View>
       <BlurView
         style={{
+          flexDirection: "row",
           position: "absolute",
           backgroundColor: "rgba(0, 0, 0,0.2)",
           // borderColor: "rgba(255, 255, 255, 0.3)",
           // borderWidth: 1.5,
-
+          justifyContent: "space-around",
+          alignItems: "center",
           bottom: 0,
           left: 0,
           right: 0,
-          height: 75,
+          height: hp(8),
           borderRadius: 16,
           // marginHorizontal: 16,
           overflow: "hidden", // Hide the overflow from the border
@@ -85,11 +86,9 @@ export default function TabNavigation() {
           justifyContent: "center",
           elevation: 1,
           backgroundColor: "transparent",
-          height: 87,
-          marginHorizontal: 2,
-          paddingTop: 30,
+          height: hp(12),
+          paddingTop: hp(6),
 
-          bottom: -6,
           // ...styles.shadow,
         },
       }}
@@ -104,7 +103,7 @@ export default function TabNavigation() {
               name="find"
               color={color}
               size={35}
-              style={{ height: 36 }}
+              style={{ height: hp(6) }}
             />
           ),
         }}
@@ -118,7 +117,7 @@ export default function TabNavigation() {
               name="ticket-confirmation-outline"
               size={47}
               color={color}
-              style={{ height: 48 }}
+              style={{ height: hp(7.8) }}
             />
           ),
           headerShown: false,
@@ -134,7 +133,7 @@ export default function TabNavigation() {
               name="plus-square"
               size={40}
               color={color}
-              style={{ height: 40 }}
+              style={{ height: hp(6.6) }}
             />
           ),
         }}
@@ -148,9 +147,9 @@ export default function TabNavigation() {
             tabBarIcon: ({ color, size }) => (
               <AntDesign
                 name="message1"
-                size={40}
+                size={36}
                 color={color}
-                style={{ height: 40 }}
+                style={{ height: hp(6) }}
               />
             ),
           }}
@@ -166,7 +165,7 @@ export default function TabNavigation() {
               name="user-circle-o"
               size={35}
               color={color}
-              style={{ height: 36 }}
+              style={{ height: hp(6) }}
             />
           ),
         }}

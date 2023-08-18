@@ -10,10 +10,7 @@ export default function LocationNavigation() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={ROUTES.APPROUTES.EXPLORE} component={Events} />
-      <Stack.Screen
-        name={ROUTES.APPROUTES.EVENT_DETAILS}
-        component={EventDetails}
-      />
+
       <Stack.Screen
         component={DirectMsg}
         name={ROUTES.APPROUTES.DIRECT_MSGLIST}

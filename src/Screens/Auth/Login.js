@@ -30,6 +30,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import { useTheme } from "@react-navigation/native";
 import * as Yup from "yup";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
 const Login = () => {
   const [userInfo, setUserInfo] = useState({});
   const { setUser } = useContext(UserContext);
@@ -73,7 +78,7 @@ const Login = () => {
   return (
     <KeyboardAvoidingView
       enabled
-      behavior={Platform.OS == "ios" ? "padding" : null}
+      behavior={Platform.OS == "ios" ? "padding" : ""}
       style={styles.container}
     >
       <ImageBackground source={bgLogin} style={{ flex: 1 }}>
@@ -92,7 +97,7 @@ const Login = () => {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            marginTop: 90,
+            paddingTop: wp(32),
           }}
         >
           <BlurView
@@ -103,8 +108,7 @@ const Login = () => {
               borderColor: "rgba(100, 0, 0, 0.3)",
               flex: 0.3,
               borderRadius: 30,
-              marginTop: 50,
-              paddingBottom: 210,
+              paddingBottom: hp(30),
             }}
             className=" overflow-hidden"
           >
@@ -125,16 +129,19 @@ const Login = () => {
                 touched,
               }) => (
                 <View
-                  style={{ flex: 1, width: 400, hight: 500, margin: "auto" }}
+                  style={{
+                    flex: 1,
+                    width: wp(100),
+                    margin: "auto",
+                  }}
                 >
                   <Text
                     style={{
                       textAlign: "center",
                       color: "white",
-                      marginTop: 20,
-                      marginBottom: 0,
+                      marginTop: hp(3),
                       fontWeight: "bold",
-                      fontSize: 20,
+                      fontSize: hp(3),
                     }}
                   >
                     LOGIN
@@ -145,12 +152,11 @@ const Login = () => {
                     style={{
                       backgroundColor: "rgba(232, 232, 232, 0.40)",
                       textAlign: "left",
-                      height: 45,
-                      borderRadius: 10,
-                      marginTop: 30,
-                      marginLeft: 50,
-                      marginRight: 50,
-                      paddingHorizontal: 10,
+                      height: hp(6),
+                      borderRadius: 15,
+                      marginTop: hp(5),
+                      marginHorizontal: wp(10),
+                      paddingHorizontal: wp(3),
                       color: "white",
                     }}
                     onBlur={handleBlur("email")}
@@ -171,8 +177,8 @@ const Login = () => {
                     <Text
                       style={{
                         color: "red",
-                        paddingLeft: 35,
-                        marginTop: 5,
+                        paddingLeft: wp(11),
+                        marginTop: hp(0.5),
                       }}
                     >
                       {errors.email || errorMes}
@@ -187,12 +193,11 @@ const Login = () => {
                       style={{
                         backgroundColor: "rgba(232, 232, 232, 0.40)",
                         textAlign: "left",
-                        height: 45,
-                        borderRadius: 10,
-                        marginLeft: 50,
-                        marginRight: 50,
-                        paddingHorizontal: 10,
-                        marginTop: 15,
+                        height: hp(6),
+                        borderRadius: 15,
+                        marginTop: hp(3),
+                        marginHorizontal: wp(10),
+                        paddingHorizontal: wp(3),
                         color: "white",
                       }}
                       secureTextEntry={!showPassword}
@@ -211,7 +216,8 @@ const Login = () => {
                       value={values.password}
                     />
                     <Pressable
-                      className="absolute p-5 top-4 right-11"
+                      style={{ top: hp(4), padding: hp(2) }}
+                      className="absolute  right-11"
                       onPress={() => {
                         toggleShowPassword();
                       }}
@@ -228,24 +234,27 @@ const Login = () => {
                     <Text
                       style={{
                         color: "red",
-                        paddingLeft: 35,
-                        marginTop: 5,
+                        paddingLeft: wp(11),
+                        marginTop: hp(0.5),
                       }}
                     >
                       {errors.password}
                     </Text>
                   )}
-                  <Pressable onPress={handleSubmit}>
+
+                  <Pressable
+                    onPress={handleSubmit}
+                    style={{ paddingTop: hp(2) }}
+                  >
                     <View
                       style={{
                         backgroundColor: "#FF005C",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        marginTop: 30,
-                        width: 200,
-                        height: 50,
-                        borderRadius: 10,
-
+                        alignSelf: "center",
+                        // marginTop: hp(2.5)
+                        width: wp(80),
+                        borderRadius: 15,
+                        marginTop: hp(4),
+                        paddingVertical: hp(2),
                         justifyContent: "center",
                         alignItems: "center",
                       }}
@@ -259,8 +268,8 @@ const Login = () => {
               )}
             </Formik>
           </BlurView>
-          <View style={{ marginTop: 20, flexDirection: "row" }}>
-            <Text style={{ color: "white" }}>You arent registered?</Text>
+          <View style={{ marginTop: hp(3), flexDirection: "row" }}>
+            <Text style={{ color: "white" }}>You aren't registered? </Text>
             <TouchableOpacity onPress={handleSignup}>
               <Text
                 style={{
@@ -269,7 +278,7 @@ const Login = () => {
                   fontStyle: "italic",
                 }}
               >
-                Please Signup here
+                Register Here
               </Text>
             </TouchableOpacity>
           </View>

@@ -95,8 +95,6 @@ const Chat1 = ({ route, profileData, navigation }) => {
     }
   };
 
-  const navigate = useNavigation();
-
   let lastTimestamp = null;
 
   const dayElements = [];

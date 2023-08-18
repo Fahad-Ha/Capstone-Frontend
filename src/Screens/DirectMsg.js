@@ -23,6 +23,10 @@ import UserContext from "../context/UserContext";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { getAllUsers } from "../apis/auth";
 import moment from "moment";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const DM = ({ navigation }) => {
   const { user } = useContext(UserContext);
@@ -161,10 +165,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#fff",
-    marginBottom: 60,
+    paddingBottom: hp(6),
   },
   usersContainer: {
-    marginBottom: 20,
+    paddingBottom: hp(14),
   },
   userCard: {
     flexDirection: "row",
