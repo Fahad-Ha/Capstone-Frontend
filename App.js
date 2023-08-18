@@ -27,7 +27,7 @@ export default function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <NavigationContainer>
           <StatusBar style="auto" />
-          {<AppNavigation />}
+          <AppNavigation />
         </NavigationContainer>
       </UserContext.Provider>
     </QueryClientProvider>

@@ -17,6 +17,10 @@ import HomeB from "../../assets/BGL2.png";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const MyEvents = () => {
   const { user } = useContext(UserContext);
@@ -55,30 +59,40 @@ const MyEvents = () => {
     <ImageBackground source={showUpcoming ? homeB : HomeB} style={{ flex: 1 }}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        className="absolute  top-8 left-0 rounded-full shadow p-2"
+        className="absolute  top-8 left-0 rounded-full shadow p-2 z-10"
       >
         <View className="flex-row items-center">
           <Feather name="arrow-left" size={32} color={"white"} />
         </View>
       </TouchableOpacity>
-      <BlurView style={styles.toggleContainer}>
-        <TouchableOpacity
-          style={[styles.toggleButton, showUpcoming && styles.selectedToggle]}
-          onPress={() => setShowUpcoming(true)}
-        >
-          <Text style={[styles.toggleText, styles.centeredText]}>
-            Upcoming Events
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.toggleButton, !showUpcoming && styles.selectedToggle]}
-          onPress={() => setShowUpcoming(false)}
-        >
-          <Text style={[styles.toggleText, styles.centeredText]}>
-            Previous Events
-          </Text>
-        </TouchableOpacity>
-      </BlurView>
+      <View
+        style={{
+          paddingTop: hp(12),
+          paddingHorizontal: wp(8),
+        }}
+      >
+        <BlurView style={styles.toggleContainer}>
+          <TouchableOpacity
+            style={[styles.toggleButton, showUpcoming && styles.selectedToggle]}
+            onPress={() => setShowUpcoming(true)}
+          >
+            <Text style={[styles.toggleText, styles.centeredText]}>
+              Upcoming Events
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.toggleButton,
+              !showUpcoming && styles.selectedToggle,
+            ]}
+            onPress={() => setShowUpcoming(false)}
+          >
+            <Text style={[styles.toggleText, styles.centeredText]}>
+              Previous Events
+            </Text>
+          </TouchableOpacity>
+        </BlurView>
+      </View>
       <FlatList
         data={userRSVPDEvents}
         showsVerticalScrollIndicator={false}
@@ -96,17 +110,18 @@ const styles = StyleSheet.create({
   toggleContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 100,
+    // paddingTop: 100,
     backgroundColor: "rgba(0, 0, 0,0.7)",
-    marginHorizontal: 70,
+    // marginHorizontal: 70,
+
     borderRadius: 15,
     overflow: "hidden",
   },
   toggleButton: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: wp(6),
+    paddingVertical: hp(1.5),
     backgroundColor: "transparent",
-    borderRadius: 8,
+    borderRadius: 15,
     alignItems: "center",
   },
   selectedToggle: {
@@ -119,7 +134,7 @@ const styles = StyleSheet.create({
     fontWeight: 600,
   },
   toggleText: {
-    fontSize: Platform.OS === "android" ? 18 : 14,
+    fontSize: Platform.OS === "android" ? hp(2) : hp(1.75),
     fontWeight: 500,
     color: "white",
   },

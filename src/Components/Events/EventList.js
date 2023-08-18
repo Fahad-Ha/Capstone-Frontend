@@ -2,7 +2,10 @@ import React from "react";
 import { FlatList, View } from "react-native";
 import EventCard from "./EventCard";
 import { useQueryClient } from "@tanstack/react-query";
-import { getEvents } from "../../apis/event/index";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const EventList = ({ searchQuery, events }) => {
   const clientQuery = useQueryClient();
@@ -18,7 +21,7 @@ const EventList = ({ searchQuery, events }) => {
   );
 
   return (
-    <View className="pb-20">
+    <View style={{ paddingBottom: hp(16) }}>
       <FlatList
         data={filteredEvents}
         showsVerticalScrollIndicator={false}

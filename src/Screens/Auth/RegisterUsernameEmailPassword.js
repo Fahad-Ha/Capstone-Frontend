@@ -21,6 +21,10 @@ import ROUTES from "../../Navigation";
 import bgLogin from "../../../assets/bbg.png";
 import { BlurView } from "expo-blur";
 import { Feather } from "@expo/vector-icons";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const schema = Yup.object().shape({
   // username: Yup.string()
@@ -88,16 +92,16 @@ const RegisterUsernameEmailPassword = () => {
       style={styles.container}
     >
       <ImageBackground source={bgLogin} style={{ flex: 1 }}>
-        <View style={{ flex: 0.9 }}>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            className="absolute  top-10 left-1 rounded-full shadow p-2"
+          >
+            <View className="flex-row items-center ">
+              <Feather name="arrow-left" size={32} color={"white"} />
+            </View>
+          </TouchableOpacity>
           <ScrollView contentContainerStyle={styles.scrollContent}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              className="absolute  top-10 left-1 rounded-full shadow p-2"
-            >
-              <View className="flex-row items-center ">
-                <Feather name="arrow-left" size={32} color={"white"} />
-              </View>
-            </TouchableOpacity>
             <Formik
               initialValues={{ username: "", email: "", password: "" }}
               validationSchema={schema}
@@ -137,7 +141,7 @@ const RegisterUsernameEmailPassword = () => {
                 errors,
                 touched,
               }) => (
-                <View style={{ flex: 1, marginTop: 350 }}>
+                <View style={{ flex: 1, paddingTop: hp(34) }}>
                   <BlurView
                     intensity={80}
                     tint="dark"
@@ -146,13 +150,17 @@ const RegisterUsernameEmailPassword = () => {
                       borderColor: "rgba(100, 0, 0, 0.3)",
                       // flex: 0.3,
                       borderRadius: 30,
-                      marginBottom: 50,
+                      marginBottom: hp(10),
                       justifyContent: "center",
                       alignItems: "center",
+                      paddingBottom: hp(2),
                     }}
                     className=" overflow-hidden"
                   >
-                    <View className=" mt-6 mb-2 w-4/5">
+                    <View
+                      style={{ marginTop: hp(1), marginBottom: hp(2) }}
+                      className="w-4/5"
+                    >
                       <Text
                         style={{
                           flex: 1,
@@ -160,7 +168,7 @@ const RegisterUsernameEmailPassword = () => {
                           justifyContent: "center",
                           alignItems: "center",
                           textAlign: "center",
-                          marginBottom: 30,
+                          marginBottom: hp(3),
                         }}
                         // className=" text-xl  text-left font-bold mb-4"
                       >
@@ -187,12 +195,12 @@ const RegisterUsernameEmailPassword = () => {
                       style={{
                         backgroundColor: "rgba(232, 232, 232, 0.30)",
                         flex: 1,
-                        width: 340,
                         borderRadius: 10,
                         textAlign: "left",
                         paddingLeft: 15,
+                        marginBottom: hp(1),
                       }}
-                      className="w-4/5 h-12 mb-1 py-2 px-4 border-s border-gray-300 rounded-xl bg-[#1c1c1c] text-white "
+                      className="w-4/5 h-12 py-2 px-4 border-s border-gray-300 rounded-xl bg-[#1c1c1c] text-white "
                       placeholder="@username"
                       onBlur={handleBlur("username")}
                       onChangeText={handleChange("username")}
@@ -223,8 +231,8 @@ const RegisterUsernameEmailPassword = () => {
                     )}
                     <View className="  mb-2 w-4/5">
                       <Text
-                        style={{}}
-                        className=" text-xl  text-left font-bold mb-3"
+                        style={{ marginBottom: hp(1) }}
+                        className=" text-xl  text-left font-bold "
                       ></Text>
                       <Text
                         style={{
@@ -246,7 +254,6 @@ const RegisterUsernameEmailPassword = () => {
                       style={{
                         backgroundColor: "rgba(232, 232, 232, 0.30)",
                         flex: 1,
-                        width: 340,
                         borderRadius: 10,
                         textAlign: "left",
                         paddingLeft: 15,
@@ -281,8 +288,11 @@ const RegisterUsernameEmailPassword = () => {
                       </Text>
                     )}
 
-                    <View className="   w-4/5">
-                      <Text className=" text-xl  text-left font-bold mb-4"></Text>
+                    <View className="w-4/5">
+                      <Text
+                        style={{ marginBottom: hp(1) }}
+                        className=" text-xl  text-left font-bold"
+                      ></Text>
 
                       <Text
                         style={{
@@ -320,7 +330,7 @@ const RegisterUsernameEmailPassword = () => {
                         style={{
                           backgroundColor: "rgba(232, 232, 232, 0.30)",
                           flex: 1,
-                          width: 340,
+                          width: wp(80),
                           color: "rgba(255, 255, 255, 0.51)",
                           borderRadius: 10,
                           textAlign: "left",
@@ -349,13 +359,10 @@ const RegisterUsernameEmailPassword = () => {
                       <View
                         style={{
                           backgroundColor: "#FF005C",
-                          marginLeft: "auto",
-                          marginRight: "auto",
-                          marginTop: 10,
+                          marginTop: hp(1),
                           width: 200,
                           height: 50,
                           borderRadius: 10,
-
                           justifyContent: "center",
                           alignItems: "center",
                         }}
