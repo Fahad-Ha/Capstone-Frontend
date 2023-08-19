@@ -104,7 +104,7 @@ const Create = ({ data, setData }) => {
       />
       <Text className="text-lg font-bold mb-5">Date</Text>
       <Text>{moment(selectedDate).format("YYYY-MM-DD")}</Text>
-      {Platform.OS === "ios" ? (
+      {Platform.OS == "ios" ? (
         <DateTimePicker
           value={selectedDate}
           mode="date"

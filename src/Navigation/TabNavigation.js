@@ -139,37 +139,39 @@ export default function TabNavigation() {
         }}
       />
       {user ? (
-        <Tab.Screen
-          name={ROUTES.APPROUTES.DIRECT_MSGLIST}
-          component={DirectMsg}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign
-                name="message1"
-                size={36}
-                color={color}
-                style={{ height: hp(6) }}
-              />
-            ),
-          }}
-        />
+        <>
+          <Tab.Screen
+            name={ROUTES.APPROUTES.DIRECT_MSGLIST}
+            component={DirectMsg}
+            options={{
+              headerShown: false,
+              tabBarIcon: ({ color, size }) => (
+                <AntDesign
+                  name="message1"
+                  size={36}
+                  color={color}
+                  style={{ height: hp(6) }}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name={ROUTES.APPROUTES.PROFILE}
+            component={Profile}
+            options={{
+              headerShown: false,
+              tabBarIcon: ({ color, size }) => (
+                <FontAwesome
+                  name="user-circle-o"
+                  size={35}
+                  color={color}
+                  style={{ height: hp(6) }}
+                />
+              ),
+            }}
+          />
+        </>
       ) : null}
-      <Tab.Screen
-        name={ROUTES.APPROUTES.PROFILE}
-        component={user ? Profile : AuthNavigation}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome
-              name="user-circle-o"
-              size={35}
-              color={color}
-              style={{ height: hp(6) }}
-            />
-          ),
-        }}
-      />
     </Tab.Navigator>
   );
 }

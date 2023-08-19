@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
   ImageBackground,
+  Pressable,
 } from "react-native";
 import DateTimePicker, {
   DateTimePickerAndroid,
@@ -18,6 +19,10 @@ import homeB from "../../../assets/BGL.png";
 import { Blur } from "@shopify/react-native-skia";
 import { BlurView } from "expo-blur";
 import { Entypo, Feather } from "@expo/vector-icons";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const EventInfo2 = ({ route, navigation }) => {
   const { data: data1 } = route.params;
@@ -25,6 +30,9 @@ const EventInfo2 = ({ route, navigation }) => {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   tomorrow.setHours(0, 0, 0, 0, 0);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isFromPickerVisible, setFromPickerVisibility] = useState(false);
+  const [isToPickerVisible, setToPickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedFromTime, setSelectedFromTime] = useState(new Date());
   const [selectedToTime, setSelectedToTime] = useState(new Date());
@@ -58,6 +66,10 @@ const EventInfo2 = ({ route, navigation }) => {
     const currentDate = selected || selectedDate;
     setSelectedDate(currentDate);
     setData({ ...data, date: currentDate });
+
+    if (Platform.OS === "android") {
+      setDatePickerVisibility(false); // Close the date picker
+    }
   };
   const handleNextPage = () => {
     navigation.navigate("Add Event 3", { data });
@@ -73,6 +85,10 @@ const EventInfo2 = ({ route, navigation }) => {
       ...data,
       from: isoFormattedTime,
     });
+
+    if (Platform.OS === "android") {
+      setFromPickerVisibility(false); // Close the from time picker
+    }
   };
 
   const handleToTimeChange = (event, selected) => {
@@ -85,39 +101,29 @@ const EventInfo2 = ({ route, navigation }) => {
       ...data,
       to: isoFormattedTime,
     });
+
+    if (Platform.OS === "android") {
+      setToPickerVisibility(false); // Close the to time picker
+    }
   };
 
   const openDatePickHandler = () => {
-    DateTimePickerAndroid.open({
-      mode: "date",
-      value: selectedDate,
-      minimumDate: new Date(),
-      onChange: (event, newDate) => {
-        setSelectedDate(newDate);
-      },
-    });
+    if (Platform.OS === "android") {
+      setDatePickerVisibility(true);
+    }
   };
+
   const openFromPickHandler = () => {
-    DateTimePickerAndroid.open({
-      mode: "time",
-      value: selectedDate,
-      is24Hour: false,
-      onChange: (event, from) => {
-        setSelectedFromTime(from);
-      },
-    });
+    if (Platform.OS === "android") {
+      setFromPickerVisibility(true);
+    }
   };
   const openToPickHandler = () => {
-    DateTimePickerAndroid.open({
-      mode: "time",
-      value: selectedDate,
-      is24Hour: false,
-      onChange: (event, to) => {
-        setSelectedToTime(to);
-      },
-    });
+    if (Platform.OS === "android") {
+      setToPickerVisibility(true);
+    }
   };
-  console.log(data);
+
   return (
     <ImageBackground source={homeB} style={{ flex: 1 }}>
       <TouchableOpacity
@@ -130,7 +136,7 @@ const EventInfo2 = ({ route, navigation }) => {
       </TouchableOpacity>
       <View
         style={{
-          flex: 0.5,
+          flex: 1,
 
           marginLeft: 50,
           marginRight: 50,
@@ -187,7 +193,26 @@ const EventInfo2 = ({ route, navigation }) => {
           }}
           className=" overflow-hidden"
         >
-          {Platform.OS === "ios" ? (
+          <Pressable onPress={() => openDatePickHandler()}>
+            <Text
+              style={{
+                padding: hp(1.75),
+                width: wp(60),
+                fontSize: hp(2.4),
+                borderRadius: 15,
+                marginTop: hp(3),
+                marginHorizontal: wp(10),
+                paddingHorizontal: wp(3),
+                color: "white",
+                justifyContent: "center",
+                textAlign: "center", // Center the text
+              }}
+            >
+              test
+            </Text>
+          </Pressable>
+
+          {isDatePickerVisible && (
             <DateTimePicker
               value={selectedDate}
               mode="date"
@@ -197,10 +222,6 @@ const EventInfo2 = ({ route, navigation }) => {
               display="default"
               onChange={handleDateChange}
             />
-          ) : (
-            <>
-              <Button title="Select Date" onPress={openDatePickHandler} />
-            </>
           )}
         </BlurView>
         <Text style={{ color: "white", fontSize: 20 }}>From</Text>
@@ -222,7 +243,25 @@ const EventInfo2 = ({ route, navigation }) => {
           }}
           className=" overflow-hidden"
         >
-          {Platform.OS === "ios" ? (
+          <Pressable onPress={() => openFromPickHandler()}>
+            <Text
+              style={{
+                padding: hp(1.75),
+                width: wp(60),
+                fontSize: hp(2.4),
+                borderRadius: 15,
+                marginTop: hp(3),
+                marginHorizontal: wp(10),
+                paddingHorizontal: wp(3),
+                color: "white",
+                justifyContent: "center",
+                textAlign: "center", // Center the text
+              }}
+            >
+              From
+            </Text>
+          </Pressable>
+          {isFromPickerVisible && (
             <DateTimePicker
               value={selectedFromTime}
               mode="time"
@@ -230,10 +269,6 @@ const EventInfo2 = ({ route, navigation }) => {
               display="default"
               onChange={handleFromTimeChange}
             />
-          ) : (
-            <>
-              <Button title="Select From" onPress={openFromPickHandler} />
-            </>
           )}
         </BlurView>
         <Text style={{ color: "white", fontSize: 20 }}>To</Text>
@@ -255,7 +290,25 @@ const EventInfo2 = ({ route, navigation }) => {
           }}
           className=" overflow-hidden"
         >
-          {Platform.OS === "ios" ? (
+          <Pressable onPress={() => openToPickHandler()}>
+            <Text
+              style={{
+                padding: hp(1.75),
+                width: wp(60),
+                fontSize: hp(2.4),
+                borderRadius: 15,
+                marginTop: hp(3),
+                marginHorizontal: wp(10),
+                paddingHorizontal: wp(3),
+                color: "white",
+                justifyContent: "center",
+                textAlign: "center", // Center the text
+              }}
+            >
+              To
+            </Text>
+          </Pressable>
+          {isToPickerVisible && (
             <DateTimePicker
               value={selectedToTime}
               mode="time"
@@ -263,10 +316,6 @@ const EventInfo2 = ({ route, navigation }) => {
               display="default"
               onChange={handleToTimeChange}
             />
-          ) : (
-            <>
-              <Button title="Select To" onPress={openToPickHandler} />
-            </>
           )}
         </BlurView>
         <TouchableOpacity
