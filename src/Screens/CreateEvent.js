@@ -77,7 +77,7 @@ const CreateEvent = ({ navigation, route }) => {
     createEventFun();
     console.log(selectedTags);
   };
-  console.log(data);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>

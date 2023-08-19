@@ -27,19 +27,25 @@ const EvenInfo3 = ({ route, navigation }) => {
     queryFn: () => getAllTags(),
   });
   console.log({ data2 });
-  const { mutate: createEventFun, isLoading: isCreatingEvent } = useMutation({
+  const {
+    mutate: createEventFun,
+    isLoading: isCreatingEvent,
+    isError,
+  } = useMutation({
     mutationFn: async () => {
-      return createEvent({
+      return await createEvent({
         ...data,
         latitude: data?.location?.latitude,
         longitude: data?.location?.longitude,
         tags: selectedTags,
       });
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
+      console.log("test==>>>>>>");
+      console.log("Event creation successful:", response);
+
       setData({});
-      // setImage(null);
-      // setLocation(null);
+
       setSelectedTags([]);
       queryClient.invalidateQueries(["events"]);
       navigation.navigate(ROUTES.APPROUTES.EXPLORE);
@@ -47,9 +53,9 @@ const EvenInfo3 = ({ route, navigation }) => {
   });
   const handleSubmit = () => {
     createEventFun();
+
     console.log(selectedTags);
   };
-  console.log(data);
   const [currentPage, setCurrentPage] = useState(1);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
   const sortedTags = tags?.sort((a, b) => a.name.localeCompare(b.name));

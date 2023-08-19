@@ -9,6 +9,7 @@ import {
   Pressable,
   TouchableOpacity,
   Platform,
+  TextInput,
 } from "react-native";
 import React, { useState } from "react";
 import ImageHandler from "../../Components/Shared/ImagePickerC";
@@ -21,6 +22,10 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const RegisterImageBirthdate = ({ route, navigation }) => {
   const { username, email, password } = route.params;
@@ -71,7 +76,6 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
       setDatePickerVisibility(true);
     }
   };
-
   return (
     <ImageBackground source={bgLogin} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -103,18 +107,33 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
 
           <View style={styles.headerContainer}>
             <Text style={styles.headerText}>Date of Birth</Text>
-            <Text style={styles.subHeaderText}>Choose your date of birth</Text>
+            <Pressable onPress={() => openDatePickHandler()}>
+              <Text
+                style={{
+                  backgroundColor: "rgba(232, 232, 232, 0.40)",
+                  padding: hp(1.75),
+                  width: wp(60),
+                  fontSize: hp(2.4),
+                  borderRadius: 15,
+                  marginTop: hp(3),
+                  marginHorizontal: wp(10),
+                  paddingHorizontal: wp(3),
+                  color: "white",
+                  justifyContent: "center",
+                  textAlign: "center", // Center the text
+                }}
+                className="text-white bg-gray-300"
+              >
+                {
+                  selectedDate &&
+                  selectedDate.toDateString() !== new Date().toDateString()
+                    ? selectedDate.toLocaleDateString() // Display formatted date
+                    : "Choose your birthday" // Show "Enter your birthday"
+                }
+              </Text>
+            </Pressable>
           </View>
-
           <View style={styles.calendarContainer}>
-            {/* <CalendarPicker
-              onDateChange={handleDate}
-              width={250}
-              height={250}
-            /> */}
-            {/* <Text style={{ color: "white" }}>
-              {moment(selectedDate).format("YYYY-MM-DD")}
-            </Text> */}
             <BlurView
               intensity={70}
               tint="light"
@@ -130,15 +149,17 @@ const RegisterImageBirthdate = ({ route, navigation }) => {
               }}
               className=" overflow-hidden"
             >
-              <DateTimePicker
-                value={selectedDate}
-                mode="date"
-                is24Hour={true}
-                color={"white"}
-                maximumDate={new Date()}
-                onChange={handleDateChange}
-                textAlign={"center"}
-              />
+              {isDatePickerVisible && (
+                <DateTimePicker
+                  value={selectedDate}
+                  mode="date"
+                  is24Hour={true}
+                  color={"white"}
+                  maximumDate={new Date()}
+                  onChange={handleDateChange}
+                  textAlign={"center"}
+                />
+              )}
             </BlurView>
           </View>
         </View>
